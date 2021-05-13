@@ -1,0 +1,22 @@
+{
+  "name": "teva/starter",
+  "description": "Starter description.",
+  "authors": [
+      {
+          "name": "teva",
+          "email": "chevris78@gmail.com"
+      }
+  ],
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+    "wp-coding-standards/wpcs": "^2.3",
+    "phpcompatibility/phpcompatibility-wp": "^2.1",
+    "wptrt/wpthemereview": "^0.2.1"
+  },
+  "scripts": {
+    "lint": "@php ./vendor/bin/parallel-lint --exclude .git --exclude vendor .",
+    "standards:check": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs",
+    "standards:fix": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf",
+    "standards:check-WPThemeReview": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs -p ./inc --standard=WPThemeReview"
+  }
+}

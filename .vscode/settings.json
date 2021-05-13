@@ -1,0 +1,16 @@
+{
+	"phpcs.enable": true,
+	"phpcs.composerJsonPath": "composer.json",
+	"phpcs.standard": "wordpress",
+	"editor.renderWhitespace": "all",
+	"eslint.alwaysShowStatus": true,
+	  "eslint.validate": [
+		  "javascript",
+		  "javascriptreact",
+		  "html"
+	],
+	// To prevent both the editor built-in linters [css] [less] [scss] and this extension [stylelint] from reporting essentially the same errors
+	"css.validate": false,
+	"less.validate": false,
+	"scss.validate": false
+}

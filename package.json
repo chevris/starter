@@ -1,0 +1,17 @@
+{
+	"name": "themeslug",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start:styles": "wp-scripts start ./src/scss/front.js ./src/scss/front-rtl.js ./src/scss/editor.js ./src/scss/editor-rtl.js --output-path=./assets/css --webpack-no-externals",
+		"start:scripts": "wp-scripts start ./src/js/front.js --output-path=./assets/js",
+		"build": "wp-scripts build ./src/scss/front.js ./src/scss/front-rtl.js ./src/scss/editor.js ./src/scss/editor-rtl.js --output-path=./assets/css --webpack-no-externals && wp-scripts build ./src/js/front.js --output-path=./assets/js"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@wordpress/scripts": "^15.0.1"
+	}
+}
