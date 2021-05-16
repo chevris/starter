@@ -6,34 +6,6 @@
  */
 
 /**
- * Add a pingback url auto-discovery header for single posts, pages, or attachments.
- */
-function theme_slug_pingback_header() {
-	if ( is_singular() && pings_open() ) {
-		echo '<link rel="pingback" href="', esc_url( get_bloginfo( 'pingback_url' ) ), '">';
-	}
-}
-add_action( 'wp_head', 'theme_slug_pingback_header' );
-
-/**
- * Adds custom classes to the array of body classes.
- *
- * @param array $classes Classes for the body element.
- * @return array Filtered body classes.
- */
-function theme_slug_filter_body_classes( $classes ) {
-
-	// Helps detect if JS is enabled or not.
-	$classes[] = 'no-js';
-
-	// Adds `singular` to singular pages, and `hfeed` to all other pages.
-	$classes[] = is_singular() ? 'singular' : 'hfeed';
-
-	return $classes;
-}
-add_filter( 'body_class', 'theme_slug_filter_body_classes' );
-
-/**
  * Gets the theme version.
  *
  * @return string Theme version number.
