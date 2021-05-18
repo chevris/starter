@@ -266,6 +266,20 @@ if ( ! function_exists( 'theme_slug_setup' ) ) {
 add_action( 'after_setup_theme', 'theme_slug_setup' );
 
 // ----------------------------------------------------------------------------------------------
+// REQUIRED FILES
+// Include required files
+// ----------------------------------------------------------------------------------------------
+
+require get_template_directory() . '/inc/template-functions.php';
+require get_template_directory() . '/inc/classes/class-theme-slug-setup.php';
+require get_template_directory() . '/inc/classes/class-theme-slug-custom-css-variables.php';
+require get_template_directory() . '/inc/classes/customizer/class-theme-slug-customizer.php';
+require get_template_directory() . '/inc/classes/customizer/class-theme-slug-register-settings.php';
+
+require get_template_directory() . '/inc/classes/class-theme-slug-content-archive.php';
+require get_template_directory() . '/inc/classes/class-theme-slug-content-singular.php';
+
+// ----------------------------------------------------------------------------------------------
 // REGISTER STYLES
 // Register and enqueue CSS.
 // ----------------------------------------------------------------------------------------------
@@ -284,6 +298,9 @@ if ( ! function_exists( 'theme_slug_front_styles' ) ) {
 
 		// RTL styles.
 		wp_style_add_data( 'theme-slug-front-style', 'rtl', 'replace' );
+
+		// Output custom css variables as inline style.
+		wp_add_inline_style( 'theme-slug-front-style', Theme_Slug_Custom_CSS_Variables::generate_custom_css_variables( 'front' ) );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'theme_slug_front_styles' );
@@ -302,6 +319,9 @@ if ( ! function_exists( 'theme_slug_editor_styles' ) ) {
 
 		// RTL styles.
 		wp_style_add_data( 'theme-slug-front-style', 'rtl', 'replace' );
+
+		// Output custom css variables as inline style.
+		wp_add_inline_style( 'theme-slug-editor-style', Theme_Slug_Custom_CSS_Variables::generate_custom_css_variables( 'editor' ) );
 	}
 }
 add_action( 'enqueue_block_editor_assets', 'theme_slug_editor_styles' );
@@ -329,14 +349,3 @@ if ( ! function_exists( 'theme_slug_front_scripts' ) ) {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'theme_slug_front_scripts' );
-
-// ----------------------------------------------------------------------------------------------
-// REQUIRED FILES
-// Include required files
-// ----------------------------------------------------------------------------------------------
-
-require get_template_directory() . '/inc/template-functions.php';
-require get_template_directory() . '/inc/classes/class-theme-slug-setup.php';
-
-require get_template_directory() . '/inc/classes/class-theme-slug-content-archive.php';
-require get_template_directory() . '/inc/classes/class-theme-slug-content-singular.php';

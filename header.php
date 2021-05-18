@@ -22,3 +22,27 @@
 
 <body id="body" <?php body_class(); ?>>
 <?php wp_body_open(); ?>
+
+<div id="page" class="site">
+	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'themeslug' ); ?></a>
+
+	<header id="masthead" class="site-header">
+
+		<?php if ( ! empty( get_bloginfo( 'name' ) ) ) { ?>
+			<p class="site-title">
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
+			</p>
+		<?php } ?>
+
+		<?php
+		$description = get_bloginfo( 'description', 'display' );
+		if ( $description || is_customize_preview() ) :
+			?>
+			<p class="site-description">
+				<?php echo $description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			</p>
+		<?php endif; ?>
+	
+	</header>
+
+	<div id="content" class="site-content">

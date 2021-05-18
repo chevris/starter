@@ -1,3 +1,5 @@
-
+.editor-styles-wrapper[class] {
+  font-size: var(--global-fs-base);
+}
 
 /*# sourceMappingURL=editor.css.map*/
