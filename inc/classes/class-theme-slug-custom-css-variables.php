@@ -27,7 +27,7 @@ if ( ! class_exists( 'Theme_Slug_Custom_CSS_Variables' ) ) :
 
 			$css = 'editor' === $destination ? ':root .editor-styles-wrapper{' : ':root{';
 
-			$global_font_size = get_theme_mod( 'global_styles_typography_font_size', 18 );
+			$global_font_size = Theme_Slug_Custom_Template_Context::get_context( 'typography', 'font_size' );
 
 			if ( 18 !== $global_font_size ) {
 				$css .= '--global-fs-base:' . $global_font_size . 'px;';
