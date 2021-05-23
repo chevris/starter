@@ -21,3 +21,4 @@ Starter theme prefix placeholders were replaced with these values:
 | `Theme_Slug` | Name     |
 | `themeslug`  | name     |
 | `themeSlug`  | name     |
+| `ThemeSlug`  | Name     |

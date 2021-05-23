@@ -29,7 +29,7 @@ if ( ! class_exists( 'Theme_Slug_Custom_CSS_Variables' ) ) :
 
 			$global_font_size = Theme_Slug_Custom_Template_Context::get_context( 'typography', 'font_size' );
 
-			if ( 18 !== $global_font_size ) {
+			if ( $global_font_size ) {
 				$css .= '--global-fs-base:' . $global_font_size . 'px;';
 			}
 

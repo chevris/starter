@@ -220,44 +220,38 @@ if ( ! function_exists( 'theme_slug_setup' ) ) {
 				array(
 					'name'      => esc_html__( 'Extra small', 'themeslug' ),
 					'shortName' => esc_html_x( 'XS', 'Font size', 'themeslug' ),
-					'size'      => 16,
+					'size'      => 14,
 					'slug'      => 'extra-small',
 				),
 				array(
 					'name'      => esc_html__( 'Small', 'themeslug' ),
 					'shortName' => esc_html_x( 'S', 'Font size', 'themeslug' ),
-					'size'      => 18,
+					'size'      => 16,
 					'slug'      => 'small',
 				),
 				array(
 					'name'      => esc_html__( 'Normal', 'themeslug' ),
 					'shortName' => esc_html_x( 'M', 'Font size', 'themeslug' ),
-					'size'      => 20,
+					'size'      => 18,
 					'slug'      => 'normal',
 				),
 				array(
 					'name'      => esc_html__( 'Large', 'themeslug' ),
 					'shortName' => esc_html_x( 'L', 'Font size', 'themeslug' ),
-					'size'      => 24,
+					'size'      => 20,
 					'slug'      => 'large',
 				),
 				array(
 					'name'      => esc_html__( 'Extra large', 'themeslug' ),
 					'shortName' => esc_html_x( 'XL', 'Font size', 'themeslug' ),
-					'size'      => 40,
+					'size'      => 24,
 					'slug'      => 'extra-large',
 				),
 				array(
 					'name'      => esc_html__( 'Huge', 'themeslug' ),
 					'shortName' => esc_html_x( 'XXL', 'Font size', 'themeslug' ),
-					'size'      => 96,
+					'size'      => 40,
 					'slug'      => 'huge',
-				),
-				array(
-					'name'      => esc_html__( 'Gigantic', 'themeslug' ),
-					'shortName' => esc_html_x( 'XXXL', 'Font size', 'themeslug' ),
-					'size'      => 144,
-					'slug'      => 'gigantic',
 				),
 			)
 		);
@@ -274,7 +268,7 @@ require get_template_directory() . '/inc/template-functions.php';
 require get_template_directory() . '/inc/classes/class-theme-slug-setup.php';
 require get_template_directory() . '/inc/classes/customizer/class-theme-slug-customizer.php';
 require get_template_directory() . '/inc/classes/customizer/class-theme-slug-register-settings.php';
-require get_template_directory() . '/inc/classes/class-theme-slug-metas.php';
+require get_template_directory() . '/inc/classes/meta/class-theme-slug-meta.php';
 require get_template_directory() . '/inc/classes/class-theme-slug-template-context.php';
 require get_template_directory() . '/inc/classes/class-theme-slug-custom-css-variables.php';
 
@@ -292,8 +286,8 @@ if ( ! function_exists( 'theme_slug_front_styles' ) ) {
 	 */
 	function theme_slug_front_styles() {
 
-		$css_uri = get_template_directory_uri() . '/assets/css/front.css';
-		$css_dir = get_template_directory() . '/assets/css/front.css';
+		$css_uri = get_template_directory_uri() . '/assets/front.css';
+		$css_dir = get_template_directory() . '/assets/front.css';
 
 		// Enqueue the main front-end styles.
 		wp_enqueue_style( 'theme-slug-front-style', $css_uri, array(), theme_slug_get_asset_version( $css_dir ) );
@@ -313,8 +307,8 @@ if ( ! function_exists( 'theme_slug_editor_styles' ) ) {
 	 */
 	function theme_slug_editor_styles() {
 
-		$css_uri = get_template_directory_uri() . '/assets/css/editor.css';
-		$css_dir = get_template_directory() . '/assets/css/editor.css';
+		$css_uri = get_template_directory_uri() . '/assets/editor.css';
+		$css_dir = get_template_directory() . '/assets/editor.css';
 
 		// Enqueue editor styles.
 		wp_enqueue_style( 'theme-slug-editor-style', $css_uri, array(), theme_slug_get_asset_version( $css_dir ) );
@@ -344,10 +338,10 @@ if ( ! function_exists( 'theme_slug_front_scripts' ) ) {
 			return;
 		}
 
-		$js_uri = get_template_directory_uri() . '/assets/js/front.js';
-		$js_dir = get_template_directory() . '/assets/js/front.js';
+		$js_uri = get_template_directory_uri() . '/assets/main.js';
+		$js_dir = get_template_directory() . '/assets/main.js';
 
-		wp_enqueue_script( 'theme-slug-front-script', $js_uri, array(), theme_slug_get_asset_version( $js_dir ), true );
+		wp_enqueue_script( 'theme-slug-main-script', $js_uri, array(), theme_slug_get_asset_version( $js_dir ), true );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'theme_slug_front_scripts' );

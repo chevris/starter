@@ -87,8 +87,8 @@ if ( ! class_exists( 'Theme_Slug_Custom_Template_Context' ) ) :
 				$post_type = get_post_type();
 
 				// Check post meta.
-				$post_font_size = 22; // get_post_meta( $post_id, 'theme_slug_post_font_size', true );.
-				if ( isset( $post_font_size ) ) {
+				$post_font_size = get_post_meta( $post_id, '_theme_slug_meta_font_size', true );
+				if ( isset( $post_font_size ) && ! empty( $post_font_size ) ) {
 					$typography['font_size'] = $post_font_size;
 				}
 

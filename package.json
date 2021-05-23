@@ -4,9 +4,10 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
+		"start": "wp-scripts start",
 		"start:styles": "wp-scripts start ./src/scss/front.js ./src/scss/front-rtl.js ./src/scss/editor.js ./src/scss/editor-rtl.js --output-path=./assets/css --webpack-no-externals",
 		"start:scripts": "wp-scripts start ./src/js/front.js --output-path=./assets/js",
-		"start:post-style": "wp-scripts start ./src/post-style-plugin-sidebar/sidebar.js --output-path=./assets/post-style-plugin-sidebar",
+		"start:post-style": "wp-scripts start ./src/post-style-meta-sidebar/sidebar.js --output-path=./assets/post-style-meta-sidebar",
 		"build": "wp-scripts build ./src/scss/front.js ./src/scss/front-rtl.js ./src/scss/editor.js ./src/scss/editor-rtl.js --output-path=./assets/css --webpack-no-externals && wp-scripts build ./src/js/front.js --output-path=./assets/js"
 	},
 	"keywords": [],
