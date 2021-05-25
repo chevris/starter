@@ -78,18 +78,26 @@ if ( ! class_exists( 'Theme_Slug_Custom_Template_Context' ) ) :
 			$typography = array(
 				'font_size' => get_theme_mod( 'global_styles_typography_font_size', 18 ),
 			);
+			$colors = array(
+				'background_color' => get_theme_mod( 'global_styles_colors_background_color', '#FFFFFF' ),
+			);
 
 			/**
 			 * May be is a singular post, page and CPT.
 			 */
-			if ( is_singular() || 'post' === get_current_screen()->post_type || 'page' === get_current_screen()->post_type ) {
+			if ( is_singular() || is_admin() ) {
 				$post_id   = get_the_ID();
 				$post_type = get_post_type();
 
 				// Check post meta.
 				$post_font_size = get_post_meta( $post_id, '_theme_slug_meta_font_size', true );
+				$post_background_color = get_post_meta( $post_id, '_theme_slug_meta_background_color', true );
+
 				if ( isset( $post_font_size ) && ! empty( $post_font_size ) ) {
 					$typography['font_size'] = $post_font_size;
+				}
+				if ( isset( $post_background_color ) && ! empty( $post_background_color ) ) {
+					$colors['background_color'] = $post_background_color;
 				}
 
 				/**
@@ -116,6 +124,7 @@ if ( ! class_exists( 'Theme_Slug_Custom_Template_Context' ) ) :
 
 			$context_arr = array(
 				'typography' => $typography,
+				'colors'     => $colors,
 			);
 
 			self::$context = apply_filters( 'themesetup_filter_template_context', $context_arr );

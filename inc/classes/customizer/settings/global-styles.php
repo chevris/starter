@@ -59,3 +59,37 @@ Theme_Slug_Register_Settings::add_settings(
 		),
 	)
 );
+
+/**
+ * Colors section.
+ */
+
+Theme_Slug_Register_Settings::add_sections(
+	array(
+		'global_styles_colors_section' => array(
+			'section_args' => array(
+				'title'    => esc_html__( 'Colors', 'themeslug' ),
+				'panel'    => 'global_styles_panel',
+				'priority' => 2,
+			),
+		),
+	)
+);
+
+Theme_Slug_Register_Settings::add_settings(
+	array(
+		'global_styles_colors_background_color' => array(
+			'setting_args' => array(
+				'default'           => '#FFFFFF',
+				'sanitize_callback' => 'sanitize_hex_color',
+				'transport'         => 'refresh',
+			),
+			'control_args' => array(
+				'label'    => esc_html__( 'Background color', 'themeslug' ),
+				'section'  => 'global_styles_colors_section',
+				'priority' => 10,
+			),
+			'custom_control' => 'WP_Customize_Color_Control',
+		),
+	)
+);

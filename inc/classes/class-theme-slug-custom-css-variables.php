@@ -28,9 +28,13 @@ if ( ! class_exists( 'Theme_Slug_Custom_CSS_Variables' ) ) :
 			$css = 'editor' === $destination ? ':root .editor-styles-wrapper{' : ':root{';
 
 			$global_font_size = Theme_Slug_Custom_Template_Context::get_context( 'typography', 'font_size' );
+			$global_background_color = Theme_Slug_Custom_Template_Context::get_context( 'colors', 'background_color' );
 
 			if ( $global_font_size ) {
 				$css .= '--global-fs-base:' . $global_font_size . 'px;';
+			}
+			if ( $global_background_color ) {
+				$css .= '--global-cl-bg:' . $global_background_color;
 			}
 
 			$css .= '}';

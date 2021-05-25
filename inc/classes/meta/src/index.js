@@ -12,5 +12,5 @@ import StyleSidebar from './components/StyleSidebar';
  
  registerPlugin( 'theme-slug-style-meta-sidebar', {
 	icon: 'editor-textcolor',
-	render: StyleSidebar,
+	render: () => <StyleSidebar name='theme-slug-style-sidebar'/>,
  } );

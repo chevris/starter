@@ -30,6 +30,17 @@ if ( ! class_exists( 'Theme_Slug_Meta' ) ) :
 					'auth_callback' => '__return_true',
 				)
 			);
+
+			register_post_meta(
+				'', // Pass an empty string to register the meta key across all existing post types.
+				'_theme_slug_meta_background_color',
+				array(
+					'show_in_rest'  => true,
+					'single'        => true,
+					'type'          => 'string',
+					'auth_callback' => '__return_true',
+				)
+			);
 		}
 
 		/**
@@ -67,6 +78,7 @@ if ( ! class_exists( 'Theme_Slug_Meta' ) ) :
 			wp_set_script_translations( 'theme-slug-meta', 'themeslug', get_template_directory() . '/languages' );
 
 			$font_size = get_theme_mod( 'global_styles_typography_font_size', 18 );
+			$background_color = get_theme_mod( 'global_styles_colors_background_color', '#FFFFFF' );
 
 			wp_localize_script(
 				'theme-slug-meta',
@@ -75,6 +87,9 @@ if ( ! class_exists( 'Theme_Slug_Meta' ) ) :
 					'post_type_name' => $post_type_name,
 					'typography'     => array(
 						'font_size' => $font_size,
+					),
+					'colors'         => array(
+						'background_color' => $background_color,
 					),
 				)
 			);
