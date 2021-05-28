@@ -7,14 +7,14 @@ import { __ } from '@wordpress/i18n';
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { useShortcut } from '@wordpress/keyboard-shortcuts';
-import { useCallback } from '@wordpress/element';
+import { useCallback, useEffect } from '@wordpress/element';
  
- /**
-  * Internal dependencies
-  */
- import StyleSidebarMetaFields from './StyleSidebarMetaFields';
+/**
+ * Internal dependencies
+ */
+import StyleSidebarMetaFields from './StyleSidebarMetaFields';
  
- const decorate = compose(
+const decorate = compose(
 	withPluginContext((context, { name }) => ({
 		sidebarName: `${context.name}/${name}`,
 	})),
@@ -23,6 +23,7 @@ import { useCallback } from '@wordpress/element';
 
 		return {
 			isActive: select('core/edit-post').getActiveGeneralSidebarName() === sidebarName,
+			mode: select( 'core/edit-post' ).getEditorMode(),
 		}
 	} ),
 
@@ -37,14 +38,20 @@ import { useCallback } from '@wordpress/element';
 			},
 		} );
 	} )
- );
+);
  
- const StyleSidebar = (
+const StyleSidebar = (
 	{
 		name,
 		isActive,
+		mode,
 	}
  ) => {
+
+	useEffect( () => {
+		
+	} );
+
 	 useShortcut(
 		 'themeslug/open-style-sidebar',
 		 useCallback(

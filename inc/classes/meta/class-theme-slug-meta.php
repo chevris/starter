@@ -27,7 +27,9 @@ if ( ! class_exists( 'Theme_Slug_Meta' ) ) :
 					'show_in_rest'  => true,
 					'single'        => true,
 					'type'          => 'integer',
-					'auth_callback' => '__return_true',
+					'auth_callback' => function () {
+						return current_user_can( 'edit_posts' );
+					},
 				)
 			);
 
@@ -38,7 +40,9 @@ if ( ! class_exists( 'Theme_Slug_Meta' ) ) :
 					'show_in_rest'  => true,
 					'single'        => true,
 					'type'          => 'string',
-					'auth_callback' => '__return_true',
+					'auth_callback' => function () {
+						return current_user_can( 'edit_posts' );
+					},
 				)
 			);
 		}
@@ -60,7 +64,12 @@ if ( ! class_exists( 'Theme_Slug_Meta' ) ) :
 		/**
 		 * Enqueue scripts for meta fields.
 		 */
-		public static function enqueue_style_meta_sidebar_assets() {
+		public static function enqueue_style_meta_assets() {
+
+			// Do not add meta sidebar if editing a gutenberg template or a template part.
+			if ( 'wp_template' === get_current_screen()->post_type || 'wp_template_part' === get_current_screen()->post_type ) {
+				return;
+			}
 
 			$post_type = get_post_type();
 			$post_type_object = get_post_type_object( get_post_type() );
@@ -106,6 +115,6 @@ if ( ! class_exists( 'Theme_Slug_Meta' ) ) :
 
 	add_action( 'init', array( 'Theme_Slug_Meta', 'register_metas' ) );
 	add_filter( 'register_post_type_args', array( 'Theme_Slug_Meta', 'add_custom_fields_support_to_cpt' ), 20, 2 );
-	add_action( 'enqueue_block_editor_assets', array( 'Theme_Slug_Meta', 'enqueue_style_meta_sidebar_assets' ) );
+	add_action( 'enqueue_block_editor_assets', array( 'Theme_Slug_Meta', 'enqueue_style_meta_assets' ) );
 
 endif;

@@ -1,52 +1,52 @@
 /**
  * WordPress dependencies
  */
- import { Component } from '@wordpress/element';
- import { compose } from '@wordpress/compose';
- import { withDispatch, withSelect } from '@wordpress/data';
- import { __ } from '@wordpress/i18n';
- import { PanelBody, BaseControl, Button, RangeControl, ColorPalette, ColorIndicator } from '@wordpress/components';
- 
- class StyleSidebarMetaFields extends Component {
-	 constructor( props ) {
-		super( props );
+import { Component } from '@wordpress/element';
+import { compose } from '@wordpress/compose';
+import { withDispatch, withSelect } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
+import { PanelBody, BaseControl, Button, RangeControl, ColorPalette, ColorIndicator } from '@wordpress/components';
 
-		this.wrapper = document.querySelector('.editor-styles-wrapper');
+class StyleSidebarMetaFields extends Component {
+	constructor( props ) {
+	super( props );
 
-		console.log( this.props.metas )
-	 }
+	this.wrapper = document.querySelector('.editor-styles-wrapper');
 
-	 resetAll() {
-		this.props.setMetaValue( '_theme_slug_meta_font_size', 0 );
-		this.props.setMetaValue( '_theme_slug_meta_background_color', '' );
-
-		this.wrapper.style.setProperty( '--global-fs-base', themeslugMetaLocalize.typography.font_size + 'px' );
-		this.wrapper.style.setProperty( '--global-cl-bg', themeslugMetaLocalize.colors.background_color );
+	console.log( this.props.metas )
 	}
- 
-	 renderTypographyFields() {
-		 return (
-			<PanelBody
-				title={ __( 'Typography', 'themeslug' ) }
-				intialOpen={ false }
-			>
-				<RangeControl
-					label={ __( 'Font size (px)', 'themeslug' ) }
-					value={ this.props.metas._theme_slug_meta_font_size && 0 !== this.props.metas._theme_slug_meta_font_size ? this.props.metas._theme_slug_meta_font_size : themeslugMetaLocalize.typography.font_size }
-					onChange={ ( newValue ) => {
-						newValue ? this.props.setMetaValue( '_theme_slug_meta_font_size', newValue) : this.props.setMetaValue( '_theme_slug_meta_font_size', 0);
 
-						{/* newValue ? wrapper.style.setProperty( 'font-size', newValue + 'px' ) : wrapper.style.setProperty( 'font-size', themeslugMetaLocalize.typography.font_size + 'px' ); */}
-						newValue ? this.wrapper.style.setProperty( '--global-fs-base', newValue + 'px' ) : this.wrapper.style.setProperty( '--global-fs-base', themeslugMetaLocalize.typography.font_size + 'px' );
-					} }
-					allowReset={true}
-					min={0}
-					max={50}
-					step="1"
-				/>
-			</PanelBody>
-		 );
-	 }
+	resetAll() {
+	this.props.setMetaValue( '_theme_slug_meta_font_size', 0 );
+	this.props.setMetaValue( '_theme_slug_meta_background_color', '' );
+
+	this.wrapper.style.setProperty( '--global-fs-base', themeslugMetaLocalize.typography.font_size + 'px' );
+	this.wrapper.style.setProperty( '--global-cl-bg', themeslugMetaLocalize.colors.background_color );
+}
+
+	renderTypographyFields() {
+		return (
+		<PanelBody
+			title={ __( 'Typography', 'themeslug' ) }
+			intialOpen={ false }
+		>
+			<RangeControl
+				label={ __( 'Font size (px)', 'themeslug' ) }
+				value={ this.props.metas._theme_slug_meta_font_size && 0 !== this.props.metas._theme_slug_meta_font_size ? this.props.metas._theme_slug_meta_font_size : themeslugMetaLocalize.typography.font_size }
+				onChange={ ( newValue ) => {
+					newValue ? this.props.setMetaValue( '_theme_slug_meta_font_size', newValue) : this.props.setMetaValue( '_theme_slug_meta_font_size', 0);
+
+					{/* newValue ? wrapper.style.setProperty( 'font-size', newValue + 'px' ) : wrapper.style.setProperty( 'font-size', themeslugMetaLocalize.typography.font_size + 'px' ); */}
+					newValue ? this.wrapper.style.setProperty( '--global-fs-base', newValue + 'px' ) : this.wrapper.style.setProperty( '--global-fs-base', themeslugMetaLocalize.typography.font_size + 'px' );
+				} }
+				allowReset={true}
+				min={0}
+				max={50}
+				step="1"
+			/>
+		</PanelBody>
+		);
+	}
 
 	renderColorFields() {
 		const colors = [
@@ -122,27 +122,27 @@
 	 }
  }
  
- export default compose( [
+export default compose( [
 
-	 withSelect( ( select ) => {
-		 return {
-			 getMetaValue: ( metaId ) => {
-				 return select( 'core/editor' ).getEditedPostAttribute( 'meta' )[ metaId ];
-			 },
-			 metas: select( 'core/editor' ).getEditedPostAttribute( 'meta' ),
-		 };
-	 } ),
-
-	 withDispatch( ( dispatch ) => {
+	withSelect( ( select ) => {
 		return {
-			setMetaValue: ( id, value ) => {
-				dispatch( 'core/editor' ).editPost( { meta: { [ id ]: value } } );
+			getMetaValue: ( metaId ) => {
+				return select( 'core/editor' ).getEditedPostAttribute( 'meta' )[ metaId ];
 			},
-			setAllMetas: ( value ) => {
-				dispatch( 'core/editor' ).editPost( { meta: value } );
-			},
+			metas: select( 'core/editor' ).getEditedPostAttribute( 'meta' ),
 		};
 	} ),
- 
- ] )( StyleSidebarMetaFields );
+
+	withDispatch( ( dispatch ) => {
+	return {
+		setMetaValue: ( id, value ) => {
+			dispatch( 'core/editor' ).editPost( { meta: { [ id ]: value } } );
+		},
+		setAllMetas: ( value ) => {
+			dispatch( 'core/editor' ).editPost( { meta: value } );
+		},
+	};
+} ),
+
+] )( StyleSidebarMetaFields );
  
