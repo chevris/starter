@@ -66,8 +66,8 @@ if ( ! class_exists( 'Theme_Slug_Meta' ) ) :
 		 */
 		public static function enqueue_style_meta_assets() {
 
-			// Do not add meta sidebar if editing a gutenberg template or a template part.
-			if ( 'wp_template' === get_current_screen()->post_type || 'wp_template_part' === get_current_screen()->post_type ) {
+			// Do not add meta sidebar if editing a gutenberg template or a template part or reusable block.
+			if ( 'wp_template' === get_current_screen()->post_type || 'wp_template_part' === get_current_screen()->post_type || 'wp_block' === get_current_screen()->post_type ) {
 				return;
 			}
 

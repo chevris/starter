@@ -5,6 +5,7 @@ import { withSelect, withDispatch } from '@wordpress/data';
 
 export const connectWithSelect = withSelect( ( select ) => ( {
 	mode: select( 'core/edit-post' ).getEditorMode(),
+	postType: select( 'core/editor' ).getCurrentPostType(),
 	metas: select( 'core/editor' ).getEditedPostAttribute( 'meta' ),
 
 	// @todo: Make sure it only return colors added by add_theme_support('editor-color-palette', [...]) without default core editor colors

@@ -4,6 +4,7 @@
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import { RangeControl } from '@wordpress/components';
+import { useState, useEffect } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -15,21 +16,13 @@ const decorate = compose(
 	connectWithDispatch
 );
 
-const overrideFontSize = ( newValue ) => {
-
-	const wrapperEl = document.querySelector('.editor-styles-wrapper');
-	if ( wrapperEl ) {
-
-		if ( undefined === newValue ) {
-			wrapperEl.style.setProperty( '--global-fs-base', themeslugMetaLocalize.typography.font_size + 'px' );
-		} else {
-			wrapperEl.style.setProperty( '--global-fs-base', newValue + 'px' );
-		}
-
-	}
-}
-
 const FontSizeField = ( { fontSizeMeta, setMetaValue } ) => {
+
+	const [ value, setValue ] = useState( fontSizeMeta );
+
+	useEffect( () => {
+		setMetaValue( '_theme_slug_meta_font_size', value || 0 );
+	}, [ value ] );
 
 	return (
 		<RangeControl
@@ -39,10 +32,7 @@ const FontSizeField = ( { fontSizeMeta, setMetaValue } ) => {
 			max={50}
 			step="1"
 			value={ fontSizeMeta && 0 !== fontSizeMeta ? fontSizeMeta : themeslugMetaLocalize.typography.font_size }
-			onChange={ ( newValue ) => {
-				setMetaValue( '_theme_slug_meta_font_size', newValue || 0 );
-				overrideFontSize( newValue );
-			} }
+			onChange={ setValue }
 		/>
 	);
 };

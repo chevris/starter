@@ -3,6 +3,7 @@
  */
 import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
 import { __ } from '@wordpress/i18n';
+import { useEffect, useRef } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -16,10 +17,30 @@ const PluginDocumentSettingPanelThemeSlugColors = ( { backgroundColorMeta } ) =>
 
 	let icon = '' === backgroundColorMeta ? null : modifyIcon;
 
+	// keep track of if it’s the first time the useEffect function is being run
+	const firstUpdate = useRef(true);
+	useEffect( () => {
+		if (firstUpdate.current) {
+			firstUpdate.current = false;
+			return;
+		}
+		// Do something if not first update
+		const wrapperEl = document.querySelector('.editor-styles-wrapper');
+		if ( wrapperEl ) {
+			if ( backgroundColorMeta ) {
+				wrapperEl.style.setProperty( '--global-cl-bg', backgroundColorMeta );
+			} else {
+				wrapperEl.style.setProperty( '--global-cl-bg', themeslugMetaLocalize.colors.background_color );
+			}
+
+		}
+
+	}, [ backgroundColorMeta ] );
+
 	return (
 		<PluginDocumentSettingPanel
 			name="colors-panel"
-			icon={ icon } // "editor-textcolor"
+			icon={ icon }
 			title={ __( 'Colors', 'themeslug' ) }
 			className="themeslug-colors-panel"
 		>

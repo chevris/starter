@@ -20,7 +20,7 @@ if ( ! class_exists( 'Theme_Slug_Custom_Template_Context' ) ) :
 		 *
 		 * @var array|null $context
 		 */
-		public static $context = null;
+		private static $context = null;
 
 		/**
 		 * Retrieves context data.
