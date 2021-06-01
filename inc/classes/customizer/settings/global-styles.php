@@ -8,7 +8,7 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-Theme_Slug_Register_Settings::add_panels(
+Theme_Slug_Customizer::add_panels(
 	array(
 		'global_styles_panel' => array(
 			'panel_args' => array(
@@ -24,7 +24,7 @@ Theme_Slug_Register_Settings::add_panels(
  * Typography section.
  */
 
-Theme_Slug_Register_Settings::add_sections(
+Theme_Slug_Customizer::add_sections(
 	array(
 		'global_styles_typography_section' => array(
 			'section_args' => array(
@@ -36,7 +36,7 @@ Theme_Slug_Register_Settings::add_sections(
 	)
 );
 
-Theme_Slug_Register_Settings::add_settings(
+Theme_Slug_Customizer::add_settings(
 	array(
 		'global_styles_typography_font_size' => array(
 			'setting_args' => array(
@@ -53,7 +53,7 @@ Theme_Slug_Register_Settings::add_settings(
 			'partial_args' => array(
 				'selector'        => '#theme-slug-front-style-inline-css',
 				'render_callback' => function() {
-					Theme_Slug_Custom_CSS_Variables::generate_custom_css_variables( 'front', true );
+					theme_slug_generate_dynamic_style( 'front', true );
 				},
 			),
 		),
@@ -64,7 +64,7 @@ Theme_Slug_Register_Settings::add_settings(
  * Colors section.
  */
 
-Theme_Slug_Register_Settings::add_sections(
+Theme_Slug_Customizer::add_sections(
 	array(
 		'global_styles_colors_section' => array(
 			'section_args' => array(
@@ -76,7 +76,7 @@ Theme_Slug_Register_Settings::add_sections(
 	)
 );
 
-Theme_Slug_Register_Settings::add_settings(
+Theme_Slug_Customizer::add_settings(
 	array(
 		'global_styles_colors_background_color' => array(
 			'setting_args' => array(

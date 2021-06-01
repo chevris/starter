@@ -46,3 +46,14 @@ function theme_slug_get_asset_version( $filepath ) {
 function theme_slug_is_amp() {
 	return function_exists( 'is_amp_endpoint' ) && \is_amp_endpoint();
 }
+
+/**
+ * Print classes for the main <html> element.
+ */
+function theme_slug_the_html_classes() {
+	$classes = apply_filters( 'theme_slug_filter_html_classes', '' );
+	if ( ! $classes ) {
+		return;
+	}
+	echo 'class="' . esc_attr( $classes ) . '"';
+}
