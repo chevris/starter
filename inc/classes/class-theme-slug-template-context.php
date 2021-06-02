@@ -76,10 +76,10 @@ if ( ! class_exists( 'Theme_Slug_Custom_Template_Context' ) ) :
 		private static function set_context() {
 
 			$typography = array(
-				'font_size' => get_theme_mod( 'global_styles_typography_font_size', 18 ),
+				'font_size' => get_theme_mod( 'theme_slug_global_styles_typography_font_size', 18 ),
 			);
 			$colors = array(
-				'background_color' => get_theme_mod( 'global_styles_colors_background_color', '#FFFFFF' ),
+				'background_color' => get_theme_mod( 'theme_slug_global_styles_colors_background_color', '#FFFFFF' ),
 			);
 
 			/**

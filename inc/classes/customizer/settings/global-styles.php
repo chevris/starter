@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 
 Theme_Slug_Customizer::add_panels(
 	array(
-		'global_styles_panel' => array(
+		'theme_slug_global_styles_panel' => array(
 			'panel_args' => array(
 				'title'    => esc_html__( 'Global Styles', 'themeslug' ),
 				'description' => esc_html__( 'Site wide styles.', 'themeslug' ),
@@ -26,10 +26,10 @@ Theme_Slug_Customizer::add_panels(
 
 Theme_Slug_Customizer::add_sections(
 	array(
-		'global_styles_typography_section' => array(
+		'theme_slug_global_styles_typography_section' => array(
 			'section_args' => array(
 				'title'    => esc_html__( 'Typography', 'themeslug' ),
-				'panel'    => 'global_styles_panel',
+				'panel'    => 'theme_slug_global_styles_panel',
 				'priority' => 1,
 			),
 		),
@@ -38,7 +38,7 @@ Theme_Slug_Customizer::add_sections(
 
 Theme_Slug_Customizer::add_settings(
 	array(
-		'global_styles_typography_font_size' => array(
+		'theme_slug_global_styles_typography_font_size' => array(
 			'setting_args' => array(
 				'default'           => 18,
 				'sanitize_callback' => 'absint',
@@ -47,7 +47,7 @@ Theme_Slug_Customizer::add_settings(
 			'control_args' => array(
 				'type'     => 'number',
 				'label'    => esc_html__( 'Font size (px):', 'themeslug' ),
-				'section'  => 'global_styles_typography_section',
+				'section'  => 'theme_slug_global_styles_typography_section',
 				'priority' => 10,
 			),
 			'partial_args' => array(
@@ -66,10 +66,10 @@ Theme_Slug_Customizer::add_settings(
 
 Theme_Slug_Customizer::add_sections(
 	array(
-		'global_styles_colors_section' => array(
+		'theme_slug_global_styles_colors_section' => array(
 			'section_args' => array(
 				'title'    => esc_html__( 'Colors', 'themeslug' ),
-				'panel'    => 'global_styles_panel',
+				'panel'    => 'theme_slug_global_styles_panel',
 				'priority' => 2,
 			),
 		),
@@ -78,7 +78,7 @@ Theme_Slug_Customizer::add_sections(
 
 Theme_Slug_Customizer::add_settings(
 	array(
-		'global_styles_colors_background_color' => array(
+		'theme_slug_global_styles_colors_background_color' => array(
 			'setting_args' => array(
 				'default'           => '#FFFFFF',
 				'sanitize_callback' => 'sanitize_hex_color',
@@ -86,7 +86,7 @@ Theme_Slug_Customizer::add_settings(
 			),
 			'control_args' => array(
 				'label'    => esc_html__( 'Background color', 'themeslug' ),
-				'section'  => 'global_styles_colors_section',
+				'section'  => 'theme_slug_global_styles_colors_section',
 				'priority' => 10,
 			),
 			'custom_control' => 'WP_Customize_Color_Control',

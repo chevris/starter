@@ -66,8 +66,37 @@ class Theme_Slug_Customizer {
 	 * Constructor
 	 */
 	public function __construct() {
+		add_action( 'customize_controls_enqueue_scripts', array( $this, 'enqueue_customizer_pane_assets' ) );
 		add_action( 'customize_register', array( $this, 'modify_native_settings' ) );
 		add_action( 'customize_register', array( $this, 'register' ) );
+	}
+
+	/**
+	 * Enqueues CSS and JS for customizer controls panel.
+	 */
+	public function enqueue_customizer_pane_assets() {
+
+		/**
+		 * Scripts for customizer controls.
+		 */
+		$asset_controls = ( include get_template_directory() . '/assets/customizer-controls.asset.php' );
+		wp_enqueue_script(
+			'theme-slug-customizer-controls',
+			get_template_directory_uri() . '/assets/customizer-controls.js',
+			$asset_controls['dependencies'],
+			theme_slug_get_asset_version( get_template_directory() . '/assets/customizer-controls.js' ),
+			true
+		);
+
+		/**
+		 * Style for customizer controls.
+		 */
+		wp_enqueue_style(
+			'theme-slug-customizer-controls',
+			get_template_directory_uri() . '/assets/customizer-controls.css',
+			array(),
+			theme_slug_get_asset_version( get_template_directory() . '/assets/customizer-controls.css' )
+		);
 	}
 
 	/**
@@ -124,13 +153,23 @@ class Theme_Slug_Customizer {
 	/**
 	 * Register control types.
 	 */
-	public function register_controls() {}
+	public function register_controls() {
+
+		// Load customize control classes.
+		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-presets.php';
+		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-range.php';
+
+		// Register JS control types.
+		$this->customizer->register_control_type( 'Theme_Slug_Range' );
+		$this->customizer->register_control_type( 'Theme_Slug_Presets' );
+	}
 
 	/**
 	 * Set settings.
 	 */
 	public function create_settings() {
 		require_once get_template_directory() . '/inc/classes/customizer/settings/global-styles.php';
+		require_once get_template_directory() . '/inc/classes/customizer/settings/custom-logo.php';
 	}
 
 	/**

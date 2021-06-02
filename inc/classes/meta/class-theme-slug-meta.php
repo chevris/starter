@@ -86,8 +86,8 @@ if ( ! class_exists( 'Theme_Slug_Meta' ) ) :
 			);
 			wp_set_script_translations( 'theme-slug-meta', 'themeslug', get_template_directory() . '/languages' );
 
-			$font_size = get_theme_mod( 'global_styles_typography_font_size', 18 );
-			$background_color = get_theme_mod( 'global_styles_colors_background_color', '#FFFFFF' );
+			$font_size = get_theme_mod( 'theme_slug_global_styles_typography_font_size', 18 );
+			$background_color = get_theme_mod( 'theme_slug_global_styles_colors_background_color', '#FFFFFF' );
 
 			wp_localize_script(
 				'theme-slug-meta',

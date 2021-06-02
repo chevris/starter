@@ -266,11 +266,13 @@ add_action( 'after_setup_theme', 'theme_slug_setup' );
 
 require get_template_directory() . '/inc/template-functions.php';
 require get_template_directory() . '/inc/classes/class-theme-slug-setup.php';
+require get_template_directory() . '/inc/classes/class-theme-slug-custom-logo.php';
 require get_template_directory() . '/inc/classes/customizer/class-theme-slug-customizer.php';
 require get_template_directory() . '/inc/classes/meta/class-theme-slug-meta.php';
 require get_template_directory() . '/inc/classes/class-theme-slug-template-context.php';
 require get_template_directory() . '/inc/dynamic-style.php';
 
+require get_template_directory() . '/inc/classes/class-theme-slug-header.php';
 require get_template_directory() . '/inc/classes/class-theme-slug-content-archive.php';
 require get_template_directory() . '/inc/classes/class-theme-slug-content-singular.php';
 

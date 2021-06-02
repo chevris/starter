@@ -8,6 +8,7 @@ module.exports = {
 		'editor-rtl': './src/editor-rtl/index.js',
 		'main': './src/main/index.js',
 		'meta': './inc/classes/meta/src/index.js',
+		'customizer-controls': './inc/classes/customizer/controls/src/index.js',
 	},
 	output: {
 		filename: '[name].js',

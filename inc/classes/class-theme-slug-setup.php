@@ -67,6 +67,12 @@ if ( ! class_exists( 'Theme_Slug_Setup' ) ) :
 		 * Remove the `no-js` class from body if JS is supported.
 		 */
 		public static function js_support() {
+
+			// If the AMP plugin is active, return early.
+			if ( theme_slug_is_amp() ) {
+				return;
+			}
+
 			echo '<script>document.body.classList.remove("no-js");</script>';
 		}
 
