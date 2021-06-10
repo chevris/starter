@@ -1,4 +1,16 @@
-.editor-styles-wrapper[class] {
-	font-size: var(--global-fs-base);
-	background-color: var(--global-cl-bg);
+$left: left;
+$right: right;
+
+#start-resizable-editor-section {
+	display: none;
+}
+
+@import "../scss/tools/_index";
+
+@import "../scss/variables";
+
+@import "../scss/editor/base/_index";
+
+#end-resizable-editor-section {
+	display: none;
 }

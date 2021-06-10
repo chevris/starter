@@ -14,7 +14,7 @@ Starter theme prefix placeholders were replaced with these values:
 
 | Placeholder  | Replacement  |
 |--------------|--------------|
-| `Themename`  | Name     |
+| `Theme Slug` | Name     |
 | `theme-slug` | name     |
 | `theme_slug` | name     |
 | `THEME_SLUG` | Name     |
@@ -22,3 +22,4 @@ Starter theme prefix placeholders were replaced with these values:
 | `themeslug`  | name     |
 | `themeSlug`  | name     |
 | `ThemeSlug`  | Name     |
+| `--ts`       | --nm     |

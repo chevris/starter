@@ -16,14 +16,30 @@ if ( ! class_exists( 'Theme_Slug_Header' ) ) :
 	class Theme_Slug_Header {
 
 		/**
+		 * Adds custom classes to the array of body classes to indicate which header is displayed.
+		 *
+		 * @param array $classes Classes for the body element.
+		 * @return array Filtered body classes.
+		 */
+		public static function filter_body_classes( $classes ) {
+
+			$classes[] = 'has-header-' . Theme_Slug_Custom_Template_Context::get_context( 'header', 'layout' );
+
+			return $classes;
+		}
+
+		/**
 		 * Display the header
 		 */
 		public static function display_header() {
-			get_template_part( 'template-parts/header/header' );
+
+			$layout = Theme_Slug_Custom_Template_Context::get_context( 'header', 'layout' );
+			get_template_part( 'template-parts/header/header', $layout );
 		}
 
 	}
 
+	add_filter( 'body_class', array( 'Theme_Slug_Header', 'filter_body_classes' ) );
 	add_action( 'theme_slug_header', array( 'Theme_Slug_Header', 'display_header' ) );
 
 endif;

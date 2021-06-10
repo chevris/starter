@@ -1,0 +1,52 @@
+.header-aside {
+	background-color: var(--ts--header-aside-cl-bg);
+	color: #FFFFFF;
+	display: none;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	top: var( --admin-bar-height );
+	width: var(--ts--header-aside-width);
+	z-index: 3;
+
+	@include media(tablet-plus) {
+		display: flex;
+	}
+
+	.drawer-toggle {
+		display: flex;
+		justify-content: center;
+		width: 100%;
+		background: transparent;
+		color: inherit;
+	}
+	
+	.drawer-toggle-inner {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+		height: 100px;
+	}
+}
+
+.drawer-toggle {
+	.bars {
+		position: relative;
+		width: 20px;
+		height: 14px;
+	}
+
+	.bar {
+		display: block;
+		background-color: currentColor;
+		height: 2px;
+		position: absolute;
+		width: 100%;
+		right: 0;
+		top: calc( 50% - 1px );
+
+		&:nth-child(1) { transform: translateY( -7px ) };
+		&:nth-child(3) { transform: translateY( 7px ) };
+	}
+}

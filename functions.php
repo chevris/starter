@@ -213,7 +213,7 @@ if ( ! function_exists( 'theme_slug_setup' ) ) {
 		);
 
 		// Add custom editor font sizes.
-		$base_font_size = 18; // Must match --global-fs-base.
+		$base_font_size = 18; // Must match --ts--fs-base.
 		add_theme_support(
 			'editor-font-sizes',
 			array(
@@ -266,7 +266,9 @@ add_action( 'after_setup_theme', 'theme_slug_setup' );
 
 require get_template_directory() . '/inc/template-functions.php';
 require get_template_directory() . '/inc/classes/class-theme-slug-setup.php';
+require get_template_directory() . '/inc/classes/class-theme-slug-icons.php';
 require get_template_directory() . '/inc/classes/class-theme-slug-custom-logo.php';
+require get_template_directory() . '/inc/classes/class-theme-slug-nav-menus.php';
 require get_template_directory() . '/inc/classes/customizer/class-theme-slug-customizer.php';
 require get_template_directory() . '/inc/classes/meta/class-theme-slug-meta.php';
 require get_template_directory() . '/inc/classes/class-theme-slug-template-context.php';

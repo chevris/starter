@@ -24,10 +24,10 @@ function theme_slug_generate_dynamic_style( $destination = 'front', $echo = fals
 	$global_background_color = Theme_Slug_Custom_Template_Context::get_context( 'colors', 'background_color' );
 
 	if ( $global_font_size ) {
-		$css .= '--global-fs-base:' . $global_font_size . 'px;';
+		$css .= '--ts--fs-base:' . $global_font_size . 'px;';
 	}
 	if ( $global_background_color ) {
-		$css .= '--global-cl-bg:' . $global_background_color;
+		$css .= '--ts--cl-bg:' . $global_background_color;
 	}
 
 	$css .= '}';

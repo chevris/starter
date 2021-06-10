@@ -1,0 +1,22 @@
+.site-header {
+	background: transparent;
+	padding: 20px 0;
+}
+
+.site-header-inner {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.branding {
+	display: flex;
+	align-items: center;
+	flex-wrap: nowrap;
+}
+
+.branding-identity {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+}

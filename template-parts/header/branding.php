@@ -33,7 +33,7 @@ defined( 'ABSPATH' ) || exit;
 		$description = get_bloginfo( 'description', 'display' );
 		if ( $description || is_customize_preview() ) :
 			?>
-			<p class="site-description">
+			<p class="site-description mobile-vis-false">
 				<?php echo $description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			</p>
 		<?php endif; ?>

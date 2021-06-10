@@ -28,9 +28,9 @@ const PluginDocumentSettingPanelThemeSlugColors = ( { backgroundColorMeta } ) =>
 		const wrapperEl = document.querySelector('.editor-styles-wrapper');
 		if ( wrapperEl ) {
 			if ( backgroundColorMeta ) {
-				wrapperEl.style.setProperty( '--global-cl-bg', backgroundColorMeta );
+				wrapperEl.style.setProperty( '--ts--cl-bg', backgroundColorMeta );
 			} else {
-				wrapperEl.style.setProperty( '--global-cl-bg', themeslugMetaLocalize.colors.background_color );
+				wrapperEl.style.setProperty( '--ts--cl-bg', themeslugMetaLocalize.colors.background_color );
 			}
 
 		}

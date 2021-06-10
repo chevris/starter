@@ -1,4 +1,49 @@
+#start-resizable-editor-section {
+  display: none;
+}
+
+:root {
+  --ts--spacing-unit: 20px;
+  --ts--spacing-h: 20px;
+  --ts--spacing-v: 25px;
+  --ts--spacing-v-responsive: calc(0.666 * var(--ts--spacing-v));
+  --ts--spacing-h-responsive: calc(0.666 * var(--ts--spacing-h));
+  --ts--fs-base: 18px;
+  --ts--cl-bg: #FFFFFF;
+  --ts--header-drawer-cl-bg: #1E2D32;
+  --ts--header-drawer-cl-text: #FFFFFF;
+  --ts--header-aside-width: 64px;
+  --ts--header-aside-cl-bg: var(--ts--header-drawer-cl-bg);
+  --admin-bar-height: 0;
+}
+@media (min-width: 600px) {
+  :root {
+    --ts--spacing-v-responsive: var(--ts--spacing-v);
+    --ts--spacing-h-responsive: var(--ts--spacing-h);
+  }
+}
+@media (min-width: 1025px) {
+  :root {
+    --ts--header-aside-width: 100px;
+  }
+}
+
+.admin-bar {
+  --admin-bar-height: 32px;
+}
+@media only screen and (max-width: 782px) {
+  .admin-bar {
+    --admin-bar-height: 46px;
+  }
+}
+
 .editor-styles-wrapper[class] {
-  font-size: var(--global-fs-base);
-  background-color: var(--global-cl-bg);
+  font-size: 18px;
+  font-size: var(--ts--fs-base);
+  background-color: #FFFFFF;
+  background-color: var(--ts--cl-bg);
+}
+
+#end-resizable-editor-section {
+  display: none;
 }

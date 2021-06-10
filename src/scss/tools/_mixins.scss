@@ -1,0 +1,46 @@
+
+// Media queries
+@mixin media( $res ) {
+
+	// Mobile only
+	@if mobile == $res {
+		@media (max-width: $mobile-max) {
+			@content;
+		}
+	}
+
+	// Tablet only
+	@if tablet == $res {
+		@media (min-width: $tablet-min) and (max-width: $tablet-max) {
+			@content;
+		}
+	}
+
+	// Desktop only
+	@if desktop == $res {
+		@media (min-width: $desktop-min) {
+			@content;
+		}
+	}
+
+	// Tablet and plus
+	@if tablet-plus == $res {
+		@media (min-width: $tablet-min) {
+			@content;
+		}
+	}
+
+	// The sidebar is expanded next to main content
+	@if sidebar-expanded == $res {
+		@media (min-width: $sidebar-expanded) {
+			@content;
+		}
+	}
+	// The sidebar is hidden
+	@if sidebar-hidden == $res {
+		@media (max-width: $sidebar-hidden) {
+			@content;
+		}
+	}
+
+}

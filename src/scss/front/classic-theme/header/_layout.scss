@@ -1,0 +1,8 @@
+.has-header-2 {
+	@include media(tablet-plus) {
+		.site {
+			// border-left: 100px solid var(--ts--cl-bg);
+			margin-left: var(--ts--header-aside-width);
+		}
+	}
+}

@@ -214,9 +214,9 @@ var PluginDocumentSettingPanelThemeSlugColors = function PluginDocumentSettingPa
 
     if (wrapperEl) {
       if (backgroundColorMeta) {
-        wrapperEl.style.setProperty('--global-cl-bg', backgroundColorMeta);
+        wrapperEl.style.setProperty('--ts--cl-bg', backgroundColorMeta);
       } else {
-        wrapperEl.style.setProperty('--global-cl-bg', themeslugMetaLocalize.colors.background_color);
+        wrapperEl.style.setProperty('--ts--cl-bg', themeslugMetaLocalize.colors.background_color);
       }
     }
   }, [backgroundColorMeta]);
@@ -467,8 +467,8 @@ var StyleSidebarMetaFields = /*#__PURE__*/function (_Component) {
     value: function resetAll() {
       this.props.setMetaValue('_theme_slug_meta_font_size', 0);
       this.props.setMetaValue('_theme_slug_meta_background_color', '');
-      this.wrapper.style.setProperty('--global-fs-base', themeslugMetaLocalize.typography.font_size + 'px');
-      this.wrapper.style.setProperty('--global-cl-bg', themeslugMetaLocalize.colors.background_color);
+      this.wrapper.style.setProperty('--ts--fs-base', themeslugMetaLocalize.typography.font_size + 'px');
+      this.wrapper.style.setProperty('--ts--cl-bg', themeslugMetaLocalize.colors.background_color);
     }
   }, {
     key: "renderTypographyFields",
@@ -486,7 +486,7 @@ var StyleSidebarMetaFields = /*#__PURE__*/function (_Component) {
           {
             /* newValue ? wrapper.style.setProperty( 'font-size', newValue + 'px' ) : wrapper.style.setProperty( 'font-size', themeslugMetaLocalize.typography.font_size + 'px' ); */
           }
-          newValue ? _this2.wrapper.style.setProperty('--global-fs-base', newValue + 'px') : _this2.wrapper.style.setProperty('--global-fs-base', themeslugMetaLocalize.typography.font_size + 'px');
+          newValue ? _this2.wrapper.style.setProperty('--ts--fs-base', newValue + 'px') : _this2.wrapper.style.setProperty('--ts--fs-base', themeslugMetaLocalize.typography.font_size + 'px');
         },
         allowReset: true,
         min: 0,
@@ -522,7 +522,7 @@ var StyleSidebarMetaFields = /*#__PURE__*/function (_Component) {
         value: this.props.metas._theme_slug_meta_background_color ? this.props.metas._theme_slug_meta_background_color : themeslugMetaLocalize.colors.background_color,
         onChange: function onChange(newValue) {
           newValue ? _this3.props.setMetaValue('_theme_slug_meta_background_color', newValue) : _this3.props.setMetaValue('_theme_slug_meta_background_color', '');
-          newValue ? _this3.wrapper.style.setProperty('--global-cl-bg', newValue) : _this3.wrapper.style.setProperty('--global-cl-bg', themeslugMetaLocalize.colors.background_color);
+          newValue ? _this3.wrapper.style.setProperty('--ts--cl-bg', newValue) : _this3.wrapper.style.setProperty('--ts--cl-bg', themeslugMetaLocalize.colors.background_color);
         }
       }));
     }
@@ -641,9 +641,9 @@ var PluginDocumentSettingPanelThemeSlugTypography = function PluginDocumentSetti
 
     if (wrapperEl) {
       if (0 !== fontSizeMeta) {
-        wrapperEl.style.setProperty('--global-fs-base', fontSizeMeta + 'px');
+        wrapperEl.style.setProperty('--ts--fs-base', fontSizeMeta + 'px');
       } else {
-        wrapperEl.style.setProperty('--global-fs-base', themeslugMetaLocalize.typography.font_size + 'px');
+        wrapperEl.style.setProperty('--ts--fs-base', themeslugMetaLocalize.typography.font_size + 'px');
       }
     }
   }, [fontSizeMeta]);

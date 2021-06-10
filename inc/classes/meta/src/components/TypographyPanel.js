@@ -28,9 +28,9 @@ const PluginDocumentSettingPanelThemeSlugTypography = ( { fontSizeMeta } ) => {
 		const wrapperEl = document.querySelector('.editor-styles-wrapper');
 		if ( wrapperEl ) {
 			if ( 0 !== fontSizeMeta ) {
-				wrapperEl.style.setProperty( '--global-fs-base', fontSizeMeta + 'px' );
+				wrapperEl.style.setProperty( '--ts--fs-base', fontSizeMeta + 'px' );
 			} else {
-				wrapperEl.style.setProperty( '--global-fs-base', themeslugMetaLocalize.typography.font_size + 'px' );
+				wrapperEl.style.setProperty( '--ts--fs-base', themeslugMetaLocalize.typography.font_size + 'px' );
 			}
 
 		}

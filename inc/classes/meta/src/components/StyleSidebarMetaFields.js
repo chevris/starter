@@ -20,8 +20,8 @@ class StyleSidebarMetaFields extends Component {
 	this.props.setMetaValue( '_theme_slug_meta_font_size', 0 );
 	this.props.setMetaValue( '_theme_slug_meta_background_color', '' );
 
-	this.wrapper.style.setProperty( '--global-fs-base', themeslugMetaLocalize.typography.font_size + 'px' );
-	this.wrapper.style.setProperty( '--global-cl-bg', themeslugMetaLocalize.colors.background_color );
+	this.wrapper.style.setProperty( '--ts--fs-base', themeslugMetaLocalize.typography.font_size + 'px' );
+	this.wrapper.style.setProperty( '--ts--cl-bg', themeslugMetaLocalize.colors.background_color );
 }
 
 	renderTypographyFields() {
@@ -37,7 +37,7 @@ class StyleSidebarMetaFields extends Component {
 					newValue ? this.props.setMetaValue( '_theme_slug_meta_font_size', newValue) : this.props.setMetaValue( '_theme_slug_meta_font_size', 0);
 
 					{/* newValue ? wrapper.style.setProperty( 'font-size', newValue + 'px' ) : wrapper.style.setProperty( 'font-size', themeslugMetaLocalize.typography.font_size + 'px' ); */}
-					newValue ? this.wrapper.style.setProperty( '--global-fs-base', newValue + 'px' ) : this.wrapper.style.setProperty( '--global-fs-base', themeslugMetaLocalize.typography.font_size + 'px' );
+					newValue ? this.wrapper.style.setProperty( '--ts--fs-base', newValue + 'px' ) : this.wrapper.style.setProperty( '--ts--fs-base', themeslugMetaLocalize.typography.font_size + 'px' );
 				} }
 				allowReset={true}
 				min={0}
@@ -83,7 +83,7 @@ class StyleSidebarMetaFields extends Component {
 					onChange={ ( newValue ) => {
 						newValue ? this.props.setMetaValue( '_theme_slug_meta_background_color', newValue) : this.props.setMetaValue( '_theme_slug_meta_background_color', '');
 
-						newValue ? this.wrapper.style.setProperty( '--global-cl-bg', newValue ) : this.wrapper.style.setProperty( '--global-cl-bg', themeslugMetaLocalize.colors.background_color );
+						newValue ? this.wrapper.style.setProperty( '--ts--cl-bg', newValue ) : this.wrapper.style.setProperty( '--ts--cl-bg', themeslugMetaLocalize.colors.background_color );
 					} }
 				/>
 			</PanelBody>
