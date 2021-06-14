@@ -4,6 +4,12 @@
   --ts--spacing-v: 25px;
   --ts--spacing-v-responsive: calc(0.666 * var(--ts--spacing-v));
   --ts--spacing-h-responsive: calc(0.666 * var(--ts--spacing-h));
+  --ts--content-width: 610px;
+  --ts--wide-width: 1240px;
+  --ts--aligncontent-width: min(calc(100% - 2 * var(--ts--spacing-h-responsive)), var(--ts--content-width));
+  --ts--alignwide-width: min(calc(100% - 2 * var(--ts--spacing-h-responsive)), var(--ts--wide-width));
+  --ts--alignright-margin: calc(0.5 * (100% - var(--ts--aligncontent-width)));
+  --ts--alignleft-margin: calc(0.5 * (100% - var(--ts--aligncontent-width)));
   --ts--fs-base: 18px;
   --ts--cl-bg: #FFFFFF;
   --ts--header-drawer-cl-bg: #1E2D32;
@@ -160,6 +166,13 @@ body {
 /* Do not show the outline on the skip link target. */
 #content[tabindex="-1"]:focus {
   outline: 0;
+}
+
+.align-container > * {
+  max-width: min(calc(100% - 2 * calc(0.666 * 20px)), 610px);
+  max-width: var(--ts--aligncontent-width);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .scroll-disabled {

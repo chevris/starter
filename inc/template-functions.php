@@ -57,3 +57,46 @@ function theme_slug_the_html_classes() {
 	}
 	echo 'class="' . esc_attr( $classes ) . '"';
 }
+
+/**
+ * Retrieves a reusable block object using its id.
+ *
+ * @param string $id The reusable block ID.
+ * @return WP_Post|null reusable block post
+ */
+function theme_slug_get_reusable_block( $id ) {
+
+	$wp_query_args        = array(
+		'p'         => $id,
+		'post_type' => 'wp_block',
+	);
+
+	$reusable_block_query = new WP_Query( $wp_query_args );
+	$posts               = $reusable_block_query->get_posts();
+
+	if ( count( $posts ) > 0 ) {
+		$post = $posts[0];
+
+		if ( ! is_wp_error( $post ) ) {
+			return $post;
+		}
+	}
+
+	return null;
+
+}
+
+/**
+ * Print a reusable block.
+ *
+ * @param string $id ID of the block to print.
+ */
+function theme_slug_the_reusable_block( $id ) {
+
+	$block = theme_slug_get_reusable_block( $id );
+	if ( ! $block || empty( trim( (string) $block->post_content ) ) ) {
+		return;
+	}
+	echo do_blocks( $block->post_content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+}

@@ -8,6 +8,12 @@
   --ts--spacing-v: 25px;
   --ts--spacing-v-responsive: calc(0.666 * var(--ts--spacing-v));
   --ts--spacing-h-responsive: calc(0.666 * var(--ts--spacing-h));
+  --ts--content-width: 610px;
+  --ts--wide-width: 1240px;
+  --ts--aligncontent-width: min(calc(100% - 2 * var(--ts--spacing-h-responsive)), var(--ts--content-width));
+  --ts--alignwide-width: min(calc(100% - 2 * var(--ts--spacing-h-responsive)), var(--ts--wide-width));
+  --ts--alignright-margin: calc(0.5 * (100% - var(--ts--aligncontent-width)));
+  --ts--alignleft-margin: calc(0.5 * (100% - var(--ts--aligncontent-width)));
   --ts--fs-base: 18px;
   --ts--cl-bg: #FFFFFF;
   --ts--header-drawer-cl-bg: #1E2D32;
@@ -42,6 +48,13 @@
   font-size: var(--ts--fs-base);
   background-color: #FFFFFF;
   background-color: var(--ts--cl-bg);
+}
+
+.block-editor-block-list__layout.is-root-container > * {
+  max-width: min(calc(100% - 2 * calc(0.666 * 20px)), 610px);
+  max-width: var(--ts--aligncontent-width);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #end-resizable-editor-section {

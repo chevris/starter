@@ -9,6 +9,7 @@ module.exports = {
 		'main': './src/main/index.js',
 		'meta': './inc/classes/meta/src/index.js',
 		'customizer-controls': './inc/classes/customizer/controls/src/index.js',
+		'customizer-pane': './inc/classes/customizer/controls/src/pane.js',
 	},
 	output: {
 		filename: '[name].js',

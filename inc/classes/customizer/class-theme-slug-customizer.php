@@ -77,6 +77,17 @@ class Theme_Slug_Customizer {
 	public function enqueue_customizer_pane_assets() {
 
 		/**
+		 * Global scripts for customizer panel.
+		 */
+		wp_enqueue_script(
+			'theme-slug-customizer-pane',
+			get_template_directory_uri() . '/assets/customizer-pane.js',
+			array( 'customize-controls', 'jquery' ),
+			theme_slug_get_asset_version( get_template_directory() . '/assets/customizer-pane.js' ),
+			true
+		);
+
+		/**
 		 * Scripts for customizer controls.
 		 */
 		$asset_controls = ( include get_template_directory() . '/assets/customizer-controls.asset.php' );
@@ -156,12 +167,22 @@ class Theme_Slug_Customizer {
 	public function register_controls() {
 
 		// Load customize control classes.
+		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-nested-panel.php';
+		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-expanded-section.php';
 		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-presets.php';
 		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-range.php';
+		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-multi-select.php';
+
+		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-icon-checkbox.php';
 
 		// Register JS control types.
-		$this->customizer->register_control_type( 'Theme_Slug_Range' );
+		$this->customizer->register_section_type( 'theme_slug_nested_panel' );
+		$this->customizer->register_section_type( 'theme_slug_expanded_section' );
 		$this->customizer->register_control_type( 'Theme_Slug_Presets' );
+		$this->customizer->register_control_type( 'Theme_Slug_Range' );
+		$this->customizer->register_control_type( 'Theme_Slug_Multi_Select' );
+
+		$this->customizer->register_control_type( 'Theme_Slug_Icon_Checkbox' );
 	}
 
 	/**
@@ -170,6 +191,7 @@ class Theme_Slug_Customizer {
 	public function create_settings() {
 		require_once get_template_directory() . '/inc/classes/customizer/settings/global-styles.php';
 		require_once get_template_directory() . '/inc/classes/customizer/settings/custom-logo.php';
+		require_once get_template_directory() . '/inc/classes/customizer/settings/header.php';
 	}
 
 	/**

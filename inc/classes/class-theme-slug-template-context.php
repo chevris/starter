@@ -83,7 +83,7 @@ if ( ! class_exists( 'Theme_Slug_Custom_Template_Context' ) ) :
 			);
 
 			$header = array(
-				'layout' => '2',
+				'layout' => get_theme_mod( 'theme_slug_header_layout', 'header-1' ),
 			);
 
 			/**

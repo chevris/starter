@@ -10,6 +10,15 @@
 		--ts--spacing-h-responsive: var(--ts--spacing-h);
 	}
 
+	// --Global Alignments--
+	--ts--content-width: 610px;
+	--ts--wide-width: 1240px;
+
+	--ts--aligncontent-width: min(calc(100% - 2 * var(--ts--spacing-h-responsive)), var(--ts--content-width));
+	--ts--alignwide-width: min(calc(100% - 2 * var(--ts--spacing-h-responsive)), var(--ts--wide-width));
+	--ts--alignright-margin: calc(0.5 * (100% - var(--ts--aligncontent-width)));
+	--ts--alignleft-margin: calc(0.5 * (100% - var(--ts--aligncontent-width)));
+
 	--ts--fs-base: 18px;
 	--ts--cl-bg: #FFFFFF;
 

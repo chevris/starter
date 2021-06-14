@@ -265,6 +265,7 @@ add_action( 'after_setup_theme', 'theme_slug_setup' );
 // ----------------------------------------------------------------------------------------------
 
 require get_template_directory() . '/inc/template-functions.php';
+require get_template_directory() . '/inc/sanitize-functions.php';
 require get_template_directory() . '/inc/classes/class-theme-slug-setup.php';
 require get_template_directory() . '/inc/classes/class-theme-slug-icons.php';
 require get_template_directory() . '/inc/classes/class-theme-slug-custom-logo.php';

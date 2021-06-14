@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<div class="entry-content align-wrap">
+	<div class="entry-content align-container">
 
 		<?php the_content(); ?>
 

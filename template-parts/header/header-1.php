@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) || exit;
 			<?php } ?>
 		>
 			<?php theme_slug_the_svg( 'ui', 'menu', 24 ); ?>
-			<span><?php esc_html_e( 'Menu', 'themeslug' ); ?></span>
+			<span class="screen-reader-text"><?php esc_html_e( 'Menu', 'themeslug' ); ?></span>
 		</button>
 
 	</div>

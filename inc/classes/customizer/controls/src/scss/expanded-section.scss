@@ -1,0 +1,35 @@
+#customize-theme-controls {
+
+	.control-section-theme_slug_expanded_section {
+
+		.accordion-section-title {
+			display: none;
+		}
+
+		.customize-section-back {
+			display: none;
+		}
+	}
+
+	.customize-pane-child.control-section-theme_slug_expanded_section {
+
+		position: relative;
+		visibility: visible;
+		height: auto;
+		margin-left: -100%;
+
+		h3 {
+			.customize-action {
+				display: none;
+			}
+		}
+
+		// Hide the section title to only display controls inside expanded section.
+		// Remove these styles to show the section title.
+		border-top: none !important;
+		.customize-section-title {
+			display: none;
+		}
+	}
+
+}
