@@ -6,13 +6,13 @@
 /**
  * Internal dependencies
  */
-import MultiSelectComponent from './MultiSelectComponent';
+import ReactMultiSelectComponent from './ReactMultiSelectComponent';
 
-export const MultiSelectControl = wp.customize.Control.extend({
+export const ReactMultiSelectControl = wp.customize.Control.extend({
 	renderContent: function renderContent() {
 		const control = this;
 		render(
-			<MultiSelectComponent control={ control } />,
+			<ReactMultiSelectComponent control={ control } />,
 			control.container[ 0 ]
 		);
 	}

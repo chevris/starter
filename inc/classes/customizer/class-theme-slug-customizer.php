@@ -172,7 +172,9 @@ class Theme_Slug_Customizer {
 		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-presets.php';
 		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-range.php';
 		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-multi-select.php';
+		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-react-multi-select.php';
 
+		// WIP : not used for now.
 		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-icon-checkbox.php';
 
 		// Register JS control types.
@@ -181,7 +183,9 @@ class Theme_Slug_Customizer {
 		$this->customizer->register_control_type( 'Theme_Slug_Presets' );
 		$this->customizer->register_control_type( 'Theme_Slug_Range' );
 		$this->customizer->register_control_type( 'Theme_Slug_Multi_Select' );
+		$this->customizer->register_control_type( 'Theme_Slug_React_Multi_Select' );
 
+		// WIP : not used for now.
 		$this->customizer->register_control_type( 'Theme_Slug_Icon_Checkbox' );
 	}
 

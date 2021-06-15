@@ -1,14 +1,17 @@
+/**
+ * WordPress dependencies
+ */
+import { useState } from '@wordpress/element';
+
+/**
+ * Internal dependencies
+ */
 import MultiSelect from './MultiSelect';
-import { useState, useEffect } from '@wordpress/element';
 
 const MultiSelectComponent = ({ control }) => {
 
 	const { choices, reset_values, label } = control.params;
 	const [value, setValue] = useState(control.setting.get());
-
-	useEffect( () => {
-		console.log( value )
-	} );
 
 	const updateValues = (newVal) => {
 		setValue(newVal);

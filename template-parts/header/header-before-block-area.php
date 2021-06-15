@@ -14,23 +14,45 @@ if ( empty( $block_id ) ) {
 	return;
 }
 
-$visible_on = get_theme_mod( 'theme_slug_header_before_device_vis_2', array( 'desktop', 'tablet', 'mobile' ) );
-$section_class = array( 'align-container' );
+$devices = get_theme_mod(
+	'theme_slug_header_before_device_visibility',
+	array(
+		array(
+			'value' => 'desktop',
+			'label' => __( 'Desktop', 'themeslug' ),
+		),
+		array(
+			'value' => 'tablet',
+			'label' => __( 'Tablet', 'themeslug' ),
+		),
+		array(
+			'value' => 'mobile',
+			'label' => __( 'Mobile', 'themeslug' ),
+		),
+	)
+);
 
-if ( ! in_array( 'desktop', $visible_on ) ) {
-	$section_class[] = 'desktop-vis-false';
-}
-if ( ! in_array( 'tablet', $visible_on ) ) {
-	$section_class[] = 'tablet-vis-false';
-}
-if ( ! in_array( 'mobile', $visible_on ) ) {
-	$section_class[] = 'mobile-vis-false';
+$header_before_class = array( 'header_before align-container' );
+$selected_devices = array();
+
+foreach ( $devices as $device ) {
+	$selected_devices[] = $device['value'];
 }
 
-$section_class = implode( ' ', $section_class );
+if ( ! in_array( 'desktop', $selected_devices ) ) {
+	$header_before_class[] = 'desktop-vis-false';
+}
+if ( ! in_array( 'tablet', $selected_devices ) ) {
+	$header_before_class[] = 'tablet-vis-false';
+}
+if ( ! in_array( 'mobile', $selected_devices ) ) {
+	$header_before_class[] = 'mobile-vis-false';
+}
+
+$header_before_class = implode( ' ', $header_before_class );
 ?>
 
-<section class="<?php echo esc_attr( $section_class ); ?>">
+<section class="<?php echo esc_attr( $header_before_class ); ?>">
 	
 	<?php theme_slug_the_reusable_block( $block_id ); ?>
 

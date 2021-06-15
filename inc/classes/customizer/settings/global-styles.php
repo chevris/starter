@@ -14,7 +14,7 @@ Theme_Slug_Customizer::add_panels(
 			'panel_args' => array(
 				'title'    => esc_html__( 'Global Styles', 'themeslug' ),
 				'description' => esc_html__( 'Site wide styles.', 'themeslug' ),
-				'priority' => 300,
+				'priority' => 150,
 			),
 		),
 	)
