@@ -9,7 +9,7 @@
 /**
  * Theme_Slug_Presets class
  */
-class Theme_Slug_Presets extends \WP_Customize_Control {
+class Theme_Slug_Presets extends WP_Customize_Control {
 
 	/**
 	 * Control type.

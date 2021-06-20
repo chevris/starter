@@ -23,7 +23,7 @@ if ( ! class_exists( 'Theme_Slug_Header' ) ) :
 		 */
 		public static function filter_body_classes( $classes ) {
 
-			$classes[] = 'has-' . Theme_Slug_Custom_Template_Context::get_context( 'header', 'layout' );
+			$classes[] = 'has-' . Theme_Slug_Template_Context::get_context( 'header', 'layout' );
 
 			return $classes;
 		}
@@ -33,7 +33,7 @@ if ( ! class_exists( 'Theme_Slug_Header' ) ) :
 		 */
 		public static function display_header() {
 
-			$layout = Theme_Slug_Custom_Template_Context::get_context( 'header', 'layout' );
+			$layout = Theme_Slug_Template_Context::get_context( 'header', 'layout' );
 			get_template_part( 'template-parts/header/' . $layout );
 		}
 

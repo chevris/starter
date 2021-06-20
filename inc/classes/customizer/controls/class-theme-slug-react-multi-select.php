@@ -9,7 +9,7 @@
 /**
  * Theme_Slug_React_Multi_Select class
  */
-class Theme_Slug_React_Multi_Select extends \WP_Customize_Control {
+class Theme_Slug_React_Multi_Select extends WP_Customize_Control {
 	/**
 	 * Control type.
 	 *

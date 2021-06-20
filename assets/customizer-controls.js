@@ -407,6 +407,156 @@ var MultiSelectControl = wp.customize.Control.extend({
 
 /***/ }),
 
+/***/ "./inc/classes/customizer/controls/src/customizer-controls/page-visibility/PageVisibilityComponent.js":
+/*!************************************************************************************************************!*\
+  !*** ./inc/classes/customizer/controls/src/customizer-controls/page-visibility/PageVisibilityComponent.js ***!
+  \************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
+
+
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+/**
+ * External dependencies
+ */
+
+
+
+var PageVisibilityComponent = function PageVisibilityComponent(_ref) {
+  var control = _ref.control;
+  Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
+    console.log('setting value (state): ', settingValue);
+    console.log('setting value (param): ', control.setting.get());
+  });
+  var defaultSettingValue = {
+    rule: '',
+    select: 'all',
+    subRule: '',
+    subSelection: [],
+    ids: []
+  };
+  var _control$params = control.params,
+      label = _control$params.label,
+      choices = _control$params.choices;
+
+  var _useState = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["useState"])(control.setting.get() || defaultSettingValue),
+      _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default()(_useState, 2),
+      settingValue = _useState2[0],
+      setSettingValue = _useState2[1];
+
+  var ruleOptions = [].concat.apply([], choices.map(function (option) {
+    return option.options;
+  })); // Extract from choices array an array of rules ` [ {value: "global:site", label: "Entire Site"} ...] `
+
+  var updateSettingValue = function updateSettingValue(newSetting) {
+    setSettingValue(function (settingValue) {
+      return _objectSpread(_objectSpread({}, settingValue), newSetting);
+    });
+    control.setting.set(_objectSpread(_objectSpread({}, settingValue), newSetting));
+  };
+
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+    className: "themeslug-page-visibility"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+    className: "themeslug-control-bar"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("span", {
+    className: "customize-control-title"
+  }, label)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+    className: "themeslug-rule-wrap"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(react_select__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    options: choices,
+    value: undefined !== settingValue.rule && '' !== settingValue.rule ? ruleOptions.filter(function (_ref2) {
+      var value = _ref2.value;
+      return value === settingValue.rule;
+    }) : '' // ex : {value: "global:site", label: "Entire Site"}
+    ,
+    onChange: function onChange(newVal) {
+      if (!newVal) {
+        updateSettingValue(defaultSettingValue);
+      } else {
+        updateSettingValue({
+          rule: newVal.value,
+          select: 'all',
+          subRule: '',
+          subSelection: [],
+          ids: []
+        });
+      }
+    },
+    isSearchable: false,
+    isClearable: true,
+    placeholder: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('None')
+  })));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (PageVisibilityComponent);
+
+/***/ }),
+
+/***/ "./inc/classes/customizer/controls/src/customizer-controls/page-visibility/control.js":
+/*!********************************************************************************************!*\
+  !*** ./inc/classes/customizer/controls/src/customizer-controls/page-visibility/control.js ***!
+  \********************************************************************************************/
+/*! exports provided: PageVisibilityControl */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PageVisibilityControl", function() { return PageVisibilityControl; });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _PageVisibilityComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PageVisibilityComponent */ "./inc/classes/customizer/controls/src/customizer-controls/page-visibility/PageVisibilityComponent.js");
+
+
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+var PageVisibilityControl = wp.customize.Control.extend({
+  renderContent: function renderContent() {
+    var control = this;
+    Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["render"])(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_PageVisibilityComponent__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      control: control
+    }), control.container[0]);
+  }
+});
+
+/***/ }),
+
 /***/ "./inc/classes/customizer/controls/src/customizer-controls/presets/control.js":
 /*!************************************************************************************!*\
   !*** ./inc/classes/customizer/controls/src/customizer-controls/presets/control.js ***!
@@ -875,7 +1025,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _customizer_controls_range_control__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./customizer-controls/range/control */ "./inc/classes/customizer/controls/src/customizer-controls/range/control.js");
 /* harmony import */ var _customizer_controls_multi_select_control__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./customizer-controls/multi-select/control */ "./inc/classes/customizer/controls/src/customizer-controls/multi-select/control.js");
 /* harmony import */ var _customizer_controls_react_multi_select_control__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./customizer-controls/react-multi-select/control */ "./inc/classes/customizer/controls/src/customizer-controls/react-multi-select/control.js");
+/* harmony import */ var _customizer_controls_page_visibility_control__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./customizer-controls/page-visibility/control */ "./inc/classes/customizer/controls/src/customizer-controls/page-visibility/control.js");
 /* global wp */
+
 
 
 
@@ -885,7 +1037,8 @@ __webpack_require__.r(__webpack_exports__);
 wp.customize.controlConstructor.theme_slug_presets_control = _customizer_controls_presets_control__WEBPACK_IMPORTED_MODULE_1__["PresetsControl"];
 wp.customize.controlConstructor.theme_slug_range_control = _customizer_controls_range_control__WEBPACK_IMPORTED_MODULE_2__["RangeControl"];
 wp.customize.controlConstructor.theme_slug_multi_select_control = _customizer_controls_multi_select_control__WEBPACK_IMPORTED_MODULE_3__["MultiSelectControl"];
-wp.customize.controlConstructor.theme_slug_react_multi_select_control = _customizer_controls_react_multi_select_control__WEBPACK_IMPORTED_MODULE_4__["ReactMultiSelectControl"]; // wp.customize.controlConstructor.theme_slug_icon_checkbox_control = IconCheckboxControl;
+wp.customize.controlConstructor.theme_slug_react_multi_select_control = _customizer_controls_react_multi_select_control__WEBPACK_IMPORTED_MODULE_4__["ReactMultiSelectControl"];
+wp.customize.controlConstructor.theme_slug_page_visibility_control = _customizer_controls_page_visibility_control__WEBPACK_IMPORTED_MODULE_5__["PageVisibilityControl"]; // wp.customize.controlConstructor.theme_slug_icon_checkbox_control = IconCheckboxControl;
 
 /***/ }),
 

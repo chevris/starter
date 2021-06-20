@@ -1,4 +1,8 @@
 @charset "UTF-8";
+.customize-pane-child {
+  min-height: 100%;
+}
+
 .in-sub-panel #customize-theme-controls .customize-pane-child.current-panel-parent {
   transform: translateX(-100%);
 }

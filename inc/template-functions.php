@@ -100,3 +100,48 @@ function theme_slug_the_reusable_block( $id ) {
 	echo do_blocks( $block->post_content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 }
+
+/**
+ * Retrieves public post types
+ */
+function theme_slug_get_public_post_types() {
+
+	static $post_types = null;
+
+	if ( null === $post_types ) {
+		$args = array(
+			'public' => true,
+			'show_in_rest' => true,
+			'_builtin' => false,
+		);
+		$builtin = array(
+			'post',
+			'page',
+		);
+		$output = 'names'; // names or objects, note names is the default.
+		$operator = 'and';
+		$post_types = get_post_types( $args, $output, $operator );
+
+		$post_types = apply_filters( 'theme_slug_filter_public_post_type', array_merge( $builtin, $post_types ) );
+	}
+
+	return $post_types;
+}
+
+/**
+ * Retrieves public post types to exclude
+ */
+function theme_slug_get_excluded_public_post_types() {
+
+	static $excluded_post_types = null;
+
+	if ( null === $excluded_post_types ) {
+		$excluded_post_types = array(
+			'elementor_library',
+		);
+
+		$excluded_post_types = apply_filters( 'theme_slug_filter_excluded_public_post_type', $excluded_post_types );
+	}
+
+	return $excluded_post_types;
+}

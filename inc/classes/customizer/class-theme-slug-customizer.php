@@ -98,6 +98,13 @@ class Theme_Slug_Customizer {
 			theme_slug_get_asset_version( get_template_directory() . '/assets/customizer-controls.js' ),
 			true
 		);
+		wp_localize_script(
+			'theme-slug-customizer-controls',
+			'themeslugCustomizeControlLocalize',
+			array(
+				'page_visibility_choices' => Theme_Slug_Block_Area_Context::get_page_visibility_choices(),
+			)
+		);
 
 		/**
 		 * Style for customizer controls.
@@ -167,12 +174,14 @@ class Theme_Slug_Customizer {
 	public function register_controls() {
 
 		// Load customize control classes.
+		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-separator.php';
 		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-nested-panel.php';
 		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-expanded-section.php';
 		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-presets.php';
 		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-range.php';
 		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-multi-select.php';
 		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-react-multi-select.php';
+		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-page-visibility.php';
 
 		// WIP : not used for now.
 		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-icon-checkbox.php';
@@ -184,6 +193,7 @@ class Theme_Slug_Customizer {
 		$this->customizer->register_control_type( 'Theme_Slug_Range' );
 		$this->customizer->register_control_type( 'Theme_Slug_Multi_Select' );
 		$this->customizer->register_control_type( 'Theme_Slug_React_Multi_Select' );
+		$this->customizer->register_control_type( 'Theme_Slug_Page_Visibility' );
 
 		// WIP : not used for now.
 		$this->customizer->register_control_type( 'Theme_Slug_Icon_Checkbox' );

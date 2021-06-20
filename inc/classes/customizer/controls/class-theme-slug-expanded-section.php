@@ -9,7 +9,7 @@
 /**
  * Expanded_Section class
  */
-class Theme_Slug_Expanded_Section extends \WP_Customize_Section {
+class Theme_Slug_Expanded_Section extends WP_Customize_Section {
 
 	/**
 	 * Control type.

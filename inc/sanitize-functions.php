@@ -38,7 +38,7 @@ function theme_slug_sanitize_react_multi_select( $value ) {
 
 	$valid_ids = array( 'value', 'label' );
 
-	// Make sure $value an array.
+	// Make sure $value is an array.
 	$value = ( ! is_array( $value ) ) ? array() : $value;
 
 	foreach ( $value as $row_id => $row_value ) {
@@ -58,6 +58,36 @@ function theme_slug_sanitize_react_multi_select( $value ) {
 			} else {
 				$value[ $row_id ][ $subfield_id ] = sanitize_text_field( $subfield_value );
 			}
+		}
+	}
+
+	return $value;
+}
+
+/**
+ * Sanitize page visibility output
+ *
+ * @param array $value The control's value.
+ * @return array
+ */
+function theme_slug_sanitize_page_visibility( $value ) {
+
+	$valid_keys = array( 'rule', 'select', 'sub_rule', 'sub_selection', 'ids' );
+
+	// Make sure $value is formatted as an array.
+	$value = ( ! is_array( $value ) ) ? array() : $value;
+
+	foreach ( $value as $key => $key_value ) {
+
+		// Make sure this is a valid key. If it's not, then unset it.
+		if ( ! in_array( $key, $valid_keys ) ) {
+			unset( $value[ $key ] );
+		} else if ( 'rule' === $key || 'select' === $key || 'sub_rule' === $key ) {
+			$value[ $key ] = sanitize_text_field( $key_value );
+		} else if ( 'sub_selection' === $key || 'ids' === $key ) {
+
+			// Make sure $key_value is formatted as an array.
+			$value[ $key ] = ( ! is_array( $key_value ) ) ? array() : $key_value;
 		}
 	}
 

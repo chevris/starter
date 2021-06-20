@@ -9,7 +9,7 @@
 /**
  * Theme_Slug_Icon_Checkbox class
  */
-class Theme_Slug_Icon_Checkbox extends \WP_Customize_Control {
+class Theme_Slug_Icon_Checkbox extends WP_Customize_Control {
 	/**
 	 * Control type.
 	 *

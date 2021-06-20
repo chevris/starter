@@ -20,8 +20,8 @@ function theme_slug_generate_dynamic_style( $destination = 'front', $echo = fals
 
 	$css = 'editor' === $destination ? ':root .editor-styles-wrapper{' : ':root{';
 
-	$global_font_size = Theme_Slug_Custom_Template_Context::get_context( 'typography', 'font_size' );
-	$global_background_color = Theme_Slug_Custom_Template_Context::get_context( 'colors', 'background_color' );
+	$global_font_size = Theme_Slug_Template_Context::get_context( 'typography', 'font_size' );
+	$global_background_color = Theme_Slug_Template_Context::get_context( 'colors', 'background_color' );
 
 	if ( $global_font_size ) {
 		$css .= '--ts--fs-base:' . $global_font_size . 'px;';

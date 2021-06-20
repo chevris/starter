@@ -10,7 +10,7 @@
 /**
  * Theme_Slug_Nested_Panel class
  */
-class Theme_Slug_Nested_Panel extends \WP_Customize_Panel {
+class Theme_Slug_Nested_Panel extends WP_Customize_Panel {
 
 	/**
 	 * The parent panel.

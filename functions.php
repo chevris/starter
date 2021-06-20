@@ -273,6 +273,7 @@ require get_template_directory() . '/inc/classes/class-theme-slug-nav-menus.php'
 require get_template_directory() . '/inc/classes/customizer/class-theme-slug-customizer.php';
 require get_template_directory() . '/inc/classes/meta/class-theme-slug-meta.php';
 require get_template_directory() . '/inc/classes/class-theme-slug-template-context.php';
+require get_template_directory() . '/inc/classes/class-theme-slug-block-area-context.php';
 require get_template_directory() . '/inc/dynamic-style.php';
 
 require get_template_directory() . '/inc/classes/class-theme-slug-header.php';

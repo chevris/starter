@@ -8,12 +8,12 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'Theme_Slug_Custom_Template_Context' ) ) :
+if ( ! class_exists( 'Theme_Slug_Template_Context' ) ) :
 
 	/**
 	 * Template context class
 	 */
-	class Theme_Slug_Custom_Template_Context {
+	class Theme_Slug_Template_Context {
 
 		/**
 		 * Holds the context.
@@ -132,7 +132,7 @@ if ( ! class_exists( 'Theme_Slug_Custom_Template_Context' ) ) :
 				'header' => $header,
 			);
 
-			self::$context = apply_filters( 'themesetup_filter_template_context', $context_arr );
+			self::$context = apply_filters( 'themeslug_filter_template_context', $context_arr );
 
 		}
 
