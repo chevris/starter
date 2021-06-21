@@ -13,10 +13,10 @@ import Select from 'react-select';
 const ReactMultiSelectComponent = ({ control }) => {
 
 	const { choices, label, reset_values } = control.params;
-	const [settingValue, setSettingValue] = useState(control.setting.get() || [] );
+	const [value, setValue] = useState(control.setting.get());
 
 	const updateValues = (newVal) => {
-		setSettingValue(newVal);
+		setValue(newVal);
 		control.setting.set(newVal);
 	};
 
@@ -43,15 +43,8 @@ const ReactMultiSelectComponent = ({ control }) => {
 			</div>
 			<Select
 				options={ choices }
-				value={ choices.filter( ( { value } ) => settingValue.includes( value ) ) }
-				onChange={ ( newVal ) => {
-					if ( newVal.length ) {
-						const newArr = newVal.map( ( obj ) => obj.value );
-						updateValues(newArr );
-					} else {
-						updateValues( [] );
-					}
-				} }
+				value={ value }
+				onChange={ updateValues }
 				className="themeslug-react-select"
 				classNamePrefix="themeslug"
 				isMulti={ true }

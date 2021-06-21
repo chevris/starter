@@ -1,6 +1,6 @@
 <?php
 /**
- * Template part for displaying the header before block area.
+ * Template part for displaying the header after block area.
  *
  * @package Theme_Slug
  */
@@ -8,7 +8,7 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-$block_id = get_theme_mod( 'theme_slug_header_before_content', 0 );
+$block_id = get_theme_mod( 'theme_slug_header_after_content', '' );
 
 // Bail early if no reusable block to display.
 if ( empty( $block_id ) ) {
@@ -17,7 +17,7 @@ if ( empty( $block_id ) ) {
 
 // Retrieves the header_before block area visibility rule from customizer.
 $visibility_rule = get_theme_mod(
-	'theme_slug_header_before_page_visibility',
+	'theme_slug_header_after_page_visibility',
 	array(
 		'rule' => 'global:site',
 		'select' => '',
@@ -31,25 +31,24 @@ if ( ! Theme_Slug_Block_Area_Context::can_show_block_area( $visibility_rule ) ) 
 	return;
 }
 
+$device_visibility = get_theme_mod( 'theme_slug_header_after_device_visibility', array( 'desktop', 'tablet', 'mobile' ) );
 
-$device_visibility = get_theme_mod( 'theme_slug_header_before_device_visibility', array( 'desktop', 'tablet', 'mobile' ) );
-
-$header_before_class = array( 'header-before align-container' );
+$header_after_class = array( 'header-after align-container' );
 
 if ( ! in_array( 'desktop', $device_visibility ) ) {
-	$header_before_class[] = 'desktop-vis-false';
+	$header_after_class[] = 'desktop-vis-false';
 }
 if ( ! in_array( 'tablet', $device_visibility ) ) {
-	$header_before_class[] = 'tablet-vis-false';
+	$header_after_class[] = 'tablet-vis-false';
 }
 if ( ! in_array( 'mobile', $device_visibility ) ) {
-	$header_before_class[] = 'mobile-vis-false';
+	$header_after_class[] = 'mobile-vis-false';
 }
 
-$header_before_class = implode( ' ', $header_before_class );
+$header_after_class = implode( ' ', $header_after_class );
 ?>
 
-<section class="<?php echo esc_attr( $header_before_class ); ?>">
+<section class="<?php echo esc_attr( $header_after_class ); ?>">
 	
 	<?php theme_slug_the_reusable_block( $block_id ); ?>
 

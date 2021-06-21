@@ -17,8 +17,9 @@ import Select from 'react-select';
 const PageVisibilityComponent = ({ control }) => {
 
 	useEffect( () => {
-		console.log( 'setting value (state): ', settingValue );
-		console.log( 'setting value (param): ', control.setting.get() )
+		// console.log( 'choices: ', choices );
+		// console.log( 'setting value (state): ', settingValue );
+		// console.log( 'setting value (param): ', control.setting.get() )
 	} );
 
 	const defaultSettingValue = {

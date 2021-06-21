@@ -44,10 +44,18 @@ if ( ! class_exists( 'Theme_Slug_Header' ) ) :
 			get_template_part( 'template-parts/header/header-before-block-area' );
 		}
 
+		/**
+		 * Display the header after block area
+		 */
+		public static function display_header_after_block_area() {
+			get_template_part( 'template-parts/header/header-after-block-area' );
+		}
+
 	}
 
 	add_filter( 'body_class', array( 'Theme_Slug_Header', 'filter_body_classes' ) );
 	add_action( 'theme_slug_header', array( 'Theme_Slug_Header', 'display_header' ) );
 	add_action( 'theme_slug_header_before', array( 'Theme_Slug_Header', 'display_header_before_block_area' ) );
+	add_action( 'theme_slug_header_after', array( 'Theme_Slug_Header', 'display_header_after_block_area' ) );
 
 endif;

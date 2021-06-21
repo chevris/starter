@@ -17,6 +17,7 @@ function theme_slug_sanitize_icon_checkbox( $values ) {
 	}
 	return $values;
 }
+
 /**
  * Sanitize multi select output
  *
@@ -24,8 +25,19 @@ function theme_slug_sanitize_icon_checkbox( $values ) {
  * @return array
  */
 function theme_slug_sanitize_multi_select( $values ) {
-	$values = ( ! is_array( $values ) ) ? explode( ',', $values ) : $values;
+	$values = ( ! is_array( $values ) ) ? array() : $values;
 	return ( ! empty( $values ) ) ? array_map( 'sanitize_text_field', $values ) : array();
+}
+
+/**
+ * Sanitize react select output
+ *
+ * @param string|array $value The control's values.
+ * @return array
+ */
+function theme_slug_sanitize_react_select( $value ) {
+	$value = ( ! is_array( $value ) ) ? '' : $value;
+	return ( is_array( $value ) && ! empty( $value ) ) ? array_map( 'sanitize_text_field', $value ) : '';
 }
 
 /**

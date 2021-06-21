@@ -59,6 +59,32 @@ function theme_slug_the_html_classes() {
 }
 
 /**
+ * Retrieves reusable blocks
+ *
+ * @return array An array of reusable blocks
+ */
+function theme_slug_get_reusable_blocks() {
+
+	$reusable_blocks = get_posts(
+		array(
+			'post_type'   => 'wp_block',
+			'numberposts' => 100,
+		)
+	);
+
+	$blocks = array();
+	foreach ( $reusable_blocks as $block ) {
+		$choice = array(
+			'value' => $block->ID,
+			'label' => $block->post_title,
+		);
+		$blocks[] = $choice;
+	}
+
+	return $blocks;
+}
+
+/**
  * Retrieves a reusable block object using its id.
  *
  * @param string $id The reusable block ID.
