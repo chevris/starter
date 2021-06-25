@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 ?>
 
 <?php if ( theme_slug_is_amp() ) { ?>
-	<amp-sidebar class="" id="drawer-header-amp" layout="nodisplay" side="left">
+	<amp-sidebar class="drawer-header-amp" id="drawer-header-amp" layout="nodisplay" side="left">
 <?php } else { ?>
 	<div class="drawer-header" id="drawer-header" aria-hidden="true">
 		<div class="drawer-header__overlay" tabindex="-1" data-micromodal-close></div>
