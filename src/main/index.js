@@ -1,3 +1,5 @@
+import MicroModal from 'micromodal';
+
 if ( 'loading' === document.readyState ) {
 
 	// The DOM has not yet been loaded.
@@ -13,131 +15,39 @@ if ( 'loading' === document.readyState ) {
  */
  function initScripts() {
 
-	/**
-	 * Add listener to the overlay masks, so they can be removed and close drawers.
-	 *
-	 * @note: Opened drawer must have a class : [slug]-drawer-opened and
-	 * the overlay id must be mask-[slug]
-	 */
-	document.addEventListener( 'click', function( e ) {
-		if ( e.target && 'overlay-mask' === e.target.className ) {
-			const maskId = e.target.id;
-			const drawer = maskId.split( '-' );
-
-			document.body.classList.remove( drawer[ 1 ] + '-drawer-opened' );
-			document.documentElement.classList.remove( 'scroll-disabled' );
-			document.documentElement.style.removeProperty('margin-right');
-			removeOverlay( maskId );
-			// force the browser to process the display change first, then the transition
-			setTimeout( function() {
-				document.getElementById( 'drawer-header-js' ).setAttribute('hidden', '')
-			}, 250 );
-		}
-	});
-
-	initDrawerHeader();
+	initModals();
 }
 
 /**
- * Handles header drawer.
+ * Handles modals.
  */
- function initDrawerHeader() {
+function initModals() {
 
-	const togglers = document.getElementsByClassName( 'drawer-header-toggle' );
-	const siteHeader = document.getElementById( 'masthead' );
-	const drawerHeader = document.getElementById( 'drawer-header-js' );
-
-	// No point if no toggler.
-	if ( ! togglers.length ) {
-		return;
-	}
-
-	const drawerCloseButton = drawerHeader.getElementsByClassName( 'drawer-header-toggle' )[ 0 ];
-	const headerToggleButton = siteHeader.getElementsByClassName( 'drawer-header-toggle' )[ 0 ];
-
-	/**
-	 * Open / close header drawer.
-	 *
-	 * @note: Opened drawer must have a class : [slug]-drawer-opened and
-	 * the overlay id must be mask-[slug]
-	 */
-	for ( let i = 0; i < togglers.length; i++ ) {
-		togglers[ i ].addEventListener(
-			'click',
-			function(e) {
-				e.preventDefault();
-				if ( document.body.classList.contains( 'header-drawer-opened' ) ) {
-					closeMenu( 'header-drawer-opened', headerToggleButton, 'mask-header' );
-					// force the browser to process the display change first, then the transition
-					setTimeout( function() {
-						drawerHeader.setAttribute('hidden', '');
-					}, 300 );
-				} else {
-					drawerHeader.removeAttribute('hidden');
-					// force the browser to process the display change first, then the transition
-					setTimeout( function() {
-						openMenu( 'header-drawer-opened', drawerCloseButton, 'mask-header' );
-					}, 0 );
-				}
-			},
-			false
-		);
-	}
-
+	MicroModal.init( {
+		openClass: 'is-modal-open',
+		disableScroll: false, // handled by the modalCallback()
+		awaitOpenAnimation: false, // if true, wait end of open animation to focus on an element in the modal.
+		awaitCloseAnimation: true, // if true, wait end of close animation before removing modal from DOM
+		onShow: modalCallback,
+		onClose: modalCallback,
+	} );
 }
 
-/**
- * @description Opens specifed off-canvas menu.
- * @param {string} openingClass  The class to add to the body to toggle menu visibility.
- * @param {object} focusOnOpen The button used to close the menu on which we focus.
- * @param {string} maskId     The ID to use for the overlay.
- */
- function openMenu( openingClass, focusOnOpen, maskId = '' ) {
-	document.body.classList.add( openingClass );
-	document.documentElement.style.setProperty( 'margin-right', window.innerWidth - document.documentElement.clientWidth + 'px' );
-	document.documentElement.classList.add( 'scroll-disabled' );
-	if ( focusOnOpen ) {
-		focusOnOpen.focus();
-	}
-	if ( maskId ) {
-		createOverlay( maskId );
-	}
-}
+function modalCallback( modalEl ) {
 
-/**
- * @description Closes specifed slide-out menu.
- * @param {string} openingClass  The class to remove from the body to toggle menu visibility.
- * @param {object} focusOnClose The button used to open the menu on which we focus.
- * @param {string} maskId The ID to use for the overlay.
- */
-function closeMenu( openingClass, focusOnClose, maskId = '' ) {
-	document.body.classList.remove( openingClass );
-	document.documentElement.style.removeProperty('margin-right');
-	document.documentElement.classList.remove( 'scroll-disabled' );
-	if ( focusOnClose ) {
-		focusOnClose.focus();
-	}
-	if ( maskId ) {
-		removeOverlay( maskId );
-	}
-}
+	const htmlElement = document.documentElement;
+	const scrollBarWidth = window.innerWidth - htmlElement.clientWidth;
+	const triggerButton = document.querySelector( `button[data-micromodal-trigger="${ modalEl.id }"]` );
+	const closeButton = modalEl.querySelector( 'button[data-micromodal-close]' );
 
-/**
- * @description Creates semi-transparent overlay behind menus.
- * @param {string} maskId The ID to add to the div.
- */
-function createOverlay( maskId ) {
-	const mask = document.createElement( 'div' );
-	mask.setAttribute( 'class', 'overlay-mask' );
-	mask.setAttribute( 'id', maskId );
-	document.body.appendChild( mask );
-}
+	// Use aria-hidden to determine the status of the modal, as this attribute is
+	// managed by micromodal.
+	const isHidden = 'true' === modalEl.getAttribute( 'aria-hidden' );
 
-/**
- * @description Removes semi-transparent overlay behind menus.
- * @param {string} maskId The ID to use for the overlay.
- */
-function removeOverlay( maskId ) {
-	const mask = document.getElementById( maskId );
-	mask.parentNode.removeChild( mask );
+	triggerButton.setAttribute( 'aria-expanded', ! isHidden );
+	closeButton.setAttribute( 'aria-expanded', ! isHidden );
+
+	// Add a class to indicate a modal is open.
+	htmlElement.classList.toggle( 'has-modal-open' );
+	! isHidden ? htmlElement.style.setProperty( 'margin-right', scrollBarWidth + 'px' ) : htmlElement.style.removeProperty('margin-right');
 }

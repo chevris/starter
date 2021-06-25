@@ -1,0 +1,69 @@
+// Toggle modal Styles
+.search-modal {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 1000;
+}
+
+.search-modal.is-modal-open {
+	display: block;
+}
+
+// Inner styles
+.search-modal__inner {
+	position: fixed;
+	width: 100vw;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.search-modal__overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0,0,0,0.6);
+	cursor: pointer;
+}
+
+.search-modal__container {
+	position: relative;
+	background-color: #FFFFFF;
+	padding: 30px;
+	max-width: 500px;
+	max-height: 100vh;
+	border-radius: 4px;
+	overflow-y: auto;
+}
+
+// Animations
+.search-modal[aria-hidden="false"] {
+
+	.search-modal__overlay {
+		animation: themeslugfadeIn 0.3s cubic-bezier(0.0, 0.0, 0.2, 1);
+	}
+	.search-modal__container {
+		animation: themeslugslideIn 0.3s cubic-bezier(0, 0, 0.2, 1);
+	}
+
+}
+
+.search-modal[aria-hidden="true"] {
+
+	.search-modal__overlay {
+		animation: themeslugfadeOut 0.1s cubic-bezier(0.0, 0.0, 0.2, 1);
+	}
+	
+	.search-modal__container {
+		animation: themeslugfadeOut 0.1s cubic-bezier(0.0, 0.0, 0.2, 1);
+		animation: themeslugslideOut 0.1s cubic-bezier(0, 0, 0.2, 1);
+	}
+
+}

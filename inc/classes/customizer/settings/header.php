@@ -37,11 +37,11 @@ Theme_Slug_Customizer::add_sections(
 $header_settings = array(
 	'theme_slug_header_layout' => array(
 		'setting_args' => array(
-			'default'           => 'header-1',
+			'default'           => 'default',
 			'sanitize_callback' => function ( $value ) {
-				$allowed_values = array( 'header-1', 'header-2' );
+				$allowed_values = array( 'default', 'aside', 'none' );
 				if ( ! in_array( $value, $allowed_values, true ) ) {
-					return 'header-1';
+					return 'default';
 				}
 				return esc_html( $value );
 			},
@@ -53,8 +53,9 @@ $header_settings = array(
 			'section'  => 'theme_slug_header_section',
 			'priority' => 10,
 			'choices'  => array(
-				'header-1' => esc_html__( 'Header 1', 'themeslug' ),
-				'header-2' => esc_html__( 'Header 2', 'themeslug' ),
+				'default' => esc_html__( 'Default', 'themeslug' ),
+				'aside' => esc_html__( 'Aside', 'themeslug' ),
+				'none' => esc_html__( 'No header', 'themeslug' ),
 			),
 		),
 	),

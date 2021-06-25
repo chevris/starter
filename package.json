@@ -19,6 +19,7 @@
 		"react-select": "^4.3.1"
 	},
 	"dependencies": {
+		"micromodal": "^0.4.6",
 		"prop-types": "^15.7.2"
 	}
 }

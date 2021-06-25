@@ -31,6 +31,7 @@
 	--ts--header-drawer-cl-text: #FFFFFF;
 	--ts--header-aside-width: 64px;
 	--ts--header-aside-cl-bg: var(--ts--header-drawer-cl-bg);
+
 	@include media(desktop) {
 		--ts--header-aside-width: 100px;
 	}

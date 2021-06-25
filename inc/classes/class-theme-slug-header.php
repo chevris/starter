@@ -23,7 +23,7 @@ if ( ! class_exists( 'Theme_Slug_Header' ) ) :
 		 */
 		public static function filter_body_classes( $classes ) {
 
-			$classes[] = 'has-' . Theme_Slug_Template_Context::get_context( 'header', 'layout' );
+			$classes[] = 'header-is-' . Theme_Slug_Template_Context::get_context( 'header', 'layout' );
 
 			return $classes;
 		}
@@ -34,7 +34,18 @@ if ( ! class_exists( 'Theme_Slug_Header' ) ) :
 		public static function display_header() {
 
 			$layout = Theme_Slug_Template_Context::get_context( 'header', 'layout' );
-			get_template_part( 'template-parts/header/' . $layout );
+
+			if ( 'none' !== $layout ) {
+				get_template_part( 'template-parts/header/header', 'default' !== $layout ? $layout : '' );
+			}
+		}
+
+		/**
+		 * Display the drawer-header
+		 */
+		public static function display_header_drawer() {
+
+			get_template_part( 'template-parts/header/drawer' );
 		}
 
 		/**
@@ -51,11 +62,20 @@ if ( ! class_exists( 'Theme_Slug_Header' ) ) :
 			get_template_part( 'template-parts/header/header-after-block-area' );
 		}
 
+		/**
+		 * Display the header after block area
+		 */
+		public static function display_search_modal() {
+			get_template_part( 'template-parts/header/search-modal' );
+		}
+
 	}
 
 	add_filter( 'body_class', array( 'Theme_Slug_Header', 'filter_body_classes' ) );
 	add_action( 'theme_slug_header', array( 'Theme_Slug_Header', 'display_header' ) );
+	add_action( 'wp_head', array( 'Theme_Slug_Header', 'display_header_drawer' ) );
 	add_action( 'theme_slug_header_before', array( 'Theme_Slug_Header', 'display_header_before_block_area' ) );
 	add_action( 'theme_slug_header_after', array( 'Theme_Slug_Header', 'display_header_after_block_area' ) );
+	add_action( 'wp_footer', array( 'Theme_Slug_Header', 'display_search_modal' ) );
 
 endif;
