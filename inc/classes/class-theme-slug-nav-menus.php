@@ -1,6 +1,6 @@
 <?php
 /**
- * Nav menu
+ * Nav menus class
  *
  * @package Theme_Slug
  */

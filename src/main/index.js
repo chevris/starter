@@ -16,6 +16,7 @@ if ( 'loading' === document.readyState ) {
  function initScripts() {
 
 	initModals();
+	initDropdownVerticalMenu();
 }
 
 /**
@@ -51,3 +52,33 @@ function modalCallback( modalEl ) {
 	htmlElement.classList.toggle( 'has-modal-open' );
 	! isHidden ? htmlElement.style.setProperty( 'margin-right', scrollBarWidth + 'px' ) : htmlElement.style.removeProperty('margin-right');
 }
+
+/**
+ * Handles dropdown vertical menus.
+ */
+function initDropdownVerticalMenu() {
+
+	// Get all dropdown vertical menus.
+	const allVerticalMenus = document.querySelectorAll( '.vertical-menu' );
+
+	allVerticalMenus.forEach( ( menu ) => {
+
+		// Get all dropdown buttons in each menu.
+		const allDropdowns = menu.querySelectorAll( '.dropdown-toggle' );
+
+		if ( ! allDropdowns.length ) {
+			return;
+		}
+
+		allDropdowns.forEach( ( dropdown ) => {
+			dropdown.addEventListener( 'click', ( e ) => {
+				e.preventDefault();
+				e.stopPropagation();
+				dropdown.setAttribute( 'aria-expanded', 'false' === dropdown.getAttribute( 'aria-expanded' ) ? 'true' : 'false' );
+				const section = dropdown.closest( 'section' );
+				section.toggleAttribute( 'expanded' );
+			});
+		});
+	});
+}
+

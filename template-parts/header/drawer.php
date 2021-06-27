@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<div class="drawer-header__container">
 
-		<button class="drawer-toggle drawer-header-toggle"
+		<button class="drawer-toggle"
 			<?php if ( theme_slug_is_amp() ) { ?>
 				on="tap:drawer-header-amp.toggle"
 			<?php } else { ?>
@@ -35,12 +35,18 @@ defined( 'ABSPATH' ) || exit;
 				?>
 				<nav class="drawer-nav" role="navigation">
 					<?php
+					$is_dropdown = true;
+					$dropdown_class = $is_dropdown ? ' is-dropdown' : '';
 					$args = array(
 						'theme_location' => 'drawer',
 						'container'  => false,
-						'menu_class' => 'menu',
+						'menu_class' => 'menu vertical-menu' . $dropdown_class,
 						'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
 					);
+
+					if ( $is_dropdown ) {
+						$args['walker'] = new Theme_Slug_Walker_Vertical_Nav_Menu();
+					}
 
 					wp_nav_menu( $args );
 					?>

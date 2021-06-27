@@ -26,27 +26,6 @@
 		justify-content: center;
 		align-items: center;
 		position: relative;
-		height: 100px;
-	}
-}
-
-.drawer-toggle {
-	.bars {
-		position: relative;
-		width: 20px;
-		height: 14px;
-	}
-
-	.bar {
-		display: block;
-		background-color: currentColor;
-		height: 2px;
-		position: absolute;
-		width: 100%;
-		right: 0;
-		top: calc( 50% - 1px );
-
-		&:nth-child(1) { transform: translateY( -7px ) };
-		&:nth-child(3) { transform: translateY( 7px ) };
+		padding: 32px 0;
 	}
 }

@@ -17,6 +17,8 @@ defined( 'ABSPATH' ) || exit;
 
 		<?php get_template_part( 'template-parts/header/branding' ); ?>
 
+		<?php get_template_part( 'template-parts/header/top-bar-nav' ); ?>
+
 		<button class="search-modal-toggle" aria-expanded="false" aria-haspopup="true"
 			<?php if ( theme_slug_is_amp() ) { ?>
 				on="tap:search-modal-amp.open"

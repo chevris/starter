@@ -18,8 +18,10 @@ defined( 'ABSPATH' ) || exit;
 			data-micromodal-trigger="drawer-header"
 		<?php } ?>
 	>
-		<?php theme_slug_the_svg( 'ui', 'menu', 24 ); ?>
-		<span class="screen-reader-text"><?php esc_html_e( 'Menu', 'themeslug' ); ?></span>
+		<div class="drawer-toggle-inner">
+			<?php theme_slug_the_svg( 'ui', 'menu', 24 ); ?>
+			<span class="screen-reader-text"><?php esc_html_e( 'Menu', 'themeslug' ); ?></span>
+		</div>
 	</button>
 
 </aside>

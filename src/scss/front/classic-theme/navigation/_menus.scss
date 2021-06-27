@@ -10,9 +10,9 @@ All menus
 	padding: 0;
 }
 
-/* Hide every buttons and sub menus */
+/* Hide every buttons */
 .menu button {
-	display: none;
+	// display: none;
 }
 
 /*--------------------------------------------------------------
@@ -43,123 +43,51 @@ Horizontal menu
 	display: none;
 }
 
+
 /*--------------------------------------------------------------
-Dropdown horizontal menu
+Vertical menu
 --------------------------------------------------------------*/
 
-.horizontal-menu.is-dropdown {
+.vertical-menu {
 
-	/* All items */
-	li {
-		position: relative;
-	}
+	a {
+		display: inline-block;
+		width: 100%;
+		text-decoration: none;
+		color: currentColor;
 
-	/* Dropdown toggle of 1rst level items */
-	& > li.menu-item-has-children {
-
-		> .dropdown-toggle {
-			display: flex;
-			align-items: center;
-		}
-
-		> a {
-			padding-right: 0;
+		&:hover {
+			text-decoration: underline;
 		}
 	}
 
-	/* Sub menus */
-	.sub-menu {
-		position: absolute;
-		opacity: 0;
-		transition: opacity 0.2s;
-		left: -9999px;
-		z-index: 99999;
-
-		> li {
-			display: block;
-			background-color: #fff;
-		}
-
-		a {
-			color: #111;
-			display: block;
-			font-size: 0.9em;
-			line-height: var(--ts--lh-heading, 1.2);
-			padding: 0.75rem calc(24px + 1rem) 0.75rem 1rem;
-		}
+	li.current-menu-item > a,
+	li.current-menu-item > header > a {
+		text-decoration: underline;
 	}
 
-	/* 1rst level sub menus */
-	& > li > .sub-menu {
-		padding-top: 12px;
+	.dropdown-toggle {
+		background: transparent;
+		color: currentColor;
+	}
+}
 
-		&:before { /* Triangle */
-			border-style: solid;
-			border-width: 0 8px 8px 8px;
-			border-color: transparent transparent #fff transparent;
-			content: "";
-			display: inline-block;
-			height: 0;
-			left: 10px;
-			position: absolute;
-			top: 4px;
-			width: 0;
-		}
+/* Sub menus */
+.vertical-menu ul {
+	margin-left: 1rem;
+}
+
+/*--------------------------------------------------------------
+Dropdown vertical menu
+--------------------------------------------------------------*/
+
+.vertical-menu.is-dropdown .menu-item-has-children {
+
+	ul {
+		display: none;
 	}
 
-	/* Dropdown toggle in sub menus */
-	.sub-menu > li.menu-item-has-children .dropdown-toggle {
+	[expanded] > ul {
 		display: block;
-		position: absolute;
-		transform: rotate(-90deg);
-		top: 0;
-		bottom: 0;
-		right: 0.1rem;
-		padding: 0.7rem;
-		color: #111;
 	}
-
-	/* Show sub menus */
-	.menu-item-has-children:hover > .sub-menu,
-	.menu-item-has-children:focus > .sub-menu {
-		display: block;
-		float: none;
-		margin-top: 0;
-		opacity: 1;
-		position: absolute;
-		left: 0;
-		right: auto;
-		top: 100%;
-		bottom: auto;
-		height: auto;
-		transform: none;
-		width: 12.5rem;
-	}
-
-	.sub-menu .menu-item-has-children:hover > .sub-menu,
-	.sub-menu .menu-item-has-children:focus > .sub-menu {
-		left: 100%;
-		top: 0;
-	}
-
-	.menu-item-has-children:focus-within > .sub-menu { /*:focus-within needs its own selector so other similar selectors don’t get ignored if a browser doesn’t recognize it */
-		display: block;
-		float: none;
-		margin-top: 0;
-		opacity: 1;
-		position: absolute;
-		left: 0;
-		right: auto;
-		top: 100%;
-		bottom: auto;
-		height: auto;
-		transform: none;
-		width: 12.5rem;
-	}
-
-	.sub-menu .menu-item-has-children:focus-within > .sub-menu {
-		left: 100%;
-		top: 0;
-	}
-
 }
