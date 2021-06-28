@@ -39,7 +39,7 @@ $header_settings = array(
 		'setting_args' => array(
 			'default'           => 'default',
 			'sanitize_callback' => function ( $value ) {
-				$allowed_values = array( 'default', 'aside', 'none' );
+				$allowed_values = array( 'default', 'aside', 'responsive', 'none' );
 				if ( ! in_array( $value, $allowed_values, true ) ) {
 					return 'default';
 				}
@@ -55,6 +55,7 @@ $header_settings = array(
 			'choices'  => array(
 				'default' => esc_html__( 'Default', 'themeslug' ),
 				'aside' => esc_html__( 'Aside', 'themeslug' ),
+				'responsive' => esc_html__( 'Responsive', 'themeslug' ),
 				'none' => esc_html__( 'No header', 'themeslug' ),
 			),
 		),

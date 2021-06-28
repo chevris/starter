@@ -585,6 +585,13 @@ function initModals() {
     onShow: modalCallback,
     onClose: modalCallback
   });
+  var outsideClose = document.querySelector("[data-close-modal=\"drawer-header\"]");
+
+  if (outsideClose) {
+    outsideClose.addEventListener('click', function () {
+      micromodal__WEBPACK_IMPORTED_MODULE_0__["default"].close('drawer-header');
+    });
+  }
 }
 
 function modalCallback(modalEl) {

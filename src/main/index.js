@@ -32,6 +32,13 @@ function initModals() {
 		onShow: modalCallback,
 		onClose: modalCallback,
 	} );
+
+	const outsideClose = document.querySelector( `[data-close-modal="drawer-header"]` );
+	if ( outsideClose ) {
+		outsideClose.addEventListener( 'click', () => {
+			MicroModal.close( 'drawer-header' )
+		} );
+	}
 }
 
 function modalCallback( modalEl ) {
