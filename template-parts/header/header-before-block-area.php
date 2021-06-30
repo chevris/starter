@@ -8,6 +8,42 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
+
+$blocks = get_theme_mod(
+	'select_blocks_test5',
+	array(
+		array(
+			'id'            => '',
+			'rule'          => 'global:site',
+			'select'        => 'all',
+			'sub_rule'      => '',
+			'sub_selection' => array(),
+			'ids'           => array(),
+		),
+	)
+);
+
+var_dump( $blocks );
+
+if ( $blocks && ! empty( $blocks ) ) {
+	foreach ( $blocks as $block ) {
+
+		if ( $block['id'] && '' !== $block['id'] ) {
+			echo $block['id'];
+		} else {
+			echo 'empty block';
+		}
+
+	}
+}
+
+
+
+
+
+
+
+
 $block_id = get_theme_mod( 'theme_slug_header_before_content', 0 );
 
 // Bail early if no reusable block to display.

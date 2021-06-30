@@ -244,5 +244,43 @@ $header_block_area_settings = array(
 		'custom_control' => 'Theme_Slug_Page_Visibility',
 	),
 
+
+	'theme_slug_header_before_sep_3' => array(
+		'setting_args' => array(
+			'sanitize_callback' => 'wp_filter_nohtml_kses',
+		),
+		'control_args' => array(
+			'section'  => 'theme_slug_header_block_area_section',
+			'priority' => 10,
+		),
+		'custom_control' => 'Theme_Slug_Page_Separator',
+	),
+
+	'select_blocks_test5' => array(
+		'setting_args' => array(
+			'default'           => array(
+				array(
+					'id'            => '',
+					'rule'          => 'global:site',
+					'select'        => 'all',
+					'sub_rule'      => '',
+					'sub_selection' => array(),
+					'ids'           => array(),
+				),
+			),
+			'sanitize_callback' => 'theme_slug_sanitize_select_blocks',
+		),
+		'control_args' => array(
+			'label'    => esc_html__( 'test block area', 'themeslug' ),
+			'section'  => 'theme_slug_header_block_area_section',
+			'priority' => 10,
+			'choices'  => array(
+				'blocks' => theme_slug_get_reusable_blocks(),
+				'templates' => Theme_Slug_Block_Area_Context::get_page_visibility_choices(),
+			),
+		),
+		'custom_control' => 'Theme_Slug_Select_Blocks',
+	),
+
 );
 Theme_Slug_Customizer::add_settings( $header_block_area_settings );

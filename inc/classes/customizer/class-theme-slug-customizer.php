@@ -179,6 +179,7 @@ class Theme_Slug_Customizer {
 		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-expanded-section.php';
 		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-presets.php';
 		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-range.php';
+		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-select-blocks.php';
 		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-select-reusable-block.php';
 		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-react-multi-select.php';
 		require_once get_template_directory() . '/inc/classes/customizer/controls/class-theme-slug-page-visibility.php';
@@ -193,6 +194,7 @@ class Theme_Slug_Customizer {
 		$this->customizer->register_section_type( 'theme_slug_expanded_section' );
 		$this->customizer->register_control_type( 'Theme_Slug_Presets' );
 		$this->customizer->register_control_type( 'Theme_Slug_Range' );
+		$this->customizer->register_control_type( 'Theme_Slug_Select_Blocks' );
 		$this->customizer->register_control_type( 'Theme_Slug_Select_Reusable_Block' );
 		$this->customizer->register_control_type( 'Theme_Slug_React_Multi_Select' );
 		$this->customizer->register_control_type( 'Theme_Slug_Page_Visibility' );

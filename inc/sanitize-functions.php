@@ -105,3 +105,51 @@ function theme_slug_sanitize_page_visibility( $value ) {
 
 	return $value;
 }
+
+/**
+ * Sanitize select blocks output
+ *
+ * @param array $value The control's value.
+ * @return array
+ */
+function theme_slug_sanitize_select_blocks( $value ) {
+
+	$valid_keys = array( 'id', 'rule', 'select', 'sub_rule', 'sub_selection', 'ids' );
+
+	// Make sure $value is formatted as an array.
+	$value = ( ! is_array( $value ) ) ? array() : $value;
+
+	foreach ( $value as $row_id => $row_value ) {
+
+		// Make sure the row is formatted as an array.
+		if ( ! is_array( $row_value ) ) {
+			$value[ $row_id ] = array();
+			continue;
+		}
+
+		// Start parsing sub-fields in rows.
+		foreach ( $row_value as $subfield_key => $subfield_value ) {
+
+			// Make sure this is a valid key. If it's not, then unset it.
+			if ( ! in_array( $subfield_key, $valid_keys ) ) {
+				unset( $value[ $row_id ][ $subfield_key ] );
+			} else if ( 'id' === $subfield_key ) {
+				$value[ $row_id ][ $subfield_key ] = sanitize_text_field( $subfield_value );
+
+				if ( is_int( $subfield_value ) ) {
+					$value[ $row_id ][ $subfield_key ] = absint( $subfield_value );
+				} else {
+					$value[ $row_id ][ $subfield_key ] = '';
+				}
+			} else if ( 'rule' === $subfield_key || 'select' === $subfield_key || 'sub_rule' === $subfield_key ) {
+				$value[ $row_id ][ $subfield_key ] = sanitize_text_field( $subfield_value );
+			} else if ( 'sub_selection' === $subfield_key || 'ids' === $subfield_key ) {
+
+				// Make sure $subfield_value is formatted as an array.
+				$value[ $row_id ][ $subfield_key ] = ( ! is_array( $subfield_value ) ) ? array() : $subfield_value;
+			}
+		}
+	}
+
+	return $value;
+}

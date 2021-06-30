@@ -25,4 +25,13 @@
 		outline: 1px solid transparent;
 	}
 
+	&.themeslug-control-bar--subtitle {
+		margin-bottom: 3px;
+		padding-left: 5px;
+
+		.customize-control-title {
+			font-weight: normal;
+		}
+	}
+
 }

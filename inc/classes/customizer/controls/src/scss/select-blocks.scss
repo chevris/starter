@@ -1,0 +1,9 @@
+.themeslug-select-blocks__block {
+	> *:not(:last-child) {
+		margin-bottom: 5px;
+	}
+}
+
+.themeslug-select-blocks__add-block {
+	margin-top: 12px;
+}
