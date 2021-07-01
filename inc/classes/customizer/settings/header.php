@@ -60,6 +60,17 @@ $header_settings = array(
 			),
 		),
 	),
+
+	'theme_slug_header_before_sep_1' => array(
+		'setting_args' => array(
+			'sanitize_callback' => 'wp_filter_nohtml_kses',
+		),
+		'control_args' => array(
+			'section'  => 'theme_slug_header_section',
+			'priority' => 10,
+		),
+		'custom_control' => 'Theme_Slug_Page_Separator',
+	),
 );
 Theme_Slug_Customizer::add_settings( $header_settings );
 
@@ -69,7 +80,7 @@ Theme_Slug_Customizer::add_sections(
 		'theme_slug_header_block_area_section' => array(
 			'section_args' => array(
 				'title'    => esc_html__( 'Header Block Areas', 'themeslug' ),
-				'description' => esc_html__( 'Assign reusable blocks.', 'themeslug' ),
+				'description' => esc_html__( 'Assign reusable blocks in header block areas.', 'themeslug' ),
 				'panel'    => 'theme_slug_header_panel',
 				'priority' => 2,
 			),
@@ -79,34 +90,33 @@ Theme_Slug_Customizer::add_sections(
 
 $header_block_area_settings = array(
 
-	'theme_slug_header_before_sep_1' => array(
+	'theme_slug_header_before_blocks' => array(
 		'setting_args' => array(
-			'sanitize_callback' => 'wp_filter_nohtml_kses',
-		),
-		'control_args' => array(
-			'section'  => 'theme_slug_header_block_area_section',
-			'priority' => 10,
-		),
-		'custom_control' => 'Theme_Slug_Page_Separator',
-	),
-
-	'theme_slug_header_before_content' => array(
-		'setting_args' => array(
-			'default'           => '',
-			'sanitize_callback' => function( $value ) {
-				return '' !== $value ? absint( $value ) : '';
-			},
+			'default'           => array(
+				array(
+					'id'            => '',
+					'rule'          => 'global:site',
+					'select'        => 'all',
+					'sub_rule'      => '',
+					'sub_selection' => array(),
+					'ids'           => array(),
+				),
+			),
+			'sanitize_callback' => 'theme_slug_sanitize_select_blocks',
 		),
 		'control_args' => array(
 			'label'    => esc_html__( 'Before the header', 'themeslug' ),
-			'description' => esc_html__( 'Select a reusable block.', 'themeslug' ),
 			'section'  => 'theme_slug_header_block_area_section',
 			'priority' => 10,
-			'choices'  => theme_slug_get_reusable_blocks(),
+			'choices'  => array(
+				'blocks' => theme_slug_get_reusable_blocks(),
+				'templates' => Theme_Slug_Block_Area_Context::get_page_visibility_choices(),
+			),
 		),
-		'custom_control' => 'Theme_Slug_Select_Reusable_Block',
+		'custom_control' => 'Theme_Slug_Select_Blocks',
 	),
 
+	/*
 	'theme_slug_header_before_device_visibility' => array(
 		'setting_args' => array(
 			'default'           => array( 'desktop', 'tablet', 'mobile' ),
@@ -137,126 +147,9 @@ $header_block_area_settings = array(
 		),
 		'custom_control' => 'Theme_Slug_React_Multi_Select',
 	),
+	*/
 
-	'theme_slug_header_before_page_visibility' => array(
-		'setting_args' => array(
-			'default'           => array(
-				'rule' => 'global:site',
-				'select' => '',
-				'sub_rule' => '',
-				'sub_selection' => array(),
-				'ids' => array(),
-			),
-			'sanitize_callback' => 'theme_slug_sanitize_page_visibility',
-			'transport'         => 'refresh',
-		),
-		'control_args' => array(
-			'label'    => esc_html__( 'Page Visibility', 'themeslug' ),
-			'section'  => 'theme_slug_header_block_area_section',
-			'priority' => 10,
-			'active_callback' => function() {
-				return get_theme_mod( 'theme_slug_header_before_content' ) !== '';
-			},
-			'choices' => Theme_Slug_Block_Area_Context::get_page_visibility_choices(),
-		),
-		'custom_control' => 'Theme_Slug_Page_Visibility',
-	),
-
-	'theme_slug_header_before_sep_2' => array(
-		'setting_args' => array(
-			'sanitize_callback' => 'wp_filter_nohtml_kses',
-		),
-		'control_args' => array(
-			'section'  => 'theme_slug_header_block_area_section',
-			'priority' => 10,
-		),
-		'custom_control' => 'Theme_Slug_Page_Separator',
-	),
-
-	'theme_slug_header_after_content' => array(
-		'setting_args' => array(
-			'default'           => '',
-			'sanitize_callback' => function( $value ) {
-				return '' !== $value ? absint( $value ) : '';
-			},
-		),
-		'control_args' => array(
-			'label'    => esc_html__( 'After the header', 'themeslug' ),
-			'section'  => 'theme_slug_header_block_area_section',
-			'priority' => 10,
-			'choices'  => theme_slug_get_reusable_blocks(),
-		),
-		'custom_control' => 'Theme_Slug_Select_Reusable_Block',
-	),
-
-	'theme_slug_header_after_device_visibility' => array(
-		'setting_args' => array(
-			'default'           => array( 'desktop', 'tablet', 'mobile' ),
-			'sanitize_callback' => 'theme_slug_sanitize_multi_select',
-		),
-		'control_args' => array(
-			'label'    => esc_html__( 'Device Visibility', 'themeslug' ),
-			'section'  => 'theme_slug_header_block_area_section',
-			'priority' => 10,
-			'choices'  => array(
-				array(
-					'value' => 'desktop',
-					'label' => __( 'Desktop', 'themeslug' ),
-				),
-				array(
-					'value' => 'tablet',
-					'label' => __( 'Tablet', 'themeslug' ),
-				),
-				array(
-					'value' => 'mobile',
-					'label' => __( 'Mobile', 'themeslug' ),
-				),
-			),
-			'reset_values' => array( 'desktop', 'tablet', 'mobile' ),
-			'active_callback' => function() {
-				return get_theme_mod( 'theme_slug_header_after_content' ) !== '';
-			},
-		),
-		'custom_control' => 'Theme_Slug_React_Multi_Select',
-	),
-
-	'theme_slug_header_after_page_visibility' => array(
-		'setting_args' => array(
-			'default'           => array(
-				'rule' => 'global:site',
-				'select' => '',
-				'sub_rule' => '',
-				'sub_selection' => array(),
-				'ids' => array(),
-			),
-			'sanitize_callback' => 'theme_slug_sanitize_page_visibility',
-			'transport'         => 'refresh',
-		),
-		'control_args' => array(
-			'label'    => esc_html__( 'Page Visibility', 'themeslug' ),
-			'section'  => 'theme_slug_header_block_area_section',
-			'priority' => 10,
-			'active_callback' => function() {
-				return get_theme_mod( 'theme_slug_header_after_content' ) !== '';
-			},
-			'choices' => Theme_Slug_Block_Area_Context::get_page_visibility_choices(),
-		),
-		'custom_control' => 'Theme_Slug_Page_Visibility',
-	),
-
-
-	'theme_slug_header_before_sep_3' => array(
-		'setting_args' => array(
-			'sanitize_callback' => 'wp_filter_nohtml_kses',
-		),
-		'control_args' => array(
-			'section'  => 'theme_slug_header_block_area_section',
-			'priority' => 10,
-		),
-		'custom_control' => 'Theme_Slug_Page_Separator',
-	),
-
-	'select_blocks_test5' => array(
+	'theme_slug_header_after_blocks' => array(
 		'setting_args' => array(
 			'default'           => array(
 				array(
@@ -271,7 +164,7 @@ $header_block_area_settings = array(
 			'sanitize_callback' => 'theme_slug_sanitize_select_blocks',
 		),
 		'control_args' => array(
-			'label'    => esc_html__( 'test block area', 'themeslug' ),
+			'label'    => esc_html__( 'After the header', 'themeslug' ),
 			'section'  => 'theme_slug_header_block_area_section',
 			'priority' => 10,
 			'choices'  => array(

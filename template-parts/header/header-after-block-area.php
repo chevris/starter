@@ -8,48 +8,39 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-$block_id = get_theme_mod( 'theme_slug_header_after_content', '' );
-
-// Bail early if no reusable block to display.
-if ( empty( $block_id ) ) {
-	return;
-}
-
-// Retrieves the header_before block area visibility rule from customizer.
-$visibility_rule = get_theme_mod(
-	'theme_slug_header_after_page_visibility',
+$blocks = get_theme_mod(
+	'theme_slug_header_after_blocks',
 	array(
-		'rule' => 'global:site',
-		'select' => '',
-		'sub_rule' => '',
-		'sub_selection' => array(), // array of arrays ` array( array( 'value' => 1, 'label => 'uncategorized' ), array( 'value' => 20, 'label => 'val 1' ) ) `.
-		'ids' => array(), // array of ids ` array( 1545, 1564 ) `.
+		array(
+			'id'            => '',
+			'rule'          => 'global:site',
+			'select'        => 'all',
+			'sub_rule'      => '',
+			'sub_selection' => array(),
+			'ids'           => array(),
+		),
 	)
 );
 
-if ( ! Theme_Slug_Block_Area_Context::can_show_block_area( $visibility_rule ) ) {
+// Bail early if no reusable block to display.
+if ( 1 === count( $blocks ) && '' === $blocks[0]['id'] ) {
 	return;
 }
-
-$device_visibility = get_theme_mod( 'theme_slug_header_after_device_visibility', array( 'desktop', 'tablet', 'mobile' ) );
-
-$header_after_class = array( 'header-after align-container' );
-
-if ( ! in_array( 'desktop', $device_visibility ) ) {
-	$header_after_class[] = 'desktop-vis-false';
-}
-if ( ! in_array( 'tablet', $device_visibility ) ) {
-	$header_after_class[] = 'tablet-vis-false';
-}
-if ( ! in_array( 'mobile', $device_visibility ) ) {
-	$header_after_class[] = 'mobile-vis-false';
-}
-
-$header_after_class = implode( ' ', $header_after_class );
 ?>
 
-<section class="<?php echo esc_attr( $header_after_class ); ?>">
+<section class="block-area-header-after align-container">
 	
-	<?php theme_slug_the_reusable_block( $block_id ); ?>
+	<?php
+	foreach ( $blocks as $block ) {
+
+		if ( $block && $block['id'] && '' !== $block['id'] && '' !== $block['rule'] ) {
+
+			if ( Theme_Slug_Block_Area_Context::can_show_block_area( $block ) ) {
+
+				theme_slug_the_reusable_block( $block['id'] );
+			}
+		}
+	}
+	?>
 
 </section>

@@ -87,7 +87,7 @@ function theme_slug_get_reusable_blocks() {
 /**
  * Retrieves a reusable block object using its id.
  *
- * @param string $id The reusable block ID.
+ * @param int $id The reusable block ID.
  * @return WP_Post|null reusable block post
  */
 function theme_slug_get_reusable_block( $id ) {
@@ -115,7 +115,7 @@ function theme_slug_get_reusable_block( $id ) {
 /**
  * Print a reusable block.
  *
- * @param string $id ID of the block to print.
+ * @param int $id ID of the block to print.
  */
 function theme_slug_the_reusable_block( $id ) {
 

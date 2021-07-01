@@ -1,8 +1,8 @@
 /**
  * WordPress dependencies
  */
- import { useState, useEffect } from '@wordpress/element';
- import { Button, Dashicon } from '@wordpress/components';
+ import { useState } from '@wordpress/element';
+ import { Button, Dashicon, Tooltip } from '@wordpress/components';
  import { __ } from '@wordpress/i18n';
  
  /**
@@ -16,11 +16,6 @@ import times from 'lodash/times';
 import Select from 'react-select';
  
  const SelectBlocksComponent = ({ control }) => {
-
-	useEffect( () => {
-		console.log( 'choices: ', choices )
-		console.log( 'setting: ', settingValue )
-	} );
 
 	const defaultSettingValue = [
 		{
@@ -48,6 +43,22 @@ import Select from 'react-select';
 		} );
 		setSettingValue( newSettingValue );
 		control.setting.set( newSettingValue );
+	};
+
+	const Reset = () => {
+		return (
+			<Tooltip text={ __( 'Reset blocks', 'themeslug' ) }>
+				<Button
+					className="reset themeslug-reset"
+					onClick={ () => {
+						setSettingValue( defaultSettingValue );
+						control.setting.set( defaultSettingValue );
+					} }
+				>
+					reset
+				</Button>
+			</Tooltip>
+		);
 	};
 
 	const blockControls = ( blockIndex ) => {
@@ -81,9 +92,9 @@ import Select from 'react-select';
 						value= { ( undefined !== settingValue[ blockIndex ] && undefined !== settingValue[ blockIndex ].id && '' !== settingValue[ blockIndex ].id ? choices.blocks.filter( ( { value } ) => value === settingValue[ blockIndex ].id ) : '' ) }
 						onChange={ (newVal) => {
 							if ( ! newVal ) {
-								updateSettingValue( { id: '' }, blockIndex )
+								updateSettingValue( defaultSettingValue[0], blockIndex );
 							} else {
-								updateSettingValue( { id: newVal.value }, blockIndex )
+								updateSettingValue( { id: newVal.value, rule: 'global:site', select: 'all', subRule: '', subSelection: [], ids: [] }, blockIndex );
 							}
 						} }
 						isSearchable={ true }
@@ -120,6 +131,7 @@ import Select from 'react-select';
 		<>
 			<div className="themeslug-control-bar">
 				<span className="customize-control-title">{label}</span>
+				<div className="side-control"><Reset /></div>
 			</div>
 
 			<div className="themeslug-select-blocks">
