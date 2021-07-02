@@ -929,9 +929,6 @@ var SelectBlocksComponent = function SelectBlocksComponent(_ref) {
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("span", {
       className: "customize-control-title"
     }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('Select a block', 'themeslug'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(react_select__WEBPACK_IMPORTED_MODULE_6__["default"], {
-      className: "themeslug-select-blocks__select",
-      styles: customSelectStyles,
-      menuPosition: "fixed",
       options: choices.blocks,
       value: undefined !== settingValue[blockIndex] && undefined !== settingValue[blockIndex].id && '' !== settingValue[blockIndex].id ? choices.blocks.filter(function (_ref2) {
         var value = _ref2.value;
@@ -951,6 +948,9 @@ var SelectBlocksComponent = function SelectBlocksComponent(_ref) {
           }, blockIndex);
         }
       },
+      className: "themeslug-select-blocks__select",
+      styles: customSelectStyles,
+      menuPosition: "fixed",
       isSearchable: true,
       isClearable: true,
       placeholder: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('None')
@@ -978,6 +978,9 @@ var SelectBlocksComponent = function SelectBlocksComponent(_ref) {
           }, blockIndex);
         }
       },
+      className: "themeslug-select-blocks__select",
+      styles: customSelectStyles,
+      menuPosition: "fixed",
       isSearchable: false,
       isClearable: true,
       placeholder: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('None')

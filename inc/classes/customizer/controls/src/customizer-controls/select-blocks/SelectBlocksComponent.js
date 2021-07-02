@@ -95,9 +95,6 @@ import Select from 'react-select';
 						<span className="customize-control-title">{ __( 'Select a block', 'themeslug' ) }</span>
 					</div>
 					<Select
-						className={ "themeslug-select-blocks__select" }
-						styles={ customSelectStyles }
-						menuPosition={ "fixed" }
 						options={ choices.blocks }
 						value= { ( undefined !== settingValue[ blockIndex ] && undefined !== settingValue[ blockIndex ].id && '' !== settingValue[ blockIndex ].id ? choices.blocks.filter( ( { value } ) => value === settingValue[ blockIndex ].id ) : '' ) }
 						onChange={ (newVal) => {
@@ -107,6 +104,9 @@ import Select from 'react-select';
 								updateSettingValue( { id: newVal.value, rule: 'global:site', select: 'all', subRule: '', subSelection: [], ids: [] }, blockIndex );
 							}
 						} }
+						className={ "themeslug-select-blocks__select" }
+						styles={ customSelectStyles }
+						menuPosition={ "fixed" }
 						isSearchable={ true }
 						isClearable={ true }
 						placeholder={ __( 'None' ) }
@@ -127,6 +127,9 @@ import Select from 'react-select';
 									updateSettingValue( { rule: newVal.value }, blockIndex )
 								}
 							} }
+							className={ "themeslug-select-blocks__select" }
+							styles={ customSelectStyles }
+							menuPosition={ "fixed" }
 							isSearchable={ false }
 							isClearable={ true }
 							placeholder={ __( 'None' ) }
