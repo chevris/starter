@@ -856,8 +856,8 @@ var SelectBlocksComponent = function SelectBlocksComponent(_ref) {
     id: '',
     rule: 'global:site',
     select: 'all',
-    subRule: '',
-    subSelection: [],
+    sub_rule: '',
+    sub_selection: [],
     ids: []
   }];
   var _control$params = control.params,
@@ -868,7 +868,7 @@ var SelectBlocksComponent = function SelectBlocksComponent(_ref) {
     return obj.options;
   }));
 
-  var _useState = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["useState"])(control.setting.get()),
+  var _useState = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["useState"])(control.setting.get() && control.setting.get().length ? control.setting.get() : defaultSettingValue),
       _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default()(_useState, 2),
       settingValue = _useState2[0],
       setSettingValue = _useState2[1];
@@ -900,7 +900,7 @@ var SelectBlocksComponent = function SelectBlocksComponent(_ref) {
       className: "reset themeslug-reset",
       onClick: function onClick() {
         setSettingValue(defaultSettingValue);
-        control.setting.set(defaultSettingValue);
+        control.setting.set([]);
       }
     }, "reset"));
   };
@@ -942,8 +942,8 @@ var SelectBlocksComponent = function SelectBlocksComponent(_ref) {
             id: newVal.value,
             rule: 'global:site',
             select: 'all',
-            subRule: '',
-            subSelection: [],
+            sub_rule: '',
+            sub_selection: [],
             ids: []
           }, blockIndex);
         }

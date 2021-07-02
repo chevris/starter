@@ -15,15 +15,15 @@
 import times from 'lodash/times';
 import Select from 'react-select';
  
- const SelectBlocksComponent = ({ control }) => {
+const SelectBlocksComponent = ({ control }) => {
 
 	const defaultSettingValue = [
 		{
 			id: '',
 			rule: 'global:site',
 			select: 'all',
-			subRule: '',
-			subSelection: [],
+			sub_rule: '',
+			sub_selection: [],
 			ids: [],
 		}
 	]
@@ -32,7 +32,7 @@ import Select from 'react-select';
 	// Extract from choices object an array of rule choices` [ {value: "global:site", label: "Entire Site"} ...] `
 	const ruleChoices = [].concat.apply( [], choices.templates.map( obj => obj.options ) );
 
-	const [settingValue, setSettingValue] = useState( control.setting.get() );
+	const [settingValue, setSettingValue] = useState( control.setting.get() && control.setting.get().length ? control.setting.get() : defaultSettingValue );
 
 	const updateSettingValue = (newValues, blockIndex) => {
 		const newSettingValue = settingValue.map( ( obj, objIndex ) => {
@@ -59,7 +59,7 @@ import Select from 'react-select';
 					className="reset themeslug-reset"
 					onClick={ () => {
 						setSettingValue( defaultSettingValue );
-						control.setting.set( defaultSettingValue );
+						control.setting.set( [] );
 					} }
 				>
 					reset
@@ -101,7 +101,7 @@ import Select from 'react-select';
 							if ( ! newVal ) {
 								updateSettingValue( defaultSettingValue[0], blockIndex );
 							} else {
-								updateSettingValue( { id: newVal.value, rule: 'global:site', select: 'all', subRule: '', subSelection: [], ids: [] }, blockIndex );
+								updateSettingValue( { id: newVal.value, rule: 'global:site', select: 'all', sub_rule: '', sub_selection: [], ids: [] }, blockIndex );
 							}
 						} }
 						className={ "themeslug-select-blocks__select" }

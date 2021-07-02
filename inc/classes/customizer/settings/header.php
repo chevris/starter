@@ -93,16 +93,7 @@ $header_block_area_settings = array(
 
 	'theme_slug_header_before_blocks' => array(
 		'setting_args' => array(
-			'default'           => array(
-				array(
-					'id'            => '',
-					'rule'          => 'global:site',
-					'select'        => 'all',
-					'sub_rule'      => '',
-					'sub_selection' => array(),
-					'ids'           => array(),
-				),
-			),
+			'default' => array(),
 			'sanitize_callback' => 'theme_slug_sanitize_select_blocks',
 		),
 		'control_args' => array(

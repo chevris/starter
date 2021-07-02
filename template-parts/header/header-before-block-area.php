@@ -8,41 +8,25 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-
-$blocks = get_theme_mod(
-	'theme_slug_header_before_blocks',
-	array(
-		array(
-			'id'            => '',
-			'rule'          => 'global:site',
-			'select'        => 'all',
-			'sub_rule'      => '',
-			'sub_selection' => array(),
-			'ids'           => array(),
-		),
-	)
-);
+$blocks = get_theme_mod( 'theme_slug_header_before_blocks', array() );
 
 // Bail early if no reusable block to display.
-if ( 1 === count( $blocks ) && '' === $blocks[0]['id'] ) {
+if ( empty( $blocks ) ) {
 	return;
 }
 
-?>
+foreach ( $blocks as $block ) {
 
-<section class="block-area-header-before align-container">
-	
-	<?php
-	foreach ( $blocks as $block ) {
+	if ( $block && $block['id'] && '' !== $block['id'] && '' !== $block['rule'] ) {
 
-		if ( $block && $block['id'] && '' !== $block['id'] && '' !== $block['rule'] ) {
-
-			if ( Theme_Slug_Block_Area_Context::can_show_block_area( $block ) ) {
-
+		if ( Theme_Slug_Block_Area_Context::can_show_block_area( $block ) ) {
+			?>
+			<section class="block-area-header-before align-container">
+				<?php
 				theme_slug_the_reusable_block( $block['id'] );
-			}
+				?>
+			</section>
+			<?php
 		}
 	}
-	?>
-
-</section>
+}
