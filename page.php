@@ -12,6 +12,6 @@ defined( 'ABSPATH' ) || exit;
 
 get_header();
 
-get_template_part( 'template-parts/content/singular-content', 'page' );
+get_template_part( 'template-parts/content/singular-content', get_post_type() );
 
 get_footer();

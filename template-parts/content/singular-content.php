@@ -14,7 +14,7 @@ while ( have_posts() ) {
 	the_post();
 	?>
 
-	<?php do_action( 'theme_slug_singular_page_header' ); ?>
+	<?php get_template_part( 'template-parts/page-header/singular-page-header', get_post_type() ); ?>
 
 	<section id="primary" class="content-area">
 

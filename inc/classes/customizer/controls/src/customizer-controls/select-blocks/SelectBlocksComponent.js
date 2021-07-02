@@ -45,6 +45,13 @@ import Select from 'react-select';
 		control.setting.set( newSettingValue );
 	};
 
+	const customSelectStyles = {
+		menu: (provided, state) => ({
+		  ...provided,
+		  backgroundColor: '#fff',
+		}),
+	  }
+
 	const Reset = () => {
 		return (
 			<Tooltip text={ __( 'Reset blocks', 'themeslug' ) }>
@@ -88,6 +95,9 @@ import Select from 'react-select';
 						<span className="customize-control-title">{ __( 'Select a block', 'themeslug' ) }</span>
 					</div>
 					<Select
+						className={ "themeslug-select-blocks__select" }
+						styles={ customSelectStyles }
+						menuPosition={ "fixed" }
 						options={ choices.blocks }
 						value= { ( undefined !== settingValue[ blockIndex ] && undefined !== settingValue[ blockIndex ].id && '' !== settingValue[ blockIndex ].id ? choices.blocks.filter( ( { value } ) => value === settingValue[ blockIndex ].id ) : '' ) }
 						onChange={ (newVal) => {

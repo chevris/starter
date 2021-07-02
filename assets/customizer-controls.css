@@ -1,8 +1,4 @@
 @charset "UTF-8";
-.customize-pane-child {
-  min-height: 100%;
-}
-
 .in-sub-panel #customize-theme-controls .customize-pane-child.current-panel-parent {
   transform: translateX(-100%);
 }
@@ -17,6 +13,7 @@
   transition: height 200ms ease !important;
   border-bottom: none !important;
   overflow: hidden !important;
+  background: #fff;
 }
 .control-section-collapse.customize-pane-child {
   padding: 0 12px !important;

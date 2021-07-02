@@ -885,6 +885,14 @@ var SelectBlocksComponent = function SelectBlocksComponent(_ref) {
     control.setting.set(newSettingValue);
   };
 
+  var customSelectStyles = {
+    menu: function menu(provided, state) {
+      return _objectSpread(_objectSpread({}, provided), {}, {
+        backgroundColor: '#fff'
+      });
+    }
+  };
+
   var Reset = function Reset() {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["Tooltip"], {
       text: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('Reset blocks', 'themeslug')
@@ -921,6 +929,9 @@ var SelectBlocksComponent = function SelectBlocksComponent(_ref) {
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("span", {
       className: "customize-control-title"
     }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('Select a block', 'themeslug'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(react_select__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      className: "themeslug-select-blocks__select",
+      styles: customSelectStyles,
+      menuPosition: "fixed",
       options: choices.blocks,
       value: undefined !== settingValue[blockIndex] && undefined !== settingValue[blockIndex].id && '' !== settingValue[blockIndex].id ? choices.blocks.filter(function (_ref2) {
         var value = _ref2.value;

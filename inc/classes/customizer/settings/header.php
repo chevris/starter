@@ -82,6 +82,7 @@ Theme_Slug_Customizer::add_sections(
 				'title'    => esc_html__( 'Header Block Areas', 'themeslug' ),
 				'description' => esc_html__( 'Assign reusable blocks in header block areas.', 'themeslug' ),
 				'panel'    => 'theme_slug_header_panel',
+				'type'       => 'collapse',
 				'priority' => 2,
 			),
 		),
