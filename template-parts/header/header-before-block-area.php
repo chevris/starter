@@ -21,7 +21,7 @@ foreach ( $blocks as $block ) {
 
 		if ( Theme_Slug_Block_Area_Context::can_show_block_area( $block ) ) {
 			?>
-			<section class="block-area-header-before align-container">
+			<section class="align-container">
 				<?php
 				theme_slug_the_reusable_block( $block['id'] );
 				?>
