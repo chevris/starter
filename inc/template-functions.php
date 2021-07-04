@@ -72,7 +72,12 @@ function theme_slug_get_reusable_blocks() {
 		)
 	);
 
-	$blocks = array();
+	$blocks = array(
+		array(
+			'value' => 'none',
+			'label' => __( 'None', 'themeslug' ),
+		),
+	);
 	foreach ( $reusable_blocks as $block ) {
 		$choice = array(
 			'value' => $block->ID,

@@ -19,7 +19,7 @@ foreach ( $blocks as $block ) {
 
 	if ( $block && $block['id'] && '' !== $block['id'] && '' !== $block['rule'] ) {
 
-		if ( Theme_Slug_Block_Area_Context::can_show_block_area( $block ) ) {
+		if ( Theme_Slug_Block_Area::can_show_block_area( $block ) ) {
 			?>
 			<section class="align-container">
 				<?php

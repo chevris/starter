@@ -102,7 +102,7 @@ class Theme_Slug_Customizer {
 			'theme-slug-customizer-controls',
 			'themeslugCustomizeControlLocalize',
 			array(
-				'page_visibility_choices' => Theme_Slug_Block_Area_Context::get_page_visibility_choices(),
+				'page_visibility_choices' => Theme_Slug_Block_Area::get_page_visibility_choices(),
 			)
 		);
 

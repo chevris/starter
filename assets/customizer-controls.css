@@ -70,11 +70,9 @@
   padding: 0 8px;
   font-size: 11px;
   color: #007CBA;
-  color: var(--wp-admin-theme-color, #007CBA);
   background: transparent;
   border: none;
   box-shadow: inset 0 0 0 1px #007CBA;
-  box-shadow: inset 0 0 0 1px var(--wp-admin-theme-color, #007CBA);
   outline: 1px solid transparent;
 }
 .themeslug-control-bar.themeslug-control-bar--subtitle {
@@ -90,7 +88,19 @@
 }
 
 .themeslug-select-blocks__add-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   margin-top: 12px;
+  padding: 8px;
+  width: 100%;
+  height: auto;
+  color: #1e1e1e;
+  border: none;
+  box-shadow: inset 0 0 0 1px #1e1e1e;
+  cursor: pointer;
+  background: none;
 }
 
 .themeslug-multiselect .token {

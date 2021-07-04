@@ -852,8 +852,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 var SelectBlocksComponent = function SelectBlocksComponent(_ref) {
   var control = _ref.control;
+  Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
+    console.log(control.params.label + ':blocks choices: ', choices.blocks);
+    console.log(control.params.label, settingValue);
+  });
+  var showRemoveButton = false;
   var defaultSettingValue = [{
-    id: '',
+    id: 'none',
     rule: 'global:site',
     select: 'all',
     sub_rule: '',
@@ -868,7 +873,7 @@ var SelectBlocksComponent = function SelectBlocksComponent(_ref) {
     return obj.options;
   }));
 
-  var _useState = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["useState"])(control.setting.get() && control.setting.get().length ? control.setting.get() : defaultSettingValue),
+  var _useState = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["useState"])(control.setting.get() || []),
       _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default()(_useState, 2),
       settingValue = _useState2[0],
       setSettingValue = _useState2[1];
@@ -899,7 +904,7 @@ var SelectBlocksComponent = function SelectBlocksComponent(_ref) {
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["Button"], {
       className: "reset themeslug-reset",
       onClick: function onClick() {
-        setSettingValue(defaultSettingValue);
+        setSettingValue([]);
         control.setting.set([]);
       }
     }, "reset"));
@@ -910,20 +915,20 @@ var SelectBlocksComponent = function SelectBlocksComponent(_ref) {
       className: "themeslug-select-blocks__block"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: "themeslug-select-blocks__select-block"
-    }, 0 !== blockIndex && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+    }, 0 !== blockIndex && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("hr", null), showRemoveButton && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: "themeslug-select-blocks__remove"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("hr", null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["Button"], {
       icon: "no-alt",
       onClick: function onClick() {
         var settingValueFiltered = settingValue.filter(function (obj, objIndex) {
           return objIndex !== blockIndex;
-        });
+        }); // Remove this object from the settingValue array
+
         setSettingValue(settingValueFiltered);
         control.setting.set(settingValueFiltered);
       },
       className: "themeslug-remove-block",
-      label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('Remove Block', 'themeslug'),
-      disabled: 1 === settingValue.length
+      label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('Remove Block', 'themeslug')
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: "themeslug-control-bar themeslug-control-bar--subtitle"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("span", {
@@ -933,10 +938,18 @@ var SelectBlocksComponent = function SelectBlocksComponent(_ref) {
       value: undefined !== settingValue[blockIndex] && undefined !== settingValue[blockIndex].id && '' !== settingValue[blockIndex].id ? choices.blocks.filter(function (_ref2) {
         var value = _ref2.value;
         return value === settingValue[blockIndex].id;
-      }) : '',
+      }) : {
+        value: 'none',
+        label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('None', 'themeslug')
+      },
       onChange: function onChange(newVal) {
         if (!newVal) {
-          updateSettingValue(defaultSettingValue[0], blockIndex);
+          var settingValueFiltered = settingValue.filter(function (obj, objIndex) {
+            return objIndex !== blockIndex;
+          }); // Remove this object from the settingValue array
+
+          setSettingValue(settingValueFiltered);
+          control.setting.set(settingValueFiltered);
         } else {
           updateSettingValue({
             id: newVal.value,
@@ -952,9 +965,8 @@ var SelectBlocksComponent = function SelectBlocksComponent(_ref) {
       styles: customSelectStyles,
       menuPosition: "fixed",
       isSearchable: true,
-      isClearable: true,
-      placeholder: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('None')
-    })), '' !== settingValue[blockIndex].id && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      isClearable: true
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: "themeslug-select-blocks__template-visibility"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: "themeslug-control-bar themeslug-control-bar--subtitle"
@@ -983,7 +995,7 @@ var SelectBlocksComponent = function SelectBlocksComponent(_ref) {
       menuPosition: "fixed",
       isSearchable: false,
       isClearable: true,
-      placeholder: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('None')
+      placeholder: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('None', 'themeslug')
     })));
   };
 
@@ -999,14 +1011,16 @@ var SelectBlocksComponent = function SelectBlocksComponent(_ref) {
     return blockControls(i);
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["Button"], {
     className: "themeslug-select-blocks__add-block",
-    isPrimary: true,
     onClick: function onClick() {
       var settingValueExtended = settingValue.concat(defaultSettingValue);
       setSettingValue(settingValueExtended);
+      control.setting.set(settingValueExtended);
     }
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["Dashicon"], {
     icon: "plus"
-  }), Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('Add new block', 'themeslug')));
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("span", {
+    hidden: true
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('Add block', 'themeslug'))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (SelectBlocksComponent);

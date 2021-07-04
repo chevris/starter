@@ -27,7 +27,7 @@ $visibility_rule = get_theme_mod(
 	)
 );
 
-if ( ! Theme_Slug_Block_Area_Context::can_show_block_area( $visibility_rule ) ) {
+if ( ! Theme_Slug_Block_Area::can_show_block_area( $visibility_rule ) ) {
 	return;
 }
 

@@ -134,12 +134,12 @@ function theme_slug_sanitize_select_blocks( $value ) {
 			if ( ! in_array( $subfield_key, $valid_keys ) ) {
 				unset( $value[ $row_id ][ $subfield_key ] );
 			} else if ( 'id' === $subfield_key ) {
-				$value[ $row_id ][ $subfield_key ] = sanitize_text_field( $subfield_value );
+				// $value[ $row_id ][ $subfield_key ] = sanitize_text_field( $subfield_value );
 
 				if ( is_int( $subfield_value ) ) {
 					$value[ $row_id ][ $subfield_key ] = absint( $subfield_value );
 				} else {
-					$value[ $row_id ][ $subfield_key ] = '';
+					$value[ $row_id ][ $subfield_key ] = sanitize_text_field( $subfield_value );
 				}
 			} else if ( 'rule' === $subfield_key || 'select' === $subfield_key || 'sub_rule' === $subfield_key ) {
 				$value[ $row_id ][ $subfield_key ] = sanitize_text_field( $subfield_value );

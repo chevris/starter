@@ -5,5 +5,17 @@
 }
 
 .themeslug-select-blocks__add-block {
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 	margin-top: 12px;
+    padding: 8px;
+    width: 100%;
+    height: auto;
+    color: #1e1e1e;
+    border: none;
+    box-shadow: inset 0 0 0 1px #1e1e1e;
+    cursor: pointer;
+    background: none;
 }

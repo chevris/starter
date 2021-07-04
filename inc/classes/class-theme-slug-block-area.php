@@ -8,12 +8,12 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'Theme_Slug_Block_Area_Context' ) ) :
+if ( ! class_exists( 'Theme_Slug_Block_Area' ) ) :
 
 	/**
 	 * Block area context class
 	 */
-	class Theme_Slug_Block_Area_Context {
+	class Theme_Slug_Block_Area {
 
 		/**
 		 * Holds the current page conditions.
@@ -210,49 +210,49 @@ if ( ! class_exists( 'Theme_Slug_Block_Area_Context' ) ) :
 		/**
 		 * Determines whether the block area can be displayed on this page.
 		 *
-		 * @param array $rule_setting Rule from customizer settings.
+		 * @param array $block An array representation of a block with rules from customizer settings.
 		 * @return boolean True if the block area can be displayed on this page.
 		 */
-		public static function can_show_block_area( $rule_setting ) {
+		public static function can_show_block_area( $block ) {
 
 			$show = false;
 			$current_page_conditions = self::get_current_page_conditions();
 
-			if ( isset( $rule_setting['rule'] ) && in_array( $rule_setting['rule'], $current_page_conditions ) ) {
+			if ( isset( $block['rule'] ) && in_array( $block['rule'], $current_page_conditions ) ) {
 
-				$rule_parts = explode( ':', $rule_setting['rule'], 2 );
+				$rule_parts = explode( ':', $block['rule'], 2 );
 
 				if ( in_array( $rule_parts[0], array( 'singular', 'tax_archive' ) ) ) {
 
-					if ( ! isset( $rule_setting['select'] ) || isset( $rule_setting['select'] ) && 'all' === $rule_setting['select'] ) {
+					if ( ! isset( $block['select'] ) || isset( $block['select'] ) && 'all' === $block['select'] ) {
 						$show = true;
-					} else if ( isset( $rule_setting['select'] ) && 'author' === $rule_setting['select'] ) {
-						if ( isset( $rule_setting['sub_rule'] ) && get_post_field( 'post_author', get_queried_object_id() ) === $rule_setting['sub_rule'] ) {
+					} else if ( isset( $block['select'] ) && 'author' === $block['select'] ) {
+						if ( isset( $block['sub_rule'] ) && get_post_field( 'post_author', get_queried_object_id() ) === $block['sub_rule'] ) {
 							$show = true;
 						}
-					} else if ( isset( $rule_setting['select'] ) && 'tax' === $rule_setting['select'] ) {
-						if ( isset( $rule_setting['sub_rule'] ) && isset( $rule_setting['sub_selection'] ) && is_array( $rule_setting['sub_selection'] ) ) {
-							foreach ( $rule_setting['sub_selection'] as $sub_select_key => $sub_selection ) {
-								if ( has_term( $sub_selection['value'], $rule_setting['sub_rule'] ) ) {
+					} else if ( isset( $block['select'] ) && 'tax' === $block['select'] ) {
+						if ( isset( $block['sub_rule'] ) && isset( $block['sub_selection'] ) && is_array( $block['sub_selection'] ) ) {
+							foreach ( $block['sub_selection'] as $sub_select_key => $sub_selection ) {
+								if ( has_term( $sub_selection['value'], $block['sub_rule'] ) ) {
 									$show = true;
-								} elseif ( self::post_is_in_descendant_term( $sub_selection['value'], $rule_setting['sub_rule'] ) ) {
+								} elseif ( self::post_is_in_descendant_term( $sub_selection['value'], $block['sub_rule'] ) ) {
 									$show = true;
 								}
 							}
 						}
-					} else if ( isset( $rule_setting['select'] ) && 'ids' === $rule_setting['select'] ) {
-						if ( isset( $rule_setting['ids'] ) && is_array( $rule_setting['ids'] ) ) {
-							foreach ( $rule_setting['ids'] as $key => $id ) {
+					} else if ( isset( $block['select'] ) && 'ids' === $block['select'] ) {
+						if ( isset( $block['ids'] ) && is_array( $block['ids'] ) ) {
+							foreach ( $block['ids'] as $key => $id ) {
 								if ( get_the_ID() === $id ) {
 									$show = true;
 								}
 							}
 						}
-					} else if ( isset( $rule_setting['select'] ) && 'individual' === $rule_setting['select'] ) {
-						if ( isset( $rule_setting['sub_selection'] ) && is_array( $rule_setting['sub_selection'] ) ) {
+					} else if ( isset( $block['select'] ) && 'individual' === $block['select'] ) {
+						if ( isset( $block['sub_selection'] ) && is_array( $block['sub_selection'] ) ) {
 							$queried_obj = get_queried_object();
 							$selected_taxs   = array();
-							foreach ( $rule_setting['sub_selection'] as $sub_select_key => $sub_selection ) {
+							foreach ( $block['sub_selection'] as $sub_select_key => $sub_selection ) {
 								if ( isset( $sub_selection['value'] ) && ! empty( $sub_selection['value'] ) ) {
 									$selected_taxs[] = $sub_selection['value'];
 								}

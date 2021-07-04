@@ -35,7 +35,7 @@ if ( 1 === count( $blocks ) && '' === $blocks[0]['id'] ) {
 
 		if ( $block && $block['id'] && '' !== $block['id'] && '' !== $block['rule'] ) {
 
-			if ( Theme_Slug_Block_Area_Context::can_show_block_area( $block ) ) {
+			if ( Theme_Slug_Block_Area::can_show_block_area( $block ) ) {
 
 				theme_slug_the_reusable_block( $block['id'] );
 			}

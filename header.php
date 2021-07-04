@@ -29,7 +29,37 @@
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'themeslug' ); ?></a>
 
 	<?php do_action( 'theme_slug_header_before' ); ?>
-	<?php do_action( 'theme_slug_header' ); ?>
+
+	<?php
+	$blocks = get_theme_mod( 'theme_slug_header_replace_blocks', array() );
+	if ( ! empty( $blocks ) ) {
+		$block_is_displayed = false;
+		$should_header_display = false;
+
+		foreach ( $blocks as $block ) {
+
+			if ( Theme_Slug_Block_Area::can_show_block_area( $block ) ) {
+
+				$block_is_displayed = true;
+				$should_header_display = false;
+				if ( 'none' !== $block['id'] ) {
+					theme_slug_the_reusable_block( $block['id'] );
+				}
+			} else {
+				if ( ! $block_is_displayed ) {
+					$should_header_display = true;
+				}
+			}
+		}
+
+		if ( $should_header_display ) {
+			do_action( 'theme_slug_header' );
+		}
+	} else {
+		do_action( 'theme_slug_header' );
+	}
+	?>
+
 	<?php do_action( 'theme_slug_header_after' ); ?>
 
 	<div id="content" class="site-content">
