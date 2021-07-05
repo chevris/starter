@@ -2,3 +2,13 @@ body {
 	font-size: var(--ts--fs-base);
 	background-color: var(--ts--cl-bg);
 }
+
+.site {
+	min-height: calc(100vh - var(--admin-bar-height));
+	display: flex;
+	flex-direction: column;
+}
+
+.site-content {
+	flex-grow: 1;
+}

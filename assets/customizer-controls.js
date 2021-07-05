@@ -758,6 +758,7 @@ var ReactMultiSelectComponent = function ReactMultiSelectComponent(_ref) {
     className: "themeslug-react-select",
     classNamePrefix: "themeslug",
     isMulti: true,
+    menuPosition: "fixed",
     isSearchable: false,
     isClearable: true,
     placeholder: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Not visible')
@@ -852,9 +853,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 var SelectBlocksComponent = function SelectBlocksComponent(_ref) {
   var control = _ref.control;
-  Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
-    console.log(control.params.label + ':blocks choices: ', choices.blocks);
-    console.log(control.params.label, settingValue);
+  Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {// console.log( control.params.label + ':blocks choices: ', choices.blocks )
+    // console.log( control.params.label, settingValue )
   });
   var showRemoveButton = false;
   var defaultSettingValue = [{

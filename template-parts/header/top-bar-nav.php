@@ -12,9 +12,25 @@ defined( 'ABSPATH' ) || exit;
 if ( ! has_nav_menu( 'top-bar' ) ) {
 	return;
 }
+
+$device_visibility = Theme_Slug_Template_Context::get_context( 'header', 'top_bar_nav', 'devices' );
+
+$top_bar_class = array( 'top-bar-nav' );
+
+if ( ! in_array( 'desktop', $device_visibility ) ) {
+	$top_bar_class[] = 'desktop-vis-false';
+}
+if ( ! in_array( 'tablet', $device_visibility ) ) {
+	$top_bar_class[] = 'tablet-vis-false';
+}
+if ( ! in_array( 'mobile', $device_visibility ) ) {
+	$top_bar_class[] = 'mobile-vis-false';
+}
+
+$top_bar_class = implode( ' ', $top_bar_class );
 ?>
 
-<nav class="top-bar-nav" role="navigation">
+<nav class="<?php echo esc_attr( $top_bar_class ); ?>" role="navigation">
 
 	<?php
 	// Top-bar menu is 1 level only for now.

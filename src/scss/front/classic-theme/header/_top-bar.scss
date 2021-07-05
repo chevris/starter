@@ -8,3 +8,9 @@
 	justify-content: space-between;
 	align-items: center;
 }
+
+.top-bar-end {
+	display: flex;
+	justify-content: flex-end;
+	flex-grow: 1;
+}

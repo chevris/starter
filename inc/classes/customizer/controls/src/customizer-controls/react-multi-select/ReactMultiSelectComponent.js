@@ -55,6 +55,7 @@ const ReactMultiSelectComponent = ({ control }) => {
 				className="themeslug-react-select"
 				classNamePrefix="themeslug"
 				isMulti={ true }
+				menuPosition={ "fixed" }
 				isSearchable={ false }
 				isClearable={ true }
 				placeholder={ __( 'Not visible' ) }

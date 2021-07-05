@@ -74,16 +74,61 @@ $header_settings = array(
 );
 Theme_Slug_Customizer::add_settings( $header_settings );
 
+// Top bar nav settings.
+Theme_Slug_Customizer::add_sections(
+	array(
+		'theme_slug_header_top_bar_nav_section' => array(
+			'section_args' => array(
+				'title'    => esc_html__( 'Top bar navigation', 'themeslug' ),
+				'panel'    => 'theme_slug_header_panel',
+				'type'       => 'collapse',
+				'priority' => 2,
+			),
+		),
+	)
+);
+
+$header_top_bar_nav_settings = array(
+	'theme_slug_header_top_bar_nav_device_visibility' => array(
+		'setting_args' => array(
+			'default'           => array( 'desktop' ),
+			'sanitize_callback' => 'theme_slug_sanitize_multi_select',
+		),
+		'control_args' => array(
+			'label'    => esc_html__( 'Device Visibility', 'themeslug' ),
+			'section'  => 'theme_slug_header_top_bar_nav_section',
+			'priority' => 10,
+			'choices'  => array(
+				array(
+					'value' => 'desktop',
+					'label' => __( 'Desktop', 'themeslug' ),
+				),
+				array(
+					'value' => 'tablet',
+					'label' => __( 'Tablet', 'themeslug' ),
+				),
+				array(
+					'value' => 'mobile',
+					'label' => __( 'Mobile', 'themeslug' ),
+				),
+			),
+			'reset_values' => array( 'desktop' ),
+		),
+		'custom_control' => 'Theme_Slug_React_Multi_Select',
+	),
+);
+Theme_Slug_Customizer::add_settings( $header_top_bar_nav_settings );
+
 // Header block area settings.
 Theme_Slug_Customizer::add_sections(
 	array(
 		'theme_slug_header_block_area_section' => array(
 			'section_args' => array(
-				'title'    => esc_html__( 'Header Block Areas', 'themeslug' ),
+				'title'    => esc_html__( 'Header block areas', 'themeslug' ),
 				'description' => esc_html__( 'Assign reusable blocks in header block areas.', 'themeslug' ),
 				'panel'    => 'theme_slug_header_panel',
 				'type'       => 'collapse',
-				'priority' => 2,
+				'priority' => 3,
 			),
 		),
 	)
@@ -107,39 +152,6 @@ $header_block_area_settings = array(
 		),
 		'custom_control' => 'Theme_Slug_Select_Blocks',
 	),
-
-	/*
-	'theme_slug_header_before_device_visibility' => array(
-		'setting_args' => array(
-			'default'           => array( 'desktop', 'tablet', 'mobile' ),
-			'sanitize_callback' => 'theme_slug_sanitize_multi_select',
-		),
-		'control_args' => array(
-			'label'    => esc_html__( 'Device Visibility', 'themeslug' ),
-			'section'  => 'theme_slug_header_block_area_section',
-			'priority' => 10,
-			'choices'  => array(
-				array(
-					'value' => 'desktop',
-					'label' => __( 'Desktop', 'themeslug' ),
-				),
-				array(
-					'value' => 'tablet',
-					'label' => __( 'Tablet', 'themeslug' ),
-				),
-				array(
-					'value' => 'mobile',
-					'label' => __( 'Mobile', 'themeslug' ),
-				),
-			),
-			'reset_values' => array( 'desktop', 'tablet', 'mobile' ),
-			'active_callback' => function() {
-				return get_theme_mod( 'theme_slug_header_before_content' ) !== '';
-			},
-		),
-		'custom_control' => 'Theme_Slug_React_Multi_Select',
-	),
-	*/
 
 	'theme_slug_header_after_blocks' => array(
 		'setting_args' => array(
