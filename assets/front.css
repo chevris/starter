@@ -16,7 +16,7 @@
   --ts--header-drawer-cl-text: #FFFFFF;
   --ts--header-aside-width: 64px;
   --ts--header-aside-cl-bg: var(--ts--header-drawer-cl-bg);
-  --admin-bar-height: 0;
+  --admin-bar-height: 0px;
 }
 @media (min-width: 600px) {
   :root {
@@ -99,7 +99,7 @@ body {
 }
 
 .site {
-  min-height: calc(100vh - 0);
+  min-height: calc(100vh - 0px);
   min-height: calc(100vh - var(--admin-bar-height));
   display: flex;
   flex-direction: column;
@@ -398,7 +398,7 @@ Dropdown vertical menu
   background: transparent;
   display: none;
   position: fixed;
-  top: 0;
+  top: 0px;
   top: var(--admin-bar-height);
   bottom: 0;
   left: 0;
@@ -582,7 +582,7 @@ amp-sidebar.drawer-header-amp {
   position: fixed;
   bottom: 0;
   left: 0;
-  top: 0;
+  top: 0px;
   top: var(--admin-bar-height);
   width: 64px;
   width: var(--ts--header-aside-width);

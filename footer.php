@@ -13,28 +13,30 @@
 
 	</div><!-- #content -->
 
-	<footer class="site-footer">
-		<div class="site-footer-inner">
+	<?php
+	$blocks = get_theme_mod( 'theme_slug_footer_replace_blocks', array() );
+	var_dump( $blocks );
 
-			<div class="footer-start">
-				<span class="footer-copyright">&copy; <?php echo esc_html( date_i18n( esc_html__( 'Y', 'themeslug' ) ) ); ?> <a href="<?php echo esc_url( home_url() ); ?>" rel="home"><?php echo bloginfo( 'name' ); ?></a></span>
+	$has_block = false;
 
-				<span class="footer-theme-credits">
-					<?php
-					// Translators: $s = name of the theme developer.
-					printf( esc_html_x( 'Theme by %s', 'Translators: $s = name of the theme developer', 'themeslug' ), '<a href="#">Téva</a>' );
-					?>
-				</span>
+	if ( ! empty( $blocks ) ) {
 
-				<?php
-				if ( function_exists( 'the_privacy_policy_link' ) ) {
-					the_privacy_policy_link( '', '' );
+		foreach ( $blocks as $block ) {
+
+			if ( Theme_Slug_Block_Area::can_show_block_area( $block ) ) {
+				$has_block = true;
+
+				if ( $block['id'] && 'none' !== $block['id'] ) {
+					theme_slug_the_reusable_block( $block['id'] );
 				}
-				?>
-			</div>
-		
-		</div>
-	</footer>
+			}
+		}
+	}
+
+	if ( ! $has_block ) {
+		get_template_part( 'template-parts/footer/footer' );
+	}
+	?>
 
 </div><!-- #page -->
 
