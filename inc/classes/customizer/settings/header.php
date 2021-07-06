@@ -170,22 +170,5 @@ $header_block_area_settings = array(
 		'custom_control' => 'Theme_Slug_Select_Blocks',
 	),
 
-	'theme_slug_header_replace_blocks' => array(
-		'setting_args' => array(
-			'default'           => array(),
-			'sanitize_callback' => 'theme_slug_sanitize_select_blocks',
-		),
-		'control_args' => array(
-			'label'    => esc_html__( 'Replace the header', 'themeslug' ),
-			'section'  => 'theme_slug_header_block_area_section',
-			'priority' => 10,
-			'choices'  => array(
-				'blocks' => theme_slug_get_reusable_blocks(),
-				'templates' => Theme_Slug_Block_Area::get_page_visibility_choices(),
-			),
-		),
-		'custom_control' => 'Theme_Slug_Select_Blocks',
-	),
-
 );
 Theme_Slug_Customizer::add_settings( $header_block_area_settings );

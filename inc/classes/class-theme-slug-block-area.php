@@ -271,6 +271,35 @@ if ( ! class_exists( 'Theme_Slug_Block_Area' ) ) :
 
 		}
 
+		/**
+		 * Display blocks of a block area.
+		 *
+		 * @param array $blocks An array of blocks to display in this block area.
+		 */
+		public static function display_block_area( $blocks ) {
+
+			// Bail early if no block block to display.
+			if ( empty( $blocks ) ) {
+				return;
+			}
+
+			foreach ( $blocks as $block ) {
+
+				if ( self::can_show_block_area( $block ) ) {
+
+					if ( $block['id'] && 'none' !== $block['id'] ) {
+						?>
+						<section class="align-container">
+							<?php
+							theme_slug_the_reusable_block( $block['id'] );
+							?>
+						</section>
+						<?php
+					}
+				}
+			}
+		}
+
 	}
 
 endif;
