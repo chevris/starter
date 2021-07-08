@@ -213,6 +213,8 @@ class Theme_Slug_Customizer {
 		require_once get_template_directory() . '/inc/classes/customizer/settings/custom-logo.php';
 		require_once get_template_directory() . '/inc/classes/customizer/settings/header.php';
 		require_once get_template_directory() . '/inc/classes/customizer/settings/footer.php';
+		require_once get_template_directory() . '/inc/classes/customizer/settings/archives.php';
+		require_once get_template_directory() . '/inc/classes/customizer/settings/search-results.php';
 	}
 
 	/**

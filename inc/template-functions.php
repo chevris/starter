@@ -5,6 +5,19 @@
  * @package Theme_Slug
  */
 
+/*
+ * theme_slug_get_version()
+ * theme_slug_get_asset_version()
+ * theme_slug_is_amp()
+ * theme_slug_the_html_classes()
+ * theme_slug_get_reusable_blocks()
+ * theme_slug_get_reusable_block()
+ * theme_slug_the_reusable_block()
+ * theme_slug_get_public_post_types()
+ * theme_slug_get_excluded_public_post_types()
+ * theme_slug_get_archive_title_prefix()
+*/
+
 /**
  * Gets the theme version.
  *
@@ -176,3 +189,79 @@ function theme_slug_get_excluded_public_post_types() {
 
 	return $excluded_post_types;
 }
+
+/**
+ * Removes core archive title prefix ( handled separatly with theme_slug_get_archive_title_prefix() )
+ */
+add_filter( 'get_the_archive_title_prefix', '__return_false' );
+
+/**
+ * Gets a custom archive title prefix
+ *
+ * @return string
+ */
+function theme_slug_get_archive_title_prefix() {
+
+	$prefix = '';
+
+	if ( is_search() ) {
+		$prefix = get_theme_mod( 'theme_slug_search_results_title_section_title_prefix', '' );
+	} elseif ( is_category() ) {
+		$prefix = esc_html_x( 'Category', 'category archive title prefix', 'themeslug' );
+	} elseif ( is_tag() ) {
+		$prefix = esc_html_x( 'Tag', 'tag archive title prefix', 'themeslug' );
+	} elseif ( is_author() ) {
+		$prefix = esc_html_x( 'Author', 'author archive title prefix', 'themeslug' );
+	} elseif ( is_year() ) {
+		$prefix = esc_html_x( 'Year', 'date archive title prefix', 'themeslug' );
+	} elseif ( is_month() ) {
+		$prefix = esc_html_x( 'Month', 'date archive title prefix', 'themeslug' );
+	} elseif ( is_day() ) {
+		$prefix = esc_html_x( 'Day', 'date archive title prefix', 'themeslug' );
+	} elseif ( is_post_type_archive() ) {
+		// No prefix for post type archives.
+		$prefix = '';
+	} elseif ( is_tax() ) {
+		$queried_object = get_queried_object();
+		if ( $queried_object ) {
+			$tax    = get_taxonomy( $queried_object->taxonomy );
+			$prefix = sprintf(
+				/* translators: %s: Taxonomy singular name. */
+				esc_html_x( '%s:', 'taxonomy term archive title prefix', 'themeslug' ),
+				$tax->labels->singular_name
+			);
+		}
+	} elseif ( is_home() && is_paged() ) {
+		$prefix = esc_html_x( 'Archives', 'general archive title prefix', 'themeslug' );
+	}
+
+	return apply_filters( 'theme_slug_filter_archive_title_prefix', $prefix );
+}
+
+
+if ( ! function_exists( 'theme_slug_filter_archive_title' ) ) :
+	/**
+	 * Filters the default archive titles.
+	 *
+	 * @param string $title the name of the archive.
+	 *
+	 * @return string Archive title.
+	 */
+	function theme_slug_filter_archive_title( $title ) {
+
+		if ( is_home() && ! is_paged() ) {
+			$title = get_theme_mod( 'theme_slug_archives_title_section_home_title', '' );
+		} elseif ( is_home() && is_paged() ) {
+			global $wp_query;
+			$paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
+			$max = isset( $wp_query->max_num_pages ) ? $wp_query->max_num_pages : 1;
+			/* translators: 1: Current page number, 2: Number of pages */
+			$title = sprintf( esc_html_x( 'Page %1$s of %2$s', '%1$s = Current page number, %2$s = Number of pages', 'themeslug' ), $paged, $max );
+		} elseif ( is_search() ) {
+			$title = '&ldquo;' . get_search_query() . '&rdquo;';
+		}
+
+		return $title;
+	}
+	add_filter( 'get_the_archive_title', 'theme_slug_filter_archive_title' );
+endif;

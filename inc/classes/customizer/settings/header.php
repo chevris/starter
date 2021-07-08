@@ -20,7 +20,7 @@ Theme_Slug_Customizer::add_panels(
 	)
 );
 
-// Classic header settings.
+// header settings.
 Theme_Slug_Customizer::add_sections(
 	array(
 		'theme_slug_header_section' => array(

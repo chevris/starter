@@ -11,7 +11,27 @@
 defined( 'ABSPATH' ) || exit;
 
 get_header();
+?>
+<?php
+while ( have_posts() ) {
+	the_post();
+	?>
 
-get_template_part( 'template-parts/content/singular-content', get_post_type() );
+	<?php get_template_part( 'template-parts/title-section/title-section', get_post_type() ); ?>
 
+	<section id="primary" class="content-area">
+
+		<main id="main" class="site-main" role="main">
+
+			<?php get_template_part( 'template-parts/content/singular_entry', get_post_type() ); ?>
+
+		</main><!-- .site-main -->
+
+	</section><!-- .content-area -->
+
+	<?php
+}
+?>
+
+<?php
 get_footer();

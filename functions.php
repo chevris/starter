@@ -278,8 +278,6 @@ require get_template_directory() . '/inc/classes/class-theme-slug-block-area.php
 require get_template_directory() . '/inc/dynamic-style.php';
 
 require get_template_directory() . '/inc/classes/class-theme-slug-header.php';
-require get_template_directory() . '/inc/classes/class-theme-slug-content-archive.php';
-require get_template_directory() . '/inc/classes/class-theme-slug-content-singular.php';
 
 // ----------------------------------------------------------------------------------------------
 // REGISTER STYLES
