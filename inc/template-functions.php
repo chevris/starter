@@ -250,7 +250,7 @@ if ( ! function_exists( 'theme_slug_filter_archive_title' ) ) :
 	function theme_slug_filter_archive_title( $title ) {
 
 		if ( is_home() && ! is_paged() ) {
-			$title = get_theme_mod( 'theme_slug_archives_title_section_home_title', '' );
+			$title = get_theme_mod( 'theme_slug_blog_title_section_title', '' );
 		} elseif ( is_home() && is_paged() ) {
 			global $wp_query;
 			$paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;

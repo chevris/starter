@@ -1,6 +1,11 @@
 <?php
 /**
- * The template for displaying search results pages
+ * The template for displaying archive pages
+ *
+ * This is the most generic template file in a WordPress theme
+ * and one of the two required files for a theme (the other being style.css).
+ * It is used to display a page when nothing more specific matches a query.
+ * E.g., it puts together the home page when no home.php file exists.
  *
  * @link https://codex.wordpress.org/Template_Hierarchy
  *
@@ -10,13 +15,9 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-$search_results_title_prefix = theme_slug_get_archive_title_prefix();
-$search_results_title = get_the_archive_title();
-
-$title_before_blocks = get_theme_mod( 'theme_slug_search_results_title_section_before_blocks', array() );
-$title_after_blocks = get_theme_mod( 'theme_slug_search_results_title_section_after_blocks', array() );
-$title_replace_blocks = get_theme_mod( 'theme_slug_search_results_title_section_replace_blocks', array() );
-
+$title_before_blocks = get_theme_mod( 'theme_slug_archives_title_section_before_blocks', array() );
+$title_after_blocks = get_theme_mod( 'theme_slug_archives_title_section_after_blocks', array() );
+$title_replace_blocks = get_theme_mod( 'theme_slug_archives_title_section_replace_blocks', array() );
 
 get_header();
 ?>
@@ -25,6 +26,9 @@ get_header();
 if ( have_posts() ) {
 
 	Theme_Slug_Block_Area::display_block_area( $title_before_blocks );
+
+	// True if at least one title replace block is displayed on this template.
+	$has_title_replace_block = false;
 
 	if ( ! empty( $title_replace_blocks ) ) {
 
@@ -47,20 +51,9 @@ if ( have_posts() ) {
 	}
 
 	if ( ! $has_title_replace_block ) {
-		?>
-		<header class="title-section">
-			<?php
-			if ( $search_results_title_prefix ) {
-				?>
-				<div class="search-results-title-prefix"><?php echo wp_kses_post( wpautop( $search_results_title_prefix ) ); ?></div>
-				<?php
-			}
-			?>
-		
-			<h1 class="search-results-title"><?php echo $search_results_title; // phpcs:ignore WordPress.Security.EscapeOutput ?></h1>
-		</header>
-		<?php
+		get_template_part( 'template-parts/title-section/archive-title-section' );
 	}
+
 	Theme_Slug_Block_Area::display_block_area( $title_after_blocks );
 }
 ?>
