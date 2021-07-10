@@ -146,7 +146,9 @@ function theme_slug_the_reusable_block( $id ) {
 }
 
 /**
- * Retrieves public post types
+ * Retrieves public post types names
+ *
+ * @return array An array of public post types names
  */
 function theme_slug_get_public_post_types() {
 

@@ -853,25 +853,26 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 var SelectBlocksComponent = function SelectBlocksComponent(_ref) {
   var control = _ref.control;
-  Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {// console.log( control.params.label + ':blocks choices: ', choices.blocks )
-    // console.log( control.params.label, settingValue )
+  Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
+    // console.log( control.params.label + ':blocks choices: ', choices.blocks )
+    console.log(control.params.label, settingValue);
   });
+  var _control$params = control.params,
+      label = _control$params.label,
+      choices = _control$params.choices;
   var showRemoveButton = false;
-  var defaultSettingValue = [{
+  var defaultNewSettingValue = control.params.new_default_value && control.params.new_default_value.length ? control.params.new_default_value : [{
     id: 'none',
     rule: 'global:site',
     select: 'all',
     sub_rule: '',
     sub_selection: [],
     ids: []
-  }];
-  var _control$params = control.params,
-      label = _control$params.label,
-      choices = _control$params.choices; // Extract from choices object an array of rule choices` [ {value: "global:site", label: "Entire Site"} ...] `
+  }]; // Extract from choices object an array of rule choices` [ {value: "global:site", label: "Entire Site"} ...] `
 
-  var ruleChoices = [].concat.apply([], choices.templates.map(function (obj) {
+  var ruleChoices = choices.templates ? [].concat.apply([], choices.templates.map(function (obj) {
     return obj.options;
-  }));
+  })) : [];
 
   var _useState = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["useState"])(control.setting.get() || []),
       _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default()(_useState, 2),
@@ -952,12 +953,7 @@ var SelectBlocksComponent = function SelectBlocksComponent(_ref) {
           control.setting.set(settingValueFiltered);
         } else {
           updateSettingValue({
-            id: newVal.value,
-            rule: 'global:site',
-            select: 'all',
-            sub_rule: '',
-            sub_selection: [],
-            ids: []
+            id: newVal.value
           }, blockIndex);
         }
       },
@@ -966,7 +962,7 @@ var SelectBlocksComponent = function SelectBlocksComponent(_ref) {
       menuPosition: "fixed",
       isSearchable: true,
       isClearable: true
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+    })), choices.templates && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: "themeslug-select-blocks__template-visibility"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: "themeslug-control-bar themeslug-control-bar--subtitle"
@@ -1012,7 +1008,7 @@ var SelectBlocksComponent = function SelectBlocksComponent(_ref) {
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["Button"], {
     className: "themeslug-select-blocks__add-block",
     onClick: function onClick() {
-      var settingValueExtended = settingValue.concat(defaultSettingValue);
+      var settingValueExtended = settingValue.concat(defaultNewSettingValue);
       setSettingValue(settingValueExtended);
       control.setting.set(settingValueExtended);
     }

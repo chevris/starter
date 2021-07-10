@@ -26,6 +26,9 @@ if ( have_posts() ) {
 
 	Theme_Slug_Block_Area::display_block_area( $title_before_blocks );
 
+	// True if at least one title replace block is displayed on this template.
+	$has_title_replace_block = false;
+
 	if ( ! empty( $title_replace_blocks ) ) {
 
 		foreach ( $title_replace_blocks as $title_replace_block ) {

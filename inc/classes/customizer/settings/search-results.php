@@ -13,7 +13,7 @@ Theme_Slug_Customizer::add_panels(
 		'theme_slug_search_results_panel' => array(
 			'panel_args' => array(
 				'title'    => esc_html__( 'Search results page', 'themeslug' ),
-				'priority' => 154,
+				'priority' => 156,
 			),
 			'custom_panel' => 'Theme_Slug_Nested_Panel',
 		),
@@ -92,7 +92,6 @@ $title_section_block_area_settings = array(
 			'priority' => 10,
 			'choices'  => array(
 				'blocks' => theme_slug_get_reusable_blocks(),
-				'templates' => Theme_Slug_Block_Area::get_page_visibility_choices(),
 			),
 		),
 		'custom_control' => 'Theme_Slug_Select_Blocks',
@@ -109,7 +108,6 @@ $title_section_block_area_settings = array(
 			'priority' => 10,
 			'choices'  => array(
 				'blocks' => theme_slug_get_reusable_blocks(),
-				'templates' => Theme_Slug_Block_Area::get_page_visibility_choices(),
 			),
 		),
 		'custom_control' => 'Theme_Slug_Select_Blocks',
@@ -126,7 +124,6 @@ $title_section_block_area_settings = array(
 			'priority' => 10,
 			'choices'  => array(
 				'blocks' => theme_slug_get_reusable_blocks(),
-				'templates' => Theme_Slug_Block_Area::get_page_visibility_choices(),
 			),
 		),
 		'custom_control' => 'Theme_Slug_Select_Blocks',

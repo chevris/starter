@@ -25,10 +25,18 @@ class Theme_Slug_Select_Blocks extends WP_Customize_Control {
 	public $choices = array();
 
 	/**
+	 * Additional arguments passed to JS.
+	 *
+	 * @var array
+	 */
+	public $new_default_value = array();
+
+	/**
 	 * Send to JS.
 	 */
 	public function to_json() {
 		parent::to_json();
 		$this->json['choices'] = $this->choices;
+		$this->json['new_default_value'] = $this->new_default_value;
 	}
 }

@@ -22,8 +22,9 @@ const SelectBlocksComponent = ({ control }) => {
 		// console.log( control.params.label, settingValue )
 	} );
 
+	const { label, choices } = control.params;
 	const showRemoveButton = false;
-	const defaultSettingValue = [
+	const defaultNewSettingValue = control.params.new_default_value && control.params.new_default_value.length ? control.params.new_default_value : [
 		{
 			id: 'none',
 			rule: 'global:site',
@@ -32,11 +33,10 @@ const SelectBlocksComponent = ({ control }) => {
 			sub_selection: [],
 			ids: [],
 		}
-	]
-	const { label, choices } = control.params;
+	];
 	
 	// Extract from choices object an array of rule choices` [ {value: "global:site", label: "Entire Site"} ...] `
-	const ruleChoices = [].concat.apply( [], choices.templates.map( obj => obj.options ) );
+	const ruleChoices = choices.templates ? [].concat.apply( [], choices.templates.map( obj => obj.options ) ) : [];
 
 	const [settingValue, setSettingValue] = useState( control.setting.get() || [] );
 
@@ -110,7 +110,10 @@ const SelectBlocksComponent = ({ control }) => {
 								setSettingValue( settingValueFiltered );
 								control.setting.set( settingValueFiltered );
 							} else {
-								updateSettingValue( { id: newVal.value, rule: 'global:site', select: 'all', sub_rule: '', sub_selection: [], ids: [] }, blockIndex );
+								updateSettingValue(
+									{ id: newVal.value },
+									blockIndex
+								);
 							}
 						} }
 						className={ "themeslug-select-blocks__select" }
@@ -120,28 +123,30 @@ const SelectBlocksComponent = ({ control }) => {
 						isClearable={ true }
 					/>
 				</div>
-				<div className="themeslug-select-blocks__template-visibility">
-					<div className="themeslug-control-bar themeslug-control-bar--subtitle">
-						<span className="customize-control-title">{ __( 'Visible on', 'themeslug' ) }</span>
+				{ choices.templates && (
+					<div className="themeslug-select-blocks__template-visibility">
+						<div className="themeslug-control-bar themeslug-control-bar--subtitle">
+							<span className="customize-control-title">{ __( 'Visible on', 'themeslug' ) }</span>
+						</div>
+						<Select
+							options={ choices.templates }
+							value={ ( undefined !== settingValue[ blockIndex ] && undefined !== settingValue[ blockIndex ].rule && '' !== settingValue[ blockIndex ].rule ? ruleChoices.filter( ( { value } ) => value === settingValue[ blockIndex ].rule ) : '' ) } // ex : {value: "global:site", label: "Entire Site"}
+							onChange={ (newVal) => {
+								if ( ! newVal ) {
+									updateSettingValue( { rule: '' }, blockIndex )
+								} else {
+									updateSettingValue( { rule: newVal.value }, blockIndex )
+								}
+							} }
+							className={ "themeslug-select-blocks__select" }
+							styles={ customSelectStyles }
+							menuPosition={ "fixed" }
+							isSearchable={ false }
+							isClearable={ true }
+							placeholder={ __( 'None', 'themeslug' ) }
+						/>
 					</div>
-					<Select
-						options={ choices.templates }
-						value={ ( undefined !== settingValue[ blockIndex ] && undefined !== settingValue[ blockIndex ].rule && '' !== settingValue[ blockIndex ].rule ? ruleChoices.filter( ( { value } ) => value === settingValue[ blockIndex ].rule ) : '' ) } // ex : {value: "global:site", label: "Entire Site"}
-						onChange={ (newVal) => {
-							if ( ! newVal ) {
-								updateSettingValue( { rule: '' }, blockIndex )
-							} else {
-								updateSettingValue( { rule: newVal.value }, blockIndex )
-							}
-						} }
-						className={ "themeslug-select-blocks__select" }
-						styles={ customSelectStyles }
-						menuPosition={ "fixed" }
-						isSearchable={ false }
-						isClearable={ true }
-						placeholder={ __( 'None', 'themeslug' ) }
-					/>
-				</div>
+				) }
 			</div>
 		);
 	}
@@ -160,7 +165,7 @@ const SelectBlocksComponent = ({ control }) => {
 			<Button
 				className="themeslug-select-blocks__add-block"
 				onClick={ () => {
-					const settingValueExtended = settingValue.concat( defaultSettingValue );
+					const settingValueExtended = settingValue.concat( defaultNewSettingValue );
 					setSettingValue( settingValueExtended );
 					control.setting.set( settingValueExtended );
 				} }

@@ -13,7 +13,7 @@ Theme_Slug_Customizer::add_panels(
 		'theme_slug_archives_panel' => array(
 			'panel_args' => array(
 				'title'    => esc_html__( 'Archives', 'themeslug' ),
-				'priority' => 155,
+				'priority' => 154,
 			),
 			'custom_panel' => 'Theme_Slug_Nested_Panel',
 		),
@@ -60,9 +60,19 @@ $title_section_block_area_settings = array(
 			'label'    => esc_html__( 'Before the title section', 'themeslug' ),
 			'section'  => 'theme_slug_archives_title_section_block_area_section',
 			'priority' => 10,
+			'new_default_value' => array(
+				array(
+					'id' => 'none',
+					'rule' => 'global:archive',
+					'select' => 'all',
+					'sub_rule' => '',
+					'sub_selection' => array(),
+					'ids' => array(),
+				),
+			),
 			'choices'  => array(
 				'blocks' => theme_slug_get_reusable_blocks(),
-				'templates' => Theme_Slug_Block_Area::get_page_visibility_choices(),
+				'templates' => Theme_Slug_Block_Area::get_archive_visibility_choices(),
 			),
 		),
 		'custom_control' => 'Theme_Slug_Select_Blocks',
@@ -77,9 +87,19 @@ $title_section_block_area_settings = array(
 			'label'    => esc_html__( 'After the title section', 'themeslug' ),
 			'section'  => 'theme_slug_archives_title_section_block_area_section',
 			'priority' => 10,
+			'new_default_value' => array(
+				array(
+					'id' => 'none',
+					'rule' => 'global:archive',
+					'select' => 'all',
+					'sub_rule' => '',
+					'sub_selection' => array(),
+					'ids' => array(),
+				),
+			),
 			'choices'  => array(
 				'blocks' => theme_slug_get_reusable_blocks(),
-				'templates' => Theme_Slug_Block_Area::get_page_visibility_choices(),
+				'templates' => Theme_Slug_Block_Area::get_archive_visibility_choices(),
 			),
 		),
 		'custom_control' => 'Theme_Slug_Select_Blocks',
@@ -94,9 +114,19 @@ $title_section_block_area_settings = array(
 			'label'    => esc_html__( 'Replace the title section', 'themeslug' ),
 			'section'  => 'theme_slug_archives_title_section_block_area_section',
 			'priority' => 10,
+			'new_default_value' => array(
+				array(
+					'id' => 'none',
+					'rule' => 'global:archive',
+					'select' => 'all',
+					'sub_rule' => '',
+					'sub_selection' => array(),
+					'ids' => array(),
+				),
+			),
 			'choices'  => array(
 				'blocks' => theme_slug_get_reusable_blocks(),
-				'templates' => Theme_Slug_Block_Area::get_page_visibility_choices(),
+				'templates' => Theme_Slug_Block_Area::get_archive_visibility_choices(),
 			),
 		),
 		'custom_control' => 'Theme_Slug_Select_Blocks',

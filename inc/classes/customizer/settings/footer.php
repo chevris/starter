@@ -48,7 +48,7 @@ $footer_block_area_settings = array(
 			'priority' => 10,
 			'choices'  => array(
 				'blocks' => theme_slug_get_reusable_blocks(),
-				'templates' => Theme_Slug_Block_Area::get_page_visibility_choices(),
+				'templates' => Theme_Slug_Block_Area::get_site_visibility_choices(),
 			),
 		),
 		'custom_control' => 'Theme_Slug_Select_Blocks',
@@ -65,7 +65,7 @@ $footer_block_area_settings = array(
 			'priority' => 10,
 			'choices'  => array(
 				'blocks' => theme_slug_get_reusable_blocks(),
-				'templates' => Theme_Slug_Block_Area::get_page_visibility_choices(),
+				'templates' => Theme_Slug_Block_Area::get_site_visibility_choices(),
 			),
 		),
 		'custom_control' => 'Theme_Slug_Select_Blocks',
@@ -82,7 +82,7 @@ $footer_block_area_settings = array(
 			'priority' => 10,
 			'choices'  => array(
 				'blocks' => theme_slug_get_reusable_blocks(),
-				'templates' => Theme_Slug_Block_Area::get_page_visibility_choices(),
+				'templates' => Theme_Slug_Block_Area::get_site_visibility_choices(),
 			),
 		),
 		'custom_control' => 'Theme_Slug_Select_Blocks',

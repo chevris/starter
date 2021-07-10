@@ -23,15 +23,15 @@ if ( ! class_exists( 'Theme_Slug_Block_Area' ) ) :
 		private static $current_page_conditions = null;
 
 		/**
-		 * Retrieves all page visibility choices.
+		 * Retrieves site visibility choices.
 		 *
-		 * @return array Page visibility choices
+		 * @return array Visibility choices
 		 */
-		public static function get_page_visibility_choices() {
+		public static function get_site_visibility_choices() {
 
 			$choices_global = array(
 				array(
-					'label' => esc_attr__( 'General', 'themeslug' ),
+					'label' => esc_attr__( 'Global', 'themeslug' ),
 					'options' => array(
 						array(
 							'value' => 'global:site',
@@ -75,48 +75,185 @@ if ( ! class_exists( 'Theme_Slug_Block_Area' ) ) :
 
 			$public_post_types = theme_slug_get_public_post_types();
 			$excluded_post_types = theme_slug_get_excluded_public_post_types();
-			$choices_singular = array();
+			$choices_types = array();
 
-			/* phpcs:disable ---WIP
 			foreach ( $public_post_types as $post_type ) {
-				$post_type_obj  = get_post_type_object( $post_type );
-				$post_type_name  = $post_type_obj->name;
+
+				$post_type_obj = get_post_type_object( $post_type );
+
+				$post_type_name = $post_type_obj->name;
 				$post_type_label = $post_type_obj->label;
 				$post_type_label_plural = $post_type_obj->labels->name;
 
 				if ( ! in_array( $post_type_name, $excluded_post_types, true ) ) {
+
 					$post_type_options = array(
 						array(
 							'value' => 'singular:' . $post_type_name,
 							'label' => esc_attr__( 'Single', 'themeslug' ) . ' ' . $post_type_label_plural,
 						),
 					);
+
 					$post_type_tax_objects = get_object_taxonomies( $post_type, 'objects' );
 					foreach ( $post_type_tax_objects as $taxonomy_slug => $taxonomy ) {
+
 						if ( $taxonomy->public && $taxonomy->show_ui && 'post_format' !== $taxonomy_slug ) {
+
 							$post_type_options[] = array(
 								'value' => 'tax_archive:' . $taxonomy_slug,
+								/* translators: %s: taxonomy archive sufix. */
 								'label' => sprintf( esc_attr__( '%1$s Archives', 'themeslug' ), $taxonomy->labels->singular_name ),
 							);
 						}
 					}
+
 					if ( ! empty( $post_type_obj->has_archive ) ) {
 						$post_type_options[] = array(
 							'value' => 'post_type_archive:' . $post_type_name,
+							// 'Latest $post_type_label' or '$post_type_label archive page' might be better.
+							/* translators: %s: post type archive sufix. */
 							'label' => sprintf( esc_attr__( '%1$s Archive', 'themeslug' ), $post_type_label_plural ),
 						);
 					}
 
-					$choices_singular[] = array(
+					$choices_types[] = array(
 						'label' => $post_type_label,
 						'options' => $post_type_options,
 					);
 				}
 			}
-			phpcs:enable */
 
-			$choices = array_merge( $choices_global, $choices_singular );
-			return apply_filters( 'theme_slug_filter_page_visibility_choices', $choices );
+			$choices = array_merge( $choices_global, $choices_types );
+			return apply_filters( 'theme_slug_filter_site_visibility_choices', $choices );
+
+		}
+
+		/**
+		 * Retrieves visibility choices for archives.
+		 *
+		 * @return array Visibility choices
+		 */
+		public static function get_archive_visibility_choices() {
+
+			$choices_global = array(
+				array(
+					'label' => esc_attr__( 'Global', 'themeslug' ),
+					'options' => array(
+						array(
+							'value' => 'global:archive',
+							'label' => esc_attr__( 'All Archives', 'themeslug' ),
+						),
+						array(
+							'value' => 'global:author',
+							'label' => esc_attr__( 'Author Archives', 'themeslug' ),
+						),
+						array(
+							'value' => 'global:date',
+							'label' => esc_attr__( 'Date Archives', 'themeslug' ),
+						),
+					),
+				),
+			);
+
+			$public_post_types = theme_slug_get_public_post_types();
+			$excluded_post_types = theme_slug_get_excluded_public_post_types();
+			$choices_types = array();
+
+			foreach ( $public_post_types as $post_type ) {
+
+				$post_type_obj = get_post_type_object( $post_type );
+
+				$post_type_name = $post_type_obj->name;
+				$post_type_label = $post_type_obj->label;
+				$post_type_label_plural = $post_type_obj->labels->name;
+
+				if ( ! in_array( $post_type_name, $excluded_post_types, true ) ) {
+
+					$post_type_options = array();
+
+					$post_type_tax_objects = get_object_taxonomies( $post_type, 'objects' );
+					foreach ( $post_type_tax_objects as $taxonomy_slug => $taxonomy ) {
+
+						if ( $taxonomy->public && $taxonomy->show_ui && 'post_format' !== $taxonomy_slug ) {
+
+							$post_type_options[] = array(
+								'value' => 'tax_archive:' . $taxonomy_slug,
+								/* translators: %s: taxonomy archive sufix. */
+								'label' => sprintf( esc_attr__( '%1$s Archives', 'themeslug' ), $taxonomy->labels->singular_name ),
+							);
+						}
+					}
+
+					if ( ! empty( $post_type_obj->has_archive ) ) {
+						$post_type_options[] = array(
+							'value' => 'post_type_archive:' . $post_type_name,
+							// 'Latest $post_type_label' or '$post_type_label archive page' might be better.
+							/* translators: %s: post type archive sufix. */
+							'label' => sprintf( esc_attr__( '%1$s Archive', 'themeslug' ), $post_type_label_plural ),
+						);
+					}
+
+					$choices_types[] = array(
+						'label' => $post_type_label,
+						'options' => $post_type_options,
+					);
+				}
+			}
+
+			$choices = array_merge( $choices_global, $choices_types );
+			return apply_filters( 'theme_slug_filter_archive_visibility_choices', $choices );
+
+		}
+
+		/**
+		 * Retrieves visibility choices for singular.
+		 *
+		 * @return array Visibility choices
+		 */
+		public static function get_singular_visibility_choices() {
+
+			$choices_global = array(
+				array(
+					'label' => esc_attr__( 'Global', 'themeslug' ),
+					'options' => array(
+						array(
+							'value' => 'global:singular',
+							'label' => esc_attr__( 'All Singular', 'themeslug' ),
+						),
+					),
+				),
+			);
+
+			$public_post_types = theme_slug_get_public_post_types();
+			$excluded_post_types = theme_slug_get_excluded_public_post_types();
+			$choices_types = array();
+
+			foreach ( $public_post_types as $post_type ) {
+
+				$post_type_obj = get_post_type_object( $post_type );
+
+				$post_type_name = $post_type_obj->name;
+				$post_type_label = $post_type_obj->label;
+				$post_type_label_plural = $post_type_obj->labels->name;
+
+				if ( ! in_array( $post_type_name, $excluded_post_types, true ) ) {
+
+					$post_type_options = array(
+						array(
+							'value' => 'singular:' . $post_type_name,
+							'label' => esc_attr__( 'Single', 'themeslug' ) . ' ' . $post_type_label_plural,
+						),
+					);
+
+					$choices_types[] = array(
+						'label' => $post_type_label,
+						'options' => $post_type_options,
+					);
+				}
+			}
+
+			$choices = array_merge( $choices_global, $choices_types );
+			return apply_filters( 'theme_slug_filter_singular_visibility_choices', $choices );
 
 		}
 

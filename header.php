@@ -23,6 +23,13 @@
 <body id="body" <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+
+<?php //phpcs:disable
+
+// var_dump( Theme_Slug_Block_Area::get_current_page_conditions() );
+
+//phpcs:enable?>
+
 <?php do_action( 'theme_slug_before_page' ); ?>
 
 <div id="page" class="site">
