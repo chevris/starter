@@ -11,11 +11,13 @@
  * theme_slug_is_amp()
  * theme_slug_the_html_classes()
  * theme_slug_get_reusable_blocks()
- * theme_slug_get_reusable_block()
  * theme_slug_the_reusable_block()
+ * theme_slug_get_reusable_block()
  * theme_slug_get_public_post_types()
  * theme_slug_get_excluded_public_post_types()
+ * add_filter( 'get_the_archive_title_prefix', '__return_false' );
  * theme_slug_get_archive_title_prefix()
+ * add_filter( 'get_the_archive_title', 'theme_slug_filter_archive_title' )
 */
 
 /**
@@ -103,6 +105,21 @@ function theme_slug_get_reusable_blocks() {
 }
 
 /**
+ * Print a reusable block.
+ *
+ * @param int $id ID of the block to print.
+ */
+function theme_slug_the_reusable_block( $id ) {
+
+	$block = theme_slug_get_reusable_block( $id );
+	if ( ! $block || empty( trim( (string) $block->post_content ) ) ) {
+		return;
+	}
+	echo do_blocks( $block->post_content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+}
+
+/**
  * Retrieves a reusable block object using its id.
  *
  * @param int $id The reusable block ID.
@@ -127,21 +144,6 @@ function theme_slug_get_reusable_block( $id ) {
 	}
 
 	return null;
-
-}
-
-/**
- * Print a reusable block.
- *
- * @param int $id ID of the block to print.
- */
-function theme_slug_the_reusable_block( $id ) {
-
-	$block = theme_slug_get_reusable_block( $id );
-	if ( ! $block || empty( trim( (string) $block->post_content ) ) ) {
-		return;
-	}
-	echo do_blocks( $block->post_content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 }
 
@@ -267,3 +269,272 @@ if ( ! function_exists( 'theme_slug_filter_archive_title' ) ) :
 	}
 	add_filter( 'get_the_archive_title', 'theme_slug_filter_archive_title' );
 endif;
+
+/**
+ * Print post meta on archive pages.
+ */
+function theme_slug_the_archive_post_meta() {
+	global $post;
+
+	echo theme_slug_get_post_meta( $post->ID, 'archive' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+}
+
+/**
+ * Print post meta on single posts.
+ */
+function theme_slug_the_single_post_meta() {
+	global $post;
+
+	echo theme_slug_get_post_meta( $post->ID, 'single' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+}
+
+/**
+ * Returns the post meta markup for a given post and context.
+ *
+ * @see Based on a solution in Eksell theme ( https://andersnoren.se/teman/eksell-wordpress-theme/ ) *
+ * @param int    $post_id ID of the post.
+ * @param string $context Whether to return the post meta for the single or archive context.
+ * @return string
+ */
+function theme_slug_get_post_meta( $post_id, $context = 'archive' ) {
+
+	// Current post type.
+	$post_type = get_post_type( $post_id );
+
+	// Get the list of the post types that support post meta, and only proceed if the current post type is supported.
+	$post_type_has_post_meta = false;
+	$post_types_with_post_meta = theme_slug_get_post_types_with_post_meta();
+
+	foreach ( $post_types_with_post_meta as $post_type_with_post_meta => $data ) {
+		if ( $post_type === $post_type_with_post_meta ) {
+			$post_type_has_post_meta = true;
+			break;
+		}
+	}
+
+	// Bail early if the current post type can't have post meta.
+	if ( ! $post_type_has_post_meta ) {
+		return;
+	}
+
+	// Get the default post meta for this post type.
+	$post_meta_default = isset( $post_types_with_post_meta[ $post_type ]['default'][ $context ] ) ? $post_types_with_post_meta[ $post_type ]['default'][ $context ] : array();
+
+	// Determine the customizer setting name based on post type and context. Must be `theme_slug_post_meta_[$post_type]`, with `_single` suffix for single posts.
+	$theme_mod_name = 'theme_slug_post_meta_' . $post_type;
+	if ( 'single' === $context ) {
+		$theme_mod_name .= '_single';
+	}
+
+	// Get the post meta for this post type from the customizer. Default to theme_slug_get_post_types_with_post_meta().
+	$post_meta = get_theme_mod( $theme_mod_name, $post_meta_default );
+
+	// Sort it if there are post meta.
+	if ( $post_meta ) {
+
+		// Set the output order of the post meta.
+		$post_meta_order = array( 'author', 'date', 'categories', 'tags', 'comments', 'edit-link' );
+
+		// post meta items added with the theme_slug_filter_post_meta_items filter will not be affected by this sorting.
+		$post_meta_order = apply_filters( 'theme_slug_post_meta_order', $post_meta_order, $post_id );
+
+		// Store any custom post meta items in a separate array, so we can append them after sorting.
+		$post_meta_custom = array_diff( $post_meta, $post_meta_order );
+
+		// Loop over the intended order, and sort $post_meta_reordered accordingly.
+		$post_meta_reordered = array();
+		foreach ( $post_meta_order as $i => $post_meta_name ) {
+			$original_i = array_search( $post_meta_name, $post_meta );
+			if ( false === $original_i ) {
+				continue;
+			}
+			$post_meta_reordered[ $i ] = $post_meta[ $original_i ];
+		}
+
+		// Reassign the reordered post meta with custom post meta items appended, and update the indexes.
+		$post_meta = array_values( array_merge( $post_meta_reordered, $post_meta_custom ) );
+
+	}
+
+	$post_meta = apply_filters( 'theme_slug_filter_post_meta_items', $post_meta, $post_id );
+
+	if ( ! $post_meta ) {
+		return;
+	}
+
+	$post_meta_wrapper_classes = apply_filters( 'theme_slug_filter_post_meta_wrapper_classes', array( 'post-meta-wrapper' ), $post_id, $post_meta );
+	$post_meta_classes = apply_filters( 'theme_slug_filter_post_meta_classes', array( 'post-meta' ), $post_id, $post_meta );
+
+	// Convert the class arrays to strings for output.
+	$post_meta_wrapper_classes_str = implode( ' ', $post_meta_wrapper_classes );
+	$post_meta_classes_str = implode( ' ', $post_meta_classes );
+
+	// Global $theme_slug_has_meta variable to be modified in actions.
+	global $theme_slug_has_meta;
+
+	// Default it to false, to make sure we don't output an empty container.
+	$theme_slug_has_meta = false;
+
+	global $post;
+	$post = get_post( $post_id ); // phpcs:ignore 
+	setup_postdata( $post );
+
+	ob_start();
+	?>
+
+	<div class="<?php echo esc_attr( $post_meta_wrapper_classes_str ); ?>">
+		<ul class="<?php echo esc_attr( $post_meta_classes_str ); ?>">
+
+		<?php
+		foreach ( $post_meta as $post_meta_item ) {
+			switch ( $post_meta_item ) {
+
+				case 'date':
+					$theme_slug_has_meta = true;
+
+					$entry_time = get_the_time( get_option( 'date_format' ) );
+					$entry_time_str = '<time><a href="' . get_permalink() . '">' . $entry_time . '</a></time>';
+
+					?>
+					<li class="date">
+						<?php
+						if ( 'single' == $context ) {
+							/* translators: %s: date of the post. */
+							printf( esc_html_x( 'Published %s', '%s = The date of the post', 'themeslug' ), $entry_time_str ); // phpcs:ignore WordPress.Security.EscapeOutput
+						} else {
+							echo $entry_time_str; // phpcs:ignore WordPress.Security.EscapeOutput
+						}
+						?>
+					</li>
+					<?php
+					break;
+
+				case 'author':
+					$theme_slug_has_meta = true;
+					?>
+					<li class="author">
+						<?php
+						/* Translators: %s = author name */
+						printf( esc_html_x( 'By %s', '%s = author name', 'themeslug' ), '<a href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author_meta( 'display_name' ) ) . '</a>' );
+						?>
+					</li>
+					<?php
+					break;
+
+				case 'categories':
+					// Determine which taxonomy to use for categories. This defaults to jetpack-portfolio-type for the jetpack-portfolio post type, and to category for posts.
+					$category_taxonomy = ( 'jetpack-portfolio' === $post_type ) ? 'jetpack-portfolio-type' : 'category';
+
+					$category_taxonomy = apply_filters( 'theme_slug_filter_post_meta_category_taxonomy', $category_taxonomy, $post_id );
+
+					if ( ! has_term( '', $category_taxonomy, $post_id ) ) {
+						break;
+					}
+					$theme_slug_has_meta = true;
+					$prefix = ( 'single' === $context ) ? esc_html__( 'Posted in', 'themeslug' ) : esc_html__( 'In', 'themeslug' );
+					?>
+					<li class="categories">
+						<?php the_terms( $post_id, $category_taxonomy, $prefix . ' ', ', ' ); ?>
+					</li>
+					<?php
+					break;
+
+				case 'comments':
+					if ( post_password_required() || ! comments_open() || ! get_comments_number() ) {
+						break;
+					}
+					$theme_slug_has_meta = true;
+					?>
+					<li class="comments">
+						<?php comments_popup_link(); ?>
+					</li>
+					<?php
+					break;
+
+				case 'edit-link':
+					if ( ! current_user_can( 'edit_post', $post_id ) ) {
+						break;
+					}
+					$theme_slug_has_meta = true;
+					?>
+					<li class="edit">
+						<a href="<?php echo esc_url( get_edit_post_link() ); ?>">
+							<?php esc_html_e( 'Edit', 'themeslug' ); ?>
+						</a>
+					</li>
+					<?php
+					break;
+
+				case 'tags':
+					// Determine which taxonomy to use for tags. This defaults to jetpack-portfolio-tag for the jetpack-portfolio post type, and to post_tag for posts.
+					$tag_taxonomy = ( 'jetpack-portfolio' === $post_type ) ? 'jetpack-portfolio-tag' : 'post_tag';
+
+					$tag_taxonomy = apply_filters( 'theme_slug_filter_post_meta_tag_taxonomy', $tag_taxonomy, $post_id );
+
+					if ( ! has_term( '', $tag_taxonomy, $post_id ) ) {
+						break;
+					}
+					$theme_slug_has_meta = true;
+					?>
+					<li class="tags">
+						<?php
+						// Theme check workaround for missing tag output.
+						if ( 'post_tag' === $tag_taxonomy ) {
+							echo get_the_tag_list( esc_html__( 'Tagged', 'themeslug' ) . ' ', ', ', '', $post_id ); // phpcs:ignore WordPress.Security.EscapeOutput
+						} else {
+							the_terms( $post_id, $tag_taxonomy, esc_html__( 'Tagged', 'themeslug' ) . ' ', ', ' ); // phpcs:ignore WordPress.Security.EscapeOutput
+						}
+						?>
+					</li>
+					<?php
+					break;
+
+				default:
+					/**
+					 * Action for handling of custom post meta items.
+					 *
+					 * This action gets called if the post meta looped over doesn't match any of the types supported. Custom post meta type can be output here by hooking
+					 * into theme_slug_filter_post_meta_[post-meta-key]. Make sure global $theme_slug_has_meta is included and set to true.
+					 */
+					do_action( 'theme_slug_post_meta_' . $post_meta_item, $post_id );
+			}
+		}
+		?>
+		</ul>
+	</div>
+
+	<?php
+	wp_reset_postdata();
+
+	// Get the recorded output.
+	$meta_output = ob_get_clean();
+
+	// If there is post meta, return it.
+	return ( $theme_slug_has_meta && $meta_output ) ? $meta_output : '';
+}
+
+/**
+ * Returns post types with post meta.
+ *
+ * @return array An array of post types with post meta
+ */
+function theme_slug_get_post_types_with_post_meta() {
+
+	return apply_filters(
+		'theme_slug_filter_post_types_with_post_meta',
+		array(
+			'post' => array(
+				'default' => array(
+					'archive' => array( 'author', 'date' ),
+					'single' => array( 'categories', 'date', 'tags', 'edit-link' ),
+				),
+			),
+			'jetpack-portfolio' => array(
+				'default' => array(
+					'archive' => array( 'author', 'date' ),
+					'single' => array( 'categories', 'date', 'tags', 'edit-link' ),
+				),
+			),
+		)
+	);
+}

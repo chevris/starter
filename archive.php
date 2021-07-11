@@ -65,8 +65,52 @@ if ( have_posts() ) {
 		<?php
 		if ( have_posts() ) {
 
-			get_template_part( 'template-parts/content/archive-content-loop', get_post_type() );
+			$posts_layout = get_theme_mod( 'theme_slug_archives_content_posts_layout', 'classic-list' );
+			?>
+			<div class="posts">
+				<div class="posts-<?php echo esc_attr( $posts_layout ); ?>">
+					<?php
+					// Start loop.
+					$post_count = 0;
+					while ( have_posts() ) {
+						$post_count++;
+						the_post();
 
+						switch ( $posts_layout ) {
+							case 'classic':
+								get_template_part( 'template-parts/content/archive-entry-classic' );
+								break;
+
+							case 'grid':
+								get_template_part( 'template-parts/content/archive-entry-grid' );
+								break;
+
+							case 'classic-grid':
+								get_template_part( 'template-parts/content/archive-entry-classic' );
+
+								if ( 1 === $post_count && ! is_paged() ) {
+									get_template_part( 'template-parts/content/archive-entry-classic' );
+								} else {
+									get_template_part( 'template-parts/content/archive-entry-grid' );
+								}
+								break;
+							case 'list':
+								get_template_part( 'template-parts/content/archive-entry-list' );
+								break;
+
+							case 'classic-list':
+								if ( 1 === $post_count && ! is_paged() ) {
+									get_template_part( 'template-parts/content/archive-entry-classic' );
+								} else {
+									get_template_part( 'template-parts/content/archive-entry-list' );
+								}
+								break;
+						}
+					}
+					?>
+				</div>
+			</div><!-- .posts -->
+			<?php
 		} else {
 			get_template_part( 'template-parts/content/none' );
 		}
