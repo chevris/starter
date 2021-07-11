@@ -16,7 +16,9 @@ $search_results_title = get_the_archive_title();
 $title_before_blocks = get_theme_mod( 'theme_slug_search_results_title_section_before_blocks', array() );
 $title_after_blocks = get_theme_mod( 'theme_slug_search_results_title_section_after_blocks', array() );
 $title_replace_blocks = get_theme_mod( 'theme_slug_search_results_title_section_replace_blocks', array() );
-
+$content_before_blocks = get_theme_mod( 'theme_slug_search_results_content_before_blocks', array() );
+$content_after_blocks = get_theme_mod( 'theme_slug_search_results_content_after_blocks', array() );
+$content_replace_blocks = get_theme_mod( 'theme_slug_search_results_content_replace_blocks', array() );
 
 get_header();
 ?>
@@ -75,7 +77,81 @@ if ( have_posts() ) {
 		<?php
 		if ( have_posts() ) {
 
-			get_template_part( 'template-parts/content/archive-content-loop', get_post_type() );
+			Theme_Slug_Block_Area::display_block_area( $content_before_blocks );
+
+			// True if at least one content replace block is displayed on this template.
+			$has_content_replace_block = false;
+
+			if ( ! empty( $content_replace_blocks ) ) {
+
+				foreach ( $content_replace_blocks as $content_replace_block ) {
+
+					if ( Theme_Slug_Block_Area::can_show_block_area( $content_replace_block ) ) {
+						$has_content_replace_block = true;
+
+						if ( $content_replace_block['id'] && 'none' !== $content_replace_block['id'] ) {
+							?>
+							<section class="align-container">
+								<?php
+								theme_slug_the_reusable_block( $content_replace_block['id'] );
+								?>
+							</section>
+							<?php
+						}
+					}
+				}
+			}
+
+			if ( ! $has_content_replace_block ) {
+				$posts_layout = get_theme_mod( 'theme_slug_search_results_content_posts_layout', 'classic-list' );
+				?>
+				<div class="posts">
+					<div class="posts-<?php echo esc_attr( $posts_layout ); ?>">
+						<?php
+						// Start loop.
+						$post_count = 0;
+						while ( have_posts() ) {
+							$post_count++;
+							the_post();
+
+							switch ( $posts_layout ) {
+								case 'classic':
+									get_template_part( 'template-parts/content/archive-entry-classic' );
+									break;
+
+								case 'grid':
+									get_template_part( 'template-parts/content/archive-entry-grid' );
+									break;
+
+								case 'classic-grid':
+									get_template_part( 'template-parts/content/archive-entry-classic' );
+
+									if ( 1 === $post_count && ! is_paged() ) {
+										get_template_part( 'template-parts/content/archive-entry-classic' );
+									} else {
+										get_template_part( 'template-parts/content/archive-entry-grid' );
+									}
+									break;
+								case 'list':
+									get_template_part( 'template-parts/content/archive-entry-list' );
+									break;
+
+								case 'classic-list':
+									if ( 1 === $post_count && ! is_paged() ) {
+										get_template_part( 'template-parts/content/archive-entry-classic' );
+									} else {
+										get_template_part( 'template-parts/content/archive-entry-list' );
+									}
+									break;
+							}
+						}
+						?>
+					</div>
+				</div><!-- .posts -->
+				<?php
+			}
+
+			Theme_Slug_Block_Area::display_block_area( $content_after_blocks );
 
 		} else {
 			get_template_part( 'template-parts/content/none' );
