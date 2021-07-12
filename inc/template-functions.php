@@ -18,6 +18,10 @@
  * add_filter( 'get_the_archive_title_prefix', '__return_false' );
  * theme_slug_get_archive_title_prefix()
  * add_filter( 'get_the_archive_title', 'theme_slug_filter_archive_title' )
+ * theme_slug_the_archive_post_meta()
+ * theme_slug_the_single_post_meta()
+ * theme_slug_get_post_meta()
+ * theme_slug_get_post_types_with_post_meta()
 */
 
 /**
@@ -537,4 +541,28 @@ function theme_slug_get_post_types_with_post_meta() {
 			),
 		)
 	);
+}
+
+/**
+ * Gets a fallback image from Customizer or the theme default.
+ *
+ * @return string Fallback image marckup
+ */
+function theme_slug_get_fallback_image() {
+
+	// If a valid fallback image is set in the Customizer, return the markup for it.
+	$fallback_image_id = get_theme_mod( 'theme_slug_fallback_image' );
+
+	if ( $fallback_image_id ) {
+		$fallback_image = wp_get_attachment_image( $fallback_image_id, 'full' );
+		if ( $fallback_image ) {
+			return $fallback_image;
+		}
+	}
+
+	// If not, return the default fallback image.
+	$fallback_image_url = get_template_directory_uri() . '/assets/images/default-fallback-image.png';
+	$fallback_image = '<img src="' . esc_attr( $fallback_image_url ) . '" class="fallback-featured-image fallback-image-regular" />';
+
+	return $fallback_image;
 }

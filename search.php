@@ -103,7 +103,7 @@ if ( have_posts() ) {
 			}
 
 			if ( ! $has_content_replace_block ) {
-				$posts_layout = get_theme_mod( 'theme_slug_search_results_content_posts_layout', 'classic-list' );
+				$posts_layout = get_theme_mod( 'theme_slug_search_results_content_posts_layout', 'classic' );
 				?>
 				<div class="posts">
 					<div class="posts-<?php echo esc_attr( $posts_layout ); ?>">

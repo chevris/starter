@@ -48,6 +48,9 @@ if ( ! function_exists( 'theme_slug_setup' ) ) {
 			)
 		);
 
+		// Post thumbnails.
+		add_theme_support( 'post-thumbnails' );
+
 		// Add support for selective refresh for widgets.
 		add_theme_support( 'customize-selective-refresh-widgets' );
 
@@ -268,6 +271,7 @@ require get_template_directory() . '/inc/template-functions.php';
 require get_template_directory() . '/inc/sanitize-functions.php';
 require get_template_directory() . '/inc/classes/class-theme-slug-setup.php';
 require get_template_directory() . '/inc/classes/customizer/class-theme-slug-customizer.php';
+require get_template_directory() . '/inc/classes/class-theme-slug-medias.php';
 require get_template_directory() . '/inc/classes/class-theme-slug-icons.php';
 require get_template_directory() . '/inc/classes/class-theme-slug-custom-logo.php';
 require get_template_directory() . '/inc/classes/class-theme-slug-walker-vertical-nav-menu.php';

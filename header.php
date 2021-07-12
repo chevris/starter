@@ -23,28 +23,11 @@
 <body id="body" <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-
-<?php //phpcs:disable
-
-// var_dump( Theme_Slug_Block_Area::get_current_page_conditions() );
-
-//phpcs:enable?>
-
 <?php do_action( 'theme_slug_before_page' ); ?>
 
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'themeslug' ); ?></a>
 
-	<?php
-	$header_before_blocks = get_theme_mod( 'theme_slug_header_before_blocks', array() );
-	Theme_Slug_Block_Area::display_block_area( $header_before_blocks );
-	?>
-
 	<?php do_action( 'theme_slug_header' ); ?>
-
-	<?php
-	$header_after_blocks = get_theme_mod( 'theme_slug_header_after_blocks', array() );
-	Theme_Slug_Block_Area::display_block_area( $header_after_blocks );
-	?>
 
 	<div id="content" class="site-content">

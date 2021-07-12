@@ -20,59 +20,63 @@ Theme_Slug_Customizer::add_panels(
 	)
 );
 
-// header settings.
-Theme_Slug_Customizer::add_sections(
-	array(
-		'theme_slug_header_section' => array(
-			'section_args' => array(
-				'title'    => esc_html__( 'Header settings', 'themeslug' ),
-				'panel'    => 'theme_slug_header_panel',
-				'priority' => 1,
-			),
-			'custom_section' => 'Theme_Slug_Expanded_Section',
-		),
-	)
-);
+$header_default_only = true;
 
-$header_settings = array(
-	'theme_slug_header_layout' => array(
-		'setting_args' => array(
-			'default'           => 'default',
-			'sanitize_callback' => function ( $value ) {
-				$allowed_values = array( 'default', 'aside', 'responsive', 'none' );
-				if ( ! in_array( $value, $allowed_values, true ) ) {
-					return 'default';
-				}
-				return esc_html( $value );
-			},
-			'transport'         => 'refresh',
-		),
-		'control_args' => array(
-			'type'     => 'select',
-			'label'    => esc_html__( 'Header layout', 'themeslug' ),
-			'section'  => 'theme_slug_header_section',
-			'priority' => 10,
-			'choices'  => array(
-				'default' => esc_html__( 'Default', 'themeslug' ),
-				'aside' => esc_html__( 'Aside', 'themeslug' ),
-				'responsive' => esc_html__( 'Responsive', 'themeslug' ),
-				'none' => esc_html__( 'No header', 'themeslug' ),
+if ( ! $header_default_only ) {
+
+	Theme_Slug_Customizer::add_sections(
+		array(
+			'theme_slug_header_section' => array(
+				'section_args' => array(
+					'title'    => esc_html__( 'Header settings', 'themeslug' ),
+					'panel'    => 'theme_slug_header_panel',
+					'priority' => 1,
+				),
+				'custom_section' => 'Theme_Slug_Expanded_Section',
+			),
+		)
+	);
+
+	$header_settings = array(
+		'theme_slug_header_layout' => array(
+			'setting_args' => array(
+				'default'           => 'default',
+				'sanitize_callback' => function ( $value ) {
+					$allowed_values = array( 'default', 'aside', 'responsive', 'none' );
+					if ( ! in_array( $value, $allowed_values, true ) ) {
+						return 'default';
+					}
+					return esc_html( $value );
+				},
+				'transport'         => 'refresh',
+			),
+			'control_args' => array(
+				'type'     => 'select',
+				'label'    => esc_html__( 'Header layout', 'themeslug' ),
+				'section'  => 'theme_slug_header_section',
+				'priority' => 10,
+				'choices'  => array(
+					'default' => esc_html__( 'Default', 'themeslug' ),
+					'aside' => esc_html__( 'Aside', 'themeslug' ),
+					'responsive' => esc_html__( 'Responsive', 'themeslug' ),
+					'none' => esc_html__( 'No header', 'themeslug' ),
+				),
 			),
 		),
-	),
 
-	'theme_slug_header_before_sep_1' => array(
-		'setting_args' => array(
-			'sanitize_callback' => 'wp_filter_nohtml_kses',
+		'theme_slug_header_before_sep_1' => array(
+			'setting_args' => array(
+				'sanitize_callback' => 'wp_filter_nohtml_kses',
+			),
+			'control_args' => array(
+				'section'  => 'theme_slug_header_section',
+				'priority' => 10,
+			),
+			'custom_control' => 'Theme_Slug_Page_Separator',
 		),
-		'control_args' => array(
-			'section'  => 'theme_slug_header_section',
-			'priority' => 10,
-		),
-		'custom_control' => 'Theme_Slug_Page_Separator',
-	),
-);
-Theme_Slug_Customizer::add_settings( $header_settings );
+	);
+	Theme_Slug_Customizer::add_settings( $header_settings );
+}
 
 // Top bar nav settings.
 Theme_Slug_Customizer::add_sections(

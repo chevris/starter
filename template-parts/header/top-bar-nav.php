@@ -13,7 +13,7 @@ if ( ! has_nav_menu( 'top-bar' ) ) {
 	return;
 }
 
-$device_visibility = Theme_Slug_Template_Context::get_context( 'header', 'top_bar_nav', 'devices' );
+$device_visibility = get_theme_mod( 'theme_slug_header_top_bar_nav_device_visibility', array( 'desktop' ) );
 
 $top_bar_class = array( 'top-bar-nav' );
 

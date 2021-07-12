@@ -82,13 +82,6 @@ if ( ! class_exists( 'Theme_Slug_Template_Context' ) ) :
 				'background_color' => get_theme_mod( 'theme_slug_global_styles_colors_background_color', '#FFFFFF' ),
 			);
 
-			$header = array(
-				'layout' => get_theme_mod( 'theme_slug_header_layout', 'default' ),
-				'top_bar_nav' => array(
-					'devices' => get_theme_mod( 'theme_slug_header_top_bar_nav_device_visibility', array( 'desktop' ) ),
-				),
-			);
-
 			/**
 			 * May be is a singular post, page and CPT.
 			 */
@@ -132,7 +125,6 @@ if ( ! class_exists( 'Theme_Slug_Template_Context' ) ) :
 			$context_arr = array(
 				'typography' => $typography,
 				'colors'     => $colors,
-				'header' => $header,
 			);
 
 			self::$context = apply_filters( 'themeslug_filter_template_context', $context_arr );
