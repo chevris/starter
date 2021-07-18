@@ -25,7 +25,7 @@ $article_classes = implode( ' ', $article_classes );
 			<a href="<?php the_permalink(); ?>" class="archive-entry-media-link">
 				<?php
 				if ( has_post_thumbnail() && ! post_password_required() ) {
-					the_post_thumbnail( 'eksell_preview_image' );
+					the_post_thumbnail( 'themesetup-featured-image' );
 				} elseif ( $fallback_image_enabled && $fallback_image ) {
 					echo $fallback_image; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				}

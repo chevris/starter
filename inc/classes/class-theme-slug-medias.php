@@ -11,12 +11,12 @@ defined( 'ABSPATH' ) || exit;
 if ( ! class_exists( 'Theme_Slug_Medias' ) ) :
 
 	/**
-	 * Set up class
+	 * Theme_Slug_Medias class
 	 */
 	class Theme_Slug_Medias {
 
 		/**
-		 * Sets the $content_width in pixels, based on the theme design.
+		 * Adds custom image sizes.
 		 */
 		public static function add_image_sizes() {
 

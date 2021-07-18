@@ -13,4 +13,26 @@ defined( 'ABSPATH' ) || exit;
 
 	<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 
-</header>
+	<?php
+	if ( has_excerpt() ) {
+		?>
+		<div class="entry-excerpt">
+			<?php the_excerpt(); ?>
+		</div>
+		<?php
+	}
+
+	theme_slug_the_single_post_meta();
+
+	if ( has_post_thumbnail() && ! post_password_required() ) {
+		?>
+
+		<figure class="entry-media">
+			<?php the_post_thumbnail(); ?>
+		</figure><!-- .featured-media -->
+
+		<?php
+	};
+	?>
+
+</header><!-- .title-section -->

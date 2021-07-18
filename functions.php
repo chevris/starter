@@ -70,6 +70,9 @@ if ( ! function_exists( 'theme_slug_setup' ) ) {
 		// Add support for experimental link color control.
 		add_theme_support( 'experimental-link-color' );
 
+		// Block templates.
+		/* add_theme_support( 'block-templates' ); */
+
 		// Default editor color palette.
 		$black      = '#000000';
 		$dark_gray  = '#28303D';
@@ -280,6 +283,7 @@ require get_template_directory() . '/inc/classes/meta/class-theme-slug-meta.php'
 require get_template_directory() . '/inc/classes/class-theme-slug-template-context.php';
 require get_template_directory() . '/inc/classes/class-theme-slug-block-area.php';
 require get_template_directory() . '/inc/dynamic-style.php';
+require get_template_directory() . '/inc/classes/class-theme-slug-jetpack.php';
 
 require get_template_directory() . '/inc/classes/class-theme-slug-header.php';
 
@@ -344,6 +348,11 @@ if ( ! function_exists( 'theme_slug_front_scripts' ) ) {
 		// If the AMP plugin is active, return early.
 		if ( theme_slug_is_amp() ) {
 			return;
+		}
+
+		// Enqueue comment script on singular post/page views only.
+		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+			wp_enqueue_script( 'comment-reply' );
 		}
 
 		$js_uri = get_template_directory_uri() . '/assets/main.js';

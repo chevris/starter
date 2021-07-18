@@ -22,6 +22,7 @@
  * theme_slug_the_single_post_meta()
  * theme_slug_get_post_meta()
  * theme_slug_get_post_types_with_post_meta()
+ * theme_slug_get_fallback_image()
 */
 
 /**
@@ -530,13 +531,13 @@ function theme_slug_get_post_types_with_post_meta() {
 			'post' => array(
 				'default' => array(
 					'archive' => array( 'author', 'date' ),
-					'single' => array( 'categories', 'date', 'tags', 'edit-link' ),
+					'single' => array( 'author', 'date', 'edit-link' ),
 				),
 			),
 			'jetpack-portfolio' => array(
 				'default' => array(
 					'archive' => array( 'author', 'date' ),
-					'single' => array( 'categories', 'date', 'tags', 'edit-link' ),
+					'single' => array( 'author', 'date', 'edit-link' ),
 				),
 			),
 		)

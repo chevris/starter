@@ -24,50 +24,47 @@ get_header();
 ?>
 
 <?php
-if ( have_posts() ) {
+Theme_Slug_Block_Area::display_block_area( $title_before_blocks );
 
-	Theme_Slug_Block_Area::display_block_area( $title_before_blocks );
+// True if at least one title replace block is displayed on this template.
+$has_title_replace_block = false;
 
-	// True if at least one title replace block is displayed on this template.
-	$has_title_replace_block = false;
+if ( ! empty( $title_replace_blocks ) ) {
 
-	if ( ! empty( $title_replace_blocks ) ) {
+	foreach ( $title_replace_blocks as $title_replace_block ) {
 
-		foreach ( $title_replace_blocks as $title_replace_block ) {
+		if ( Theme_Slug_Block_Area::can_show_block_area( $title_replace_block ) ) {
+			$has_title_replace_block = true;
 
-			if ( Theme_Slug_Block_Area::can_show_block_area( $title_replace_block ) ) {
-				$has_title_replace_block = true;
-
-				if ( $title_replace_block['id'] && 'none' !== $title_replace_block['id'] ) {
-					?>
-					<section class="align-container">
-						<?php
-						theme_slug_the_reusable_block( $title_replace_block['id'] );
-						?>
-					</section>
+			if ( $title_replace_block['id'] && 'none' !== $title_replace_block['id'] ) {
+				?>
+				<section class="align-container">
 					<?php
-				}
+					theme_slug_the_reusable_block( $title_replace_block['id'] );
+					?>
+				</section>
+				<?php
 			}
 		}
 	}
-
-	if ( ! $has_title_replace_block ) {
-		?>
-		<header class="title-section">
-			<?php
-			if ( $search_results_title_prefix ) {
-				?>
-				<div class="search-results-title-prefix"><?php echo wp_kses_post( wpautop( $search_results_title_prefix ) ); ?></div>
-				<?php
-			}
-			?>
-		
-			<h1 class="search-results-title"><?php echo $search_results_title; // phpcs:ignore WordPress.Security.EscapeOutput ?></h1>
-		</header>
-		<?php
-	}
-	Theme_Slug_Block_Area::display_block_area( $title_after_blocks );
 }
+
+if ( ! $has_title_replace_block ) {
+	?>
+	<header class="title-section">
+		<?php
+		if ( $search_results_title_prefix ) {
+			?>
+			<div class="search-results-title-prefix"><?php echo wp_kses_post( wpautop( $search_results_title_prefix ) ); ?></div>
+			<?php
+		}
+		?>
+	
+		<h1 class="search-results-title"><?php echo $search_results_title; // phpcs:ignore WordPress.Security.EscapeOutput ?></h1>
+	</header>
+	<?php
+}
+Theme_Slug_Block_Area::display_block_area( $title_after_blocks );
 ?>
 
 <section id="primary" class="content-area">
@@ -106,7 +103,7 @@ if ( have_posts() ) {
 				$posts_layout = get_theme_mod( 'theme_slug_search_results_content_posts_layout', 'classic' );
 				?>
 				<div class="posts">
-					<div class="posts-<?php echo esc_attr( $posts_layout ); ?>">
+					<div id="posts-inner" class="posts-<?php echo esc_attr( $posts_layout ); ?>">
 						<?php
 						// Start loop.
 						$post_count = 0;
@@ -149,12 +146,20 @@ if ( have_posts() ) {
 					</div>
 				</div><!-- .posts -->
 				<?php
+				get_template_part( 'pagination' );
 			}
 
 			Theme_Slug_Block_Area::display_block_area( $content_after_blocks );
 
-		} else {
-			get_template_part( 'template-parts/content/none' );
+		} elseif ( is_search() ) {
+			?>
+			<div class="not-found">
+				<p><?php esc_html_e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'themeslug' ); ?></p>
+			</div>
+			<div class="no-search-results-form">
+				<?php get_search_form(); ?>
+			</div><!-- .no-search-results -->
+			<?php
 		}
 		?>
 

@@ -57,7 +57,7 @@ while ( have_posts() ) {
 
 		<main id="main" class="site-main" role="main">
 
-			<?php get_template_part( 'template-parts/content/singular_entry', 'page' ); ?>
+			<?php get_template_part( 'template-parts/content/singular-entry', 'page' ); ?>
 
 		</main><!-- .site-main -->
 
