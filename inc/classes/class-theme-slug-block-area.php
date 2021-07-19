@@ -23,6 +23,37 @@ if ( ! class_exists( 'Theme_Slug_Block_Area' ) ) :
 		private static $current_page_conditions = null;
 
 		/**
+		 * Retrieves reusable blocks
+		 *
+		 * @return array An array of reusable blocks
+		 */
+		public static function get_reusable_blocks() {
+
+			$reusable_blocks = get_posts(
+				array(
+					'post_type'   => 'wp_block',
+					'numberposts' => 100,
+				)
+			);
+
+			$blocks = array(
+				array(
+					'value' => 'none',
+					'label' => __( 'None', 'themeslug' ),
+				),
+			);
+			foreach ( $reusable_blocks as $block ) {
+				$choice = array(
+					'value' => $block->ID,
+					'label' => $block->post_title,
+				);
+				$blocks[] = $choice;
+			}
+
+			return $blocks;
+		}
+
+		/**
 		 * Retrieves site visibility choices.
 		 *
 		 * @return array Visibility choices
@@ -408,35 +439,114 @@ if ( ! class_exists( 'Theme_Slug_Block_Area' ) ) :
 
 		}
 
-		/**
-		 * Display blocks of a block area.
-		 *
-		 * @param array $blocks An array of blocks to display in this block area.
-		 */
-		public static function display_block_area( $blocks ) {
+	}
 
-			// Bail early if no block block to display.
-			if ( empty( $blocks ) ) {
-				return;
-			}
+endif;
 
-			foreach ( $blocks as $block ) {
+if ( ! function_exists( 'theme_slug_display_block_area' ) ) :
 
-				if ( self::can_show_block_area( $block ) ) {
+	/**
+	 * Display blocks of a block area.
+	 *
+	 * @param array $blocks An array of blocks to display in this block area.
+	 */
+	function theme_slug_display_block_area( $blocks ) {
 
-					if ( $block['id'] && 'none' !== $block['id'] ) {
-						?>
-						<section class="align-container">
-							<?php
-							theme_slug_the_reusable_block( $block['id'] );
-							?>
-						</section>
+		// Bail early if no block block to display.
+		if ( empty( $blocks ) ) {
+			return;
+		}
+
+		foreach ( $blocks as $block ) {
+
+			if ( Theme_Slug_Block_Area::can_show_block_area( $block ) ) {
+
+				if ( $block['id'] && 'none' !== $block['id'] && is_numeric( $block['id'] ) ) {
+					?>
+					<section class="align-container">
 						<?php
-					}
+						theme_slug_the_reusable_block( $block['id'] );
+						?>
+					</section>
+					<?php
 				}
 			}
 		}
+	}
+endif;
+
+if ( ! function_exists( 'theme_slug_the_reusable_block' ) ) :
+
+	/**
+	 * Print a reusable block.
+	 *
+	 * @param int $id ID of the reusable block to print.
+	 */
+	function theme_slug_the_reusable_block( $id ) {
+
+		$reusable_block_id = (int) $id;
+
+		$reusable_block = get_post( $reusable_block_id );
+
+		if ( ! $reusable_block || empty( trim( (string) $reusable_block->post_content ) ) ) {
+			return;
+		}
+
+		// Note: Similar to WP-Core. Using wp_kses_post inside the contents here is safe.
+		echo do_blocks( wp_kses_post( $reusable_block->post_content ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 	}
+endif;
 
+
+/**
+ * Depricated functions
+ */
+
+if ( ! function_exists( 'theme_slug_the_reusable_block_depricated' ) ) :
+
+	/**
+	 * Print a reusable block.
+	 *
+	 * @param int $id ID of the reusable block to print.
+	 */
+	function theme_slug_the_reusable_block_depricated( $id ) {
+
+		$block = theme_slug_get_reusable_block( $id );
+		if ( ! $block || empty( trim( (string) $block->post_content ) ) ) {
+			return;
+		}
+		echo do_blocks( $block->post_content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+	}
+endif;
+
+if ( ! function_exists( 'theme_slug_get_reusable_block_depricated' ) ) :
+
+	/**
+	 * Retrieves a reusable block object using its id.
+	 *
+	 * @param int $id The reusable block ID.
+	 * @return WP_Post|null reusable block post
+	 */
+	function theme_slug_get_reusable_block_depricated( $id ) {
+
+		$wp_query_args        = array(
+			'p'         => (int) $id,
+			'post_type' => 'wp_block',
+		);
+
+		$reusable_block_query = new WP_Query( $wp_query_args );
+		$posts               = $reusable_block_query->get_posts();
+
+		if ( count( $posts ) > 0 ) {
+			$post = $posts[0];
+
+			if ( ! is_wp_error( $post ) ) {
+				return $post;
+			}
+		}
+
+		return null;
+	}
 endif;

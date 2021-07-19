@@ -16,7 +16,7 @@ $replace_blocks = get_theme_mod( 'theme_slug_footer_replace_blocks', array() );
 
 	</div><!-- #content -->
 
-	<?php Theme_Slug_Block_Area::display_block_area( $before_blocks ); ?>
+	<?php theme_slug_display_block_area( $before_blocks ); ?>
 
 	<?php
 	// True if at least one block is displayed on this template.
@@ -29,7 +29,7 @@ $replace_blocks = get_theme_mod( 'theme_slug_footer_replace_blocks', array() );
 			if ( Theme_Slug_Block_Area::can_show_block_area( $replace_block ) ) {
 				$has_replace_block = true;
 
-				if ( $replace_block['id'] && 'none' !== $replace_block['id'] ) {
+				if ( $replace_block['id'] && 'none' !== $replace_block['id'] && is_numeric( $replace_block['id'] ) ) {
 					?>
 					<section class="align-container">
 						<?php
@@ -47,7 +47,7 @@ $replace_blocks = get_theme_mod( 'theme_slug_footer_replace_blocks', array() );
 	}
 	?>
 
-	<?php Theme_Slug_Block_Area::display_block_area( $after_blocks ); ?>
+	<?php theme_slug_display_block_area( $after_blocks ); ?>
 
 </div><!-- #page -->
 

@@ -26,7 +26,7 @@ get_header();
 ?>
 
 <?php
-Theme_Slug_Block_Area::display_block_area( $title_before_blocks );
+theme_slug_display_block_area( $title_before_blocks );
 
 // True if at least one title replace block is displayed on this template.
 $has_title_replace_block = false;
@@ -38,7 +38,7 @@ if ( ! empty( $title_replace_blocks ) ) {
 		if ( Theme_Slug_Block_Area::can_show_block_area( $title_replace_block ) ) {
 			$has_title_replace_block = true;
 
-			if ( $title_replace_block['id'] && 'none' !== $title_replace_block['id'] ) {
+			if ( $title_replace_block['id'] && 'none' !== $title_replace_block['id'] && is_numeric( $title_replace_block['id'] ) ) {
 				?>
 				<section class="align-container">
 					<?php
@@ -55,7 +55,7 @@ if ( ! $has_title_replace_block ) {
 	get_template_part( 'template-parts/title-section/archive-title-section' );
 }
 
-Theme_Slug_Block_Area::display_block_area( $title_after_blocks );
+theme_slug_display_block_area( $title_after_blocks );
 ?>
 
 <section id="primary" class="content-area">
@@ -65,7 +65,7 @@ Theme_Slug_Block_Area::display_block_area( $title_after_blocks );
 		<?php
 		if ( have_posts() ) {
 
-			Theme_Slug_Block_Area::display_block_area( $content_before_blocks );
+			theme_slug_display_block_area( $content_before_blocks );
 
 			// True if at least one content replace block is displayed on this template.
 			$has_content_replace_block = false;
@@ -77,7 +77,7 @@ Theme_Slug_Block_Area::display_block_area( $title_after_blocks );
 					if ( Theme_Slug_Block_Area::can_show_block_area( $content_replace_block ) ) {
 						$has_content_replace_block = true;
 
-						if ( $content_replace_block['id'] && 'none' !== $content_replace_block['id'] ) {
+						if ( $content_replace_block['id'] && 'none' !== $content_replace_block['id'] && is_numeric( $content_replace_block['id'] ) ) {
 							?>
 							<section class="align-container">
 								<?php
@@ -140,7 +140,7 @@ Theme_Slug_Block_Area::display_block_area( $title_after_blocks );
 				get_template_part( 'pagination' );
 			}
 
-			Theme_Slug_Block_Area::display_block_area( $content_after_blocks );
+			theme_slug_display_block_area( $content_after_blocks );
 
 		}
 		?>

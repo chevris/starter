@@ -10,9 +10,6 @@
  * theme_slug_get_asset_version()
  * theme_slug_is_amp()
  * theme_slug_the_html_classes()
- * theme_slug_get_reusable_blocks()
- * theme_slug_the_reusable_block()
- * theme_slug_get_reusable_block()
  * theme_slug_get_public_post_types()
  * theme_slug_get_excluded_public_post_types()
  * add_filter( 'get_the_archive_title_prefix', '__return_false' );
@@ -76,80 +73,6 @@ function theme_slug_the_html_classes() {
 		return;
 	}
 	echo 'class="' . esc_attr( $classes ) . '"';
-}
-
-/**
- * Retrieves reusable blocks
- *
- * @return array An array of reusable blocks
- */
-function theme_slug_get_reusable_blocks() {
-
-	$reusable_blocks = get_posts(
-		array(
-			'post_type'   => 'wp_block',
-			'numberposts' => 100,
-		)
-	);
-
-	$blocks = array(
-		array(
-			'value' => 'none',
-			'label' => __( 'None', 'themeslug' ),
-		),
-	);
-	foreach ( $reusable_blocks as $block ) {
-		$choice = array(
-			'value' => $block->ID,
-			'label' => $block->post_title,
-		);
-		$blocks[] = $choice;
-	}
-
-	return $blocks;
-}
-
-/**
- * Print a reusable block.
- *
- * @param int $id ID of the block to print.
- */
-function theme_slug_the_reusable_block( $id ) {
-
-	$block = theme_slug_get_reusable_block( $id );
-	if ( ! $block || empty( trim( (string) $block->post_content ) ) ) {
-		return;
-	}
-	echo do_blocks( $block->post_content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
-}
-
-/**
- * Retrieves a reusable block object using its id.
- *
- * @param int $id The reusable block ID.
- * @return WP_Post|null reusable block post
- */
-function theme_slug_get_reusable_block( $id ) {
-
-	$wp_query_args        = array(
-		'p'         => $id,
-		'post_type' => 'wp_block',
-	);
-
-	$reusable_block_query = new WP_Query( $wp_query_args );
-	$posts               = $reusable_block_query->get_posts();
-
-	if ( count( $posts ) > 0 ) {
-		$post = $posts[0];
-
-		if ( ! is_wp_error( $post ) ) {
-			return $post;
-		}
-	}
-
-	return null;
-
 }
 
 /**

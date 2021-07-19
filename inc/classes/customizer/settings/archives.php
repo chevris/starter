@@ -70,7 +70,7 @@ $title_section_block_area_settings = array(
 				),
 			),
 			'choices'  => array(
-				'blocks' => theme_slug_get_reusable_blocks(),
+				'blocks' => Theme_Slug_Block_Area::get_reusable_blocks(),
 				'templates' => Theme_Slug_Block_Area::get_archive_visibility_choices(),
 			),
 		),
@@ -97,7 +97,7 @@ $title_section_block_area_settings = array(
 				),
 			),
 			'choices'  => array(
-				'blocks' => theme_slug_get_reusable_blocks(),
+				'blocks' => Theme_Slug_Block_Area::get_reusable_blocks(),
 				'templates' => Theme_Slug_Block_Area::get_archive_visibility_choices(),
 			),
 		),
@@ -124,7 +124,7 @@ $title_section_block_area_settings = array(
 				),
 			),
 			'choices'  => array(
-				'blocks' => theme_slug_get_reusable_blocks(),
+				'blocks' => Theme_Slug_Block_Area::get_reusable_blocks(),
 				'templates' => Theme_Slug_Block_Area::get_archive_visibility_choices(),
 			),
 		),
@@ -184,7 +184,7 @@ $content_block_area_settings = array(
 				),
 			),
 			'choices'  => array(
-				'blocks' => theme_slug_get_reusable_blocks(),
+				'blocks' => Theme_Slug_Block_Area::get_reusable_blocks(),
 				'templates' => Theme_Slug_Block_Area::get_archive_visibility_choices(),
 			),
 		),
@@ -211,7 +211,7 @@ $content_block_area_settings = array(
 				),
 			),
 			'choices'  => array(
-				'blocks' => theme_slug_get_reusable_blocks(),
+				'blocks' => Theme_Slug_Block_Area::get_reusable_blocks(),
 				'templates' => Theme_Slug_Block_Area::get_archive_visibility_choices(),
 			),
 		),
@@ -238,7 +238,7 @@ $content_block_area_settings = array(
 				),
 			),
 			'choices'  => array(
-				'blocks' => theme_slug_get_reusable_blocks(),
+				'blocks' => Theme_Slug_Block_Area::get_reusable_blocks(),
 				'templates' => Theme_Slug_Block_Area::get_archive_visibility_choices(),
 			),
 		),

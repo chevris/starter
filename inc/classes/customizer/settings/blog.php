@@ -90,7 +90,7 @@ $title_section_block_area_settings = array(
 			'section'  => 'theme_slug_blog_title_section_block_area_section',
 			'priority' => 10,
 			'choices'  => array(
-				'blocks' => theme_slug_get_reusable_blocks(),
+				'blocks' => Theme_Slug_Block_Area::get_reusable_blocks(),
 			),
 		),
 		'custom_control' => 'Theme_Slug_Select_Blocks',
@@ -106,7 +106,7 @@ $title_section_block_area_settings = array(
 			'section'  => 'theme_slug_blog_title_section_block_area_section',
 			'priority' => 10,
 			'choices'  => array(
-				'blocks' => theme_slug_get_reusable_blocks(),
+				'blocks' => Theme_Slug_Block_Area::get_reusable_blocks(),
 			),
 		),
 		'custom_control' => 'Theme_Slug_Select_Blocks',
@@ -122,7 +122,7 @@ $title_section_block_area_settings = array(
 			'section'  => 'theme_slug_blog_title_section_block_area_section',
 			'priority' => 10,
 			'choices'  => array(
-				'blocks' => theme_slug_get_reusable_blocks(),
+				'blocks' => Theme_Slug_Block_Area::get_reusable_blocks(),
 			),
 		),
 		'custom_control' => 'Theme_Slug_Select_Blocks',
@@ -171,7 +171,7 @@ $content_block_area_settings = array(
 			'section'  => 'theme_slug_blog_content_block_area_section',
 			'priority' => 10,
 			'choices'  => array(
-				'blocks' => theme_slug_get_reusable_blocks(),
+				'blocks' => Theme_Slug_Block_Area::get_reusable_blocks(),
 			),
 		),
 		'custom_control' => 'Theme_Slug_Select_Blocks',
@@ -187,7 +187,7 @@ $content_block_area_settings = array(
 			'section'  => 'theme_slug_blog_content_block_area_section',
 			'priority' => 10,
 			'choices'  => array(
-				'blocks' => theme_slug_get_reusable_blocks(),
+				'blocks' => Theme_Slug_Block_Area::get_reusable_blocks(),
 			),
 		),
 		'custom_control' => 'Theme_Slug_Select_Blocks',
@@ -203,7 +203,7 @@ $content_block_area_settings = array(
 			'section'  => 'theme_slug_blog_content_block_area_section',
 			'priority' => 10,
 			'choices'  => array(
-				'blocks' => theme_slug_get_reusable_blocks(),
+				'blocks' => Theme_Slug_Block_Area::get_reusable_blocks(),
 			),
 		),
 		'custom_control' => 'Theme_Slug_Select_Blocks',

@@ -150,7 +150,7 @@ $header_block_area_settings = array(
 			'section'  => 'theme_slug_header_block_area_section',
 			'priority' => 10,
 			'choices'  => array(
-				'blocks' => theme_slug_get_reusable_blocks(),
+				'blocks' => Theme_Slug_Block_Area::get_reusable_blocks(),
 				'templates' => Theme_Slug_Block_Area::get_site_visibility_choices(),
 			),
 		),
@@ -167,7 +167,7 @@ $header_block_area_settings = array(
 			'section'  => 'theme_slug_header_block_area_section',
 			'priority' => 10,
 			'choices'  => array(
-				'blocks' => theme_slug_get_reusable_blocks(),
+				'blocks' => Theme_Slug_Block_Area::get_reusable_blocks(),
 				'templates' => Theme_Slug_Block_Area::get_site_visibility_choices(),
 			),
 		),

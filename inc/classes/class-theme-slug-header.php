@@ -34,7 +34,7 @@ if ( ! class_exists( 'Theme_Slug_Header' ) ) :
 		public static function display_header() {
 
 			$header_before_blocks = get_theme_mod( 'theme_slug_header_before_blocks', array() );
-			Theme_Slug_Block_Area::display_block_area( $header_before_blocks );
+			theme_slug_display_block_area( $header_before_blocks );
 
 			$layout = get_theme_mod( 'theme_slug_header_layout', 'default' );
 			if ( 'none' !== $layout ) {
@@ -42,7 +42,7 @@ if ( ! class_exists( 'Theme_Slug_Header' ) ) :
 			}
 
 			$header_after_blocks = get_theme_mod( 'theme_slug_header_after_blocks', array() );
-			Theme_Slug_Block_Area::display_block_area( $header_after_blocks );
+			theme_slug_display_block_area( $header_after_blocks );
 		}
 
 		/**
